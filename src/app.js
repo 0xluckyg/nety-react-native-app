@@ -3,12 +3,13 @@ import { View, Image } from 'react-native';
 
 import Header from './components/header';
 import Footer from './components/footer';
+import List from './components/list';
 
 const App = () => {
     return(
         <View style={styles.viewStyle}>
             <Header headerText='NAV BAR'/>
-            <View style={styles.middleViewStyle}></View>
+            <List style={styles.middleViewStyle}></List>
             <Footer style={styles.footerStyle}/>
         </View>
     )

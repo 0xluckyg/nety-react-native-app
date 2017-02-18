@@ -12,7 +12,7 @@ const ChatImage = require('../images/tabBar/ChatEmpty.png');
 const ProfileImage = require('../images/tabBar/ProfileEmpty.png');
 const SettingsImage = require('../images/tabBar/SettingsEmpty.png');
 
-class TabBar extends Component {
+class Footer extends Component {
     constructor(props) {
         super(props);
         this.state = {selectedTab: 0};
@@ -98,4 +98,4 @@ const styles = {
 
 }
 
-export default TabBar;
+export default Footer;
