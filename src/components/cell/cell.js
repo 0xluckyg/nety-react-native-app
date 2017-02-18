@@ -15,8 +15,7 @@ class Cell extends Component {
     render() {
         return (
             <TouchableHighlight
-                onPress={ () => console.log('You touched me') }
-                style={styles.rowStyle}
+                onPress={ () => console.log('You touched me') }                
                 underlayColor={'#ededed'}
             >
                 <View style={styles.rowStyle}>

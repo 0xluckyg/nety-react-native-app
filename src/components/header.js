@@ -1,5 +1,5 @@
 import React, {PropTypes} from 'react';
-import {Text, View} from 'react-native';
+import {StyleSheet, Text, View} from 'react-native';
 
 const Header = ({headerText}) => {
 
@@ -16,7 +16,7 @@ Header.propTypes = {
     headerText:PropTypes.string
 }
 
-const styles = {
+const styles = StyleSheet.create({
     headerStyle:{
         justifyContent:'center',
         alignItems:'center',
@@ -33,6 +33,6 @@ const styles = {
         fontSize: 20,
         fontWeight: '200'
     }
-}
+})
 
 export default Header;

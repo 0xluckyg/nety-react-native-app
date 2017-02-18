@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import {View, Image, TouchableOpacity} from 'react-native';
+import {StyleSheet, View, Image, TouchableOpacity} from 'react-native';
 
 const NetworkImageSelected = require('../images/tabBar/Network.png');
 const MyNetworkImageSelected = require('../images/tabBar/MyNetwork.png');
@@ -67,7 +67,7 @@ class Footer extends Component {
     }
 }
 
-const styles = {
+const styles = StyleSheet.create({
     footerStyle: {
         flexDirection: 'row',
 
@@ -96,6 +96,6 @@ const styles = {
         tintColor: '#496592'
     }
 
-}
+});
 
 export default Footer;

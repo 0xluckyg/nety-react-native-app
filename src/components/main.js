@@ -1,15 +1,15 @@
 import React, { Component } from 'react';
 import { View, Image } from 'react-native';
 
-import Header from './components/header';
-import Footer from './components/footer';
-import List from './components/list';
+import Header from './header';
+import Footer from './footer';
+import Network from './screens/network';
 
 const App = () => {
     return(
         <View style={styles.viewStyle}>
             <Header headerText='NAV BAR'/>
-            <List style={styles.middleViewStyle}></List>
+            <Network style={styles.middleViewStyle}></Network>
             <Footer style={styles.footerStyle}/>
         </View>
     )

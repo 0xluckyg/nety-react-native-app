@@ -12,12 +12,12 @@ const HiddenCell = ({type, removeCell, blockCell, secId, rowId, rowMap}) => {
         <View style={styles.rowBack}>
             <TouchableOpacity
                 style={[styles.backRightBtn, styles.backRightBtnLeft]}
-                onPress={ () => blockCell(secId, rowId, rowMap) }>
+                onPress={ () => {} }>
                 <Text style={styles.backTextWhite}>Block</Text>
             </TouchableOpacity>
             <TouchableOpacity
                 style={[styles.backRightBtn, styles.backRightBtnRight]}
-                onPress={ () => removeCell(secId, rowId, rowMap) }>
+                onPress={ () => {} }>
                 <Text style={styles.backTextWhite}>Delete</Text>
             </TouchableOpacity>
         </View>
@@ -27,30 +27,35 @@ const HiddenCell = ({type, removeCell, blockCell, secId, rowId, rowMap}) => {
 const styles = StyleSheet.create({
     rowBack: {
         alignItems: 'center',
-        backgroundColor: '#fff',
-        flex: 1,
         flexDirection: 'row',
+        flex: 1,
         justifyContent: 'space-between',
+
         paddingLeft: 15,
+
+        backgroundColor: '#fff'
     },
     backRightBtn: {
         alignItems: 'center',
-        bottom: 0,
         justifyContent: 'center',
         position: 'absolute',
+
+        bottom: 0,
         top: 0,
         width: 75
     },
     backRightBtnLeft: {
-        backgroundColor: '#c6c6c6',
-        right: 75
+        right: 75,
+
+        backgroundColor: '#c6c6c6'
     },
     backRightBtnRight: {
-        backgroundColor: '#dc4437',
-        right: 0
+        right: 0,
+
+        backgroundColor: '#dc4437'
     },
     backTextWhite: {
-        color: '#FFF'
+        color: '#fff'
     }
 })
 
