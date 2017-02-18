@@ -69,26 +69,31 @@ class TabBar extends Component {
 
 const styles = {
     footerStyle: {
-        borderTopWidth: 0.5,
-        borderTopColor: '#707070',
         flexDirection: 'row',
-        height: 45
+
+        height: 45,
+
+        borderTopWidth: 0.5,
+        borderTopColor: '#707070'
     },
     tab: {
-        // backgroundColor:'#fff',
         justifyContent: 'center',
         alignItems: 'center',
         flex: 1
     },
     tabImage: {
         resizeMode: 'contain',
-        tintColor: '#707070',
-        height: 22
+
+        height: 22,
+
+        tintColor: '#707070'
     },
     tabImageSelected: {
         resizeMode: 'contain',
-        tintColor: '#496592',
-        height: 20
+
+        height: 20,
+
+        tintColor: '#496592'
     }
 
 }

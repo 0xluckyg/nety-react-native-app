@@ -18,16 +18,16 @@ Header.propTypes = {
 
 const styles = {
     headerStyle:{
-        backgroundColor:'#fff',
         justifyContent:'center',
         alignItems:'center',
+        position:'relative',
+
         height:60,
+
         paddingTop:15,
         borderBottomWidth: 0.5,
         borderBottomColor: '#707070',
-        elevation: 2,
-        position:'relative'
-
+        backgroundColor:'#fff'
     },
     fontStyle:{
         fontSize: 20,
