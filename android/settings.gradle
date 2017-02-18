@@ -1,0 +1,3 @@
+rootProject.name = 'Nety'
+
+include ':app'
