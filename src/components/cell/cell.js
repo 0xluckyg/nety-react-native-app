@@ -6,6 +6,7 @@ import {
     Text,
     TouchableHighlight
 } from 'react-native';
+import { Actions } from 'react-native-router-flux';
 
 class Cell extends Component {
     constructor(props) {
@@ -15,7 +16,7 @@ class Cell extends Component {
     render() {
         return (
             <TouchableHighlight
-                onPress={ () => console.log('You touched me') }                
+                onPress={ () => Actions.profile() }
                 underlayColor={'#ededed'}
             >
                 <View style={styles.rowStyle}>

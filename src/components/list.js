@@ -8,6 +8,7 @@ import {
 	View
 } from 'react-native';
 import { SwipeListView, SwipeRow } from 'react-native-swipe-list-view';
+import { Actions } from 'react-native-router-flux';
 
 import Cell from './cell/cell';
 import HiddenCell from './cell/hiddenCell';
