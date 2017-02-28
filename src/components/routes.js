@@ -65,7 +65,7 @@ const RouterComponent = () => {
                     tabBarStyle={styles.footerStyle}
                     tabs
                 >
-                    <Scene key='networkTab' title='networkTab' icon={TabIcon}>                        
+                    <Scene key='networkTab' title='networkTab' icon={TabIcon}>
                         <Scene
                             key='network'
                             component={Network}
@@ -78,11 +78,9 @@ const RouterComponent = () => {
                         <Scene
                             key='profile'
                             component={Profile}
-                            navigationBarStyle={styles.headerStyle}
-                            titleStyle={styles.headerFontStyle}
-                            sceneStyle={styles.sceneStyle}
+                            hideNavBar={true}
                             hideTabBar={true}
-                            direction='vertical'
+                            direction='horizontal'
                             title='Profile'
                         />
                     </Scene>
@@ -110,10 +108,8 @@ const RouterComponent = () => {
                         <Scene
                             key='myProfile'
                             component={Profile}
-                            navigationBarStyle={styles.headerStyle}
                             titleStyle={styles.headerFontStyle}
-                            sceneStyle={styles.sceneStyle}
-                            title='My Profile'
+                            hideNavBar={true}
                         />
                     </Scene>
                     <Scene key='settingsTab' title='settingsTab' icon={TabIcon}>

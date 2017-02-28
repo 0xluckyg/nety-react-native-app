@@ -24,7 +24,7 @@ class MyNetwork extends Component {
 
     render() {
         return (
-            <List listViewData={this.state.listViewData}/>
+            <List listViewData={this.state.listViewData} isChat={false}/>
         );
     }
 }

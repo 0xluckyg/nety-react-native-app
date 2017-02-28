@@ -11,6 +11,14 @@ import { Actions } from 'react-native-router-flux';
 class Cell extends Component {
     constructor(props) {
         super(props);
+
+        this.renderChatNotifications = this.renderChatNotifications.bind(this);
+    }
+
+    renderChatNotifications(isChat) {
+        if (isChat) {
+            return <Text style={styles.notificationTextStyle}>12</Text>
+        }
     }
 
     render() {
@@ -29,7 +37,7 @@ class Cell extends Component {
                         </View>
                         <View style={styles.middleContentStyle}>
                             <Text style={styles.middleTextStyle}>Grab them by the pussy!</Text>
-                            <Text style={styles.notificationTextStyle}>12</Text>
+                            {this.renderChatNotifications(this.props.isChat)}
                         </View>
                         <View style={styles.bottomContentStyle}>
                             <Text style={styles.bottomTextStyle}>02/20/2017</Text>

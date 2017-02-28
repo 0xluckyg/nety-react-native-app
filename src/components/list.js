@@ -26,7 +26,7 @@ class List extends Component {
 				<SwipeListView
 					dataSource={this.dataSource.cloneWithRows(this.props.listViewData)}
 					renderRow={ data => (
-						<Cell data={data}/>
+						<Cell isChat={this.props.isChat} data={data}/>
 					)}
 					renderHiddenRow={ (data, secId, rowId, rowMap) => (
 						<HiddenCell

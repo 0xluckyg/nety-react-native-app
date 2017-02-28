@@ -12,7 +12,7 @@ class Network extends Component {
         super(props);
         this.state = {
 			listViewData: [1,2,3,4,5,6,7,8,9,10,1,2,3,4,5,6,7,8,9,10]
-		};        
+		};
     }
 
     // removeCell(secId, rowId, rowMap) {
@@ -24,7 +24,7 @@ class Network extends Component {
 
     render() {
         return (
-            <List listViewData={this.state.listViewData}/>
+            <List listViewData={this.state.listViewData} isChat={false}/>
         );
     }
 }

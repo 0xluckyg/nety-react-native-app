@@ -24,7 +24,7 @@ class Chats extends Component {
 
     render() {
         return (
-            <List listViewData={this.state.listViewData}/>
+            <List listViewData={this.state.listViewData} isChat={true}/>
         );
     }
 }
