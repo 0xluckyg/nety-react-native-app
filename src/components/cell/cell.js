@@ -8,6 +8,9 @@ import {
 } from 'react-native';
 import { Actions } from 'react-native-router-flux';
 
+import {Trump} from '../../images/images';
+import {MyColors} from '../../helper/style';
+
 class Cell extends Component {
     constructor(props) {
         super(props);
@@ -29,7 +32,7 @@ class Cell extends Component {
             >
                 <View style={styles.rowStyle}>
                     <View style={styles.rowImageViewStyle}>
-                        <Image style={styles.rowImageStyle} source={require('../../images/mock/Trump.jpg')}/>
+                        <Image style={styles.rowImageStyle} source={Trump}/>
                     </View>
                     <View style={styles.rowContentStyle}>
                         <View>
@@ -105,7 +108,7 @@ const styles = StyleSheet.create({
         width: 30,
         marginRight: 10,
 
-        backgroundColor: '#496592',
+        backgroundColor: MyColors.myBlue,
         borderRadius: 11,
         fontSize: 13,
         fontWeight: '200',

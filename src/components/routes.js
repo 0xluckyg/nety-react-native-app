@@ -5,19 +5,23 @@ import {Router, Scene} from 'react-native-router-flux';
 import Network from './screens/network';
 import MyNetwork from './screens/myNetwork';
 import Chats from './screens/chats';
-import Profile from './screens/profile';
+import Profile from './screens/profile/profile';
 import Settings from './screens/settings';
 
-const NetworkImageSelected = require('../images/tabBar/Network.png');
-const MyNetworkImageSelected = require('../images/tabBar/MyNetwork.png');
-const ChatImageSelected = require('../images/tabBar/Chat.png');
-const ProfileImageSelected = require('../images/tabBar/Profile.png');
-const SettingsImageSelected = require('../images/tabBar/Settings.png');
-const NetworkImage = require('../images/tabBar/NetworkEmpty.png');
-const MyNetworkImage = require('../images/tabBar/MyNetworkEmpty.png');
-const ChatImage = require('../images/tabBar/ChatEmpty.png');
-const ProfileImage = require('../images/tabBar/ProfileEmpty.png');
-const SettingsImage = require('../images/tabBar/SettingsEmpty.png');
+import {MyColors} from '../helper/style';
+
+import {
+    NetworkImageSelected,
+    MyNetworkImageSelected,
+    ChatImageSelected,
+    ProfileImageSelected,
+    SettingsImageSelected,
+    NetworkImage,
+    MyNetworkImage,
+    ChatImage,
+    ProfileImage,
+    SettingsImage
+} from '../images/images';
 
 const TabIcon = ({selected, title}) => {
     let tabBarImage; let selectedTabBarImage;
@@ -109,6 +113,7 @@ const RouterComponent = () => {
                             key='myProfile'
                             component={Profile}
                             titleStyle={styles.headerFontStyle}
+                            sceneStyle={styles.myProfileSceneStyle}
                             hideNavBar={true}
                         />
                     </Scene>
@@ -132,7 +137,7 @@ const styles = {
     headerStyle: {
         height:60,
         borderBottomWidth: 0.5,
-        borderBottomColor: '#707070',
+        borderBottomColor: MyColors.myGray,
         backgroundColor:'#fff',
     },
     headerFontStyle: {
@@ -143,21 +148,24 @@ const styles = {
         paddingTop: 60,
         paddingBottom: 45.5
     },
+    myProfileSceneStyle: {
+        paddingBottom: 45.5
+    },
     footerStyle: {
         height: 45,
         backgroundColor: '#fff',
         borderTopWidth: 0.5,
-        borderTopColor: '#707070'
+        borderTopColor: MyColors.myGray
     },
     tabImage: {
         resizeMode: 'contain',
         height: 22,
-        tintColor: '#707070'
+        tintColor: MyColors.myGray
     },
     tabImageSelected: {
         resizeMode: 'contain',
         height: 20,
-        tintColor: '#496592'
+        tintColor: MyColors.myBlue
     }
 }
 

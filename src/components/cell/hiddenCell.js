@@ -2,9 +2,12 @@ import React, {PropTypes, Component} from 'react';
 import {
     StyleSheet,
     Text,
+    Image,
     View,
     TouchableOpacity
 } from 'react-native';
+
+import {Block, Leave} from '../../images/images';
 
 const HiddenCell = ({type, removeCell, blockCell, secId, rowId, rowMap}) => {
 
@@ -13,11 +16,13 @@ const HiddenCell = ({type, removeCell, blockCell, secId, rowId, rowMap}) => {
             <TouchableOpacity
                 style={[styles.backRightBtn, styles.backRightBtnLeft]}
                 onPress={ () => {} }>
+                <Image style={styles.imageStyle} source={Block}/>
                 <Text style={styles.backTextWhite}>Block</Text>
             </TouchableOpacity>
             <TouchableOpacity
                 style={[styles.backRightBtn, styles.backRightBtnRight]}
                 onPress={ () => {} }>
+                <Image style={styles.imageStyle} source={Leave}/>
                 <Text style={styles.backTextWhite}>Delete</Text>
             </TouchableOpacity>
         </View>
@@ -55,7 +60,13 @@ const styles = StyleSheet.create({
         backgroundColor: '#dc4437'
     },
     backTextWhite: {
+        fontSize: 10,
+        paddingTop: 5,
         color: '#fff'
+    },
+    imageStyle: {
+        width:25,
+        height:25
     }
 })
 
