@@ -4,7 +4,8 @@ import {
 	View
 } from 'react-native';
 
-import List from '../list';
+import List from '../reusables/list';
+import Slider from '../reusables/slider';
 
 class Network extends Component {
 
@@ -24,9 +25,18 @@ class Network extends Component {
 
     render() {
         return (
-            <List listViewData={this.state.listViewData} isChat={false}/>
+			<View style={styles.mainView}>
+            	<List listViewData={this.state.listViewData} isChat={false}/>
+				<Slider/>
+			</View>
         );
     }
 }
+
+const styles = StyleSheet.create({
+	mainView: {
+		flex: 1
+	},
+});
 
 export default Network;

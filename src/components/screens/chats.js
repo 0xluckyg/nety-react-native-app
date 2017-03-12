@@ -4,7 +4,7 @@ import {
 	View
 } from 'react-native';
 
-import List from '../list';
+import List from '../reusables/list';
 
 class Chats extends Component {
 

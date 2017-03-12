@@ -7,10 +7,12 @@ import {
   StyleSheet,
   Text,
   View,
+  TouchableOpacity
 } from 'react-native';
 
 import ParallaxScrollView from 'react-native-parallax-scroll-view';
 
+import {ChatButtonImage, EditButtonImage} from '../../../images/images';
 import {MyColors} from '../../../helper/style';
 import {Background1, Trump} from '../../../images/images';
 import Cell from './profileCell';
@@ -48,6 +50,24 @@ const mockData = {
 class Profile extends Component {
     constructor(props) {
         super(props);
+
+        this.renderStaticButton = this.renderStaticButton.bind(this);
+    }
+
+    renderStaticButton() {
+        if (this.props.isMyProfile) {
+            return (
+                <View style={styles.staticButtonMyProfile}>
+                    <Image style={styles.staticButtonImageStyle} source={EditButtonImage}/>
+                </View>
+            )
+        } else {
+            return (
+                <View style={styles.staticButton}>
+                    <Image style={styles.staticButtonImageStyle} source={ChatButtonImage}/>
+                </View>
+            )
+        }
     }
 
     render() {
@@ -56,11 +76,8 @@ class Profile extends Component {
             <View style={styles.container}>
                 <ParallaxScrollView
                     onScroll={onScroll}
-                    contentBackgroundColor={'#fff'}
-                    headerBackgroundColor={'blue'}
                     parallaxHeaderHeight={ PARALLAX_HEADER_HEIGHT }
                     backgroundSpeed={10}
-
                     renderBackground={() => (
                         <View key="background">
                         <Image style={{width: window.width,
@@ -73,7 +90,6 @@ class Profile extends Component {
                                         height: PARALLAX_HEADER_HEIGHT}}/>
                         </View>
                     )}
-
                     renderForeground={() => (
                         <View key="parallax-header" style={ styles.parallaxHeader }>
                             <Image style={ styles.avatar } source={Trump}/>
@@ -87,11 +103,10 @@ class Profile extends Component {
                     )}
                 >
                     <View style={{ flex: 1 }}>
-                        <Cell data={mockData}/>
+                        <Cell isMyProfile={this.props.isMyProfile} data={mockData}/>
                     </View>
                 </ParallaxScrollView>
-                <View style={styles.staticButton}>
-                </View>
+                {this.renderStaticButton()}
             </View>
         );
     }
@@ -108,6 +123,13 @@ const styles = StyleSheet.create({
     container: {
         flex: 1,
         backgroundColor: 'white'
+    },
+    stickyHeaderStyle: {
+        backgroundColor: MyColors.myBlue
+    },
+    stickySectionStyle: {
+        backgroundColor: MyColors.myBlue,
+        height: 60
     },
     background: {
         position: 'absolute',
@@ -131,22 +153,48 @@ const styles = StyleSheet.create({
     sectionSpeakerText: {
         color: 'white',
         fontSize: 24,
+        fontWeight: '300',
         paddingVertical: 5
     },
     sectionTitleText: {
         color: 'white',
         fontSize: 18,
+        fontWeight: '200',
         paddingVertical: 5
     },
-    staticButton: {
-        marginLeft: Dimensions.get('window').width - 75,
-        marginTop: Dimensions.get('window').height - 120,
+    staticButtonMyProfile: {
+        marginLeft: window.width - 75,
+        marginTop: window.height - 120,
+        justifyContent: 'center',
+        alignItems: 'center',
         width: 60,
         height: 60,
         borderRadius: 30,
         position: 'absolute',
         backgroundColor: MyColors.myBlue,
         opacity: 0.7
+    },
+    staticButton: {
+        marginLeft: window.width - 75,
+        marginTop: window.height -130,
+        justifyContent: 'center',
+        alignItems: 'center',
+        width: 60,
+        height: 60,
+        borderRadius: 30,
+        position: 'absolute',
+        backgroundColor: MyColors.myBlue,
+        opacity: 0.7
+    },
+    staticButtonImageStyle: {
+        height: 30,
+        width: 30
+    },
+    staticButtonTextStyle: {
+        fontSize: 9,
+        fontWeight: '200',
+        color: '#fff',
+        alignSelf: 'center'
     }
 });
 

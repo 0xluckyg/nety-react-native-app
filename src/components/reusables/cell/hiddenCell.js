@@ -7,7 +7,7 @@ import {
     TouchableOpacity
 } from 'react-native';
 
-import {Block, Leave} from '../../images/images';
+import {Block, Leave} from '../../../images/images';
 
 const HiddenCell = ({type, removeCell, blockCell, secId, rowId, rowMap}) => {
 

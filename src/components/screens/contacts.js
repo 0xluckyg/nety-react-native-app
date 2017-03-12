@@ -4,9 +4,9 @@ import {
 	View
 } from 'react-native';
 
-import List from '../list';
+import List from '../reusables/list';
 
-class MyNetwork extends Component {
+class Contacts extends Component {
 
     constructor(props) {
         super(props);
@@ -29,4 +29,4 @@ class MyNetwork extends Component {
     }
 }
 
-export default MyNetwork;
+export default Contacts;

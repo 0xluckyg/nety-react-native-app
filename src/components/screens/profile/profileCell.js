@@ -1,6 +1,5 @@
 import React, { Component } from 'react';
 import {
-  Image,
   ListView,
   StyleSheet,
   Text,
@@ -13,7 +12,6 @@ class ProfileCell extends Component {
 
     constructor(props) {
         super(props)
-
         this.status = this.status.bind(this);
         this.about = this.about.bind(this);
         this.experiences = this.experiences.bind(this);
@@ -162,7 +160,7 @@ const styles = StyleSheet.create({
         paddingLeft: 25,
         paddingRight: 25,
         paddingTop: 20,
-        paddingBottom: 50
+        paddingBottom: 90
     },
     experienceCellStyle: {
         paddingTop: 20,
@@ -176,7 +174,8 @@ const styles = StyleSheet.create({
         paddingBottom: 10
     },
     experienceCellNameStyle: {
-
+        width: 170,
+        fontWeight: '400'
     },
     experienceCellDateViewStyle: {
         flexDirection: 'row'

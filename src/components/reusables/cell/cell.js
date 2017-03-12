@@ -8,8 +8,8 @@ import {
 } from 'react-native';
 import { Actions } from 'react-native-router-flux';
 
-import {Trump} from '../../images/images';
-import {MyColors} from '../../helper/style';
+import {Trump} from '../../../images/images';
+import {MyColors} from '../../../helper/style';
 
 class Cell extends Component {
     constructor(props) {

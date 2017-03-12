@@ -1,22 +1,33 @@
 //mock
-const Trump = require('../images/mock/Trump.jpg');
-const Background1 = require('../images/mock/Background1.png');
+const Trump = require('./mock/Trump.jpg');
+const Background1 = require('./mock/Background1.png');
 
 //hiddenCell
-const Block = require('../images/hiddenCell/Block.png');
-const Leave = require('../images/hiddenCell/Leave.png');
+const Block = require('./hiddenCell/Block.png');
+const Leave = require('./hiddenCell/Leave.png');
+
+//Navbar
+const BackButtonImage = require('./navigationBar/Back.png');
 
 //Tabbar
-const NetworkImageSelected = require('../images/tabBar/Network.png');
-const MyNetworkImageSelected = require('../images/tabBar/MyNetwork.png');
-const ChatImageSelected = require('../images/tabBar/Chat.png');
-const ProfileImageSelected = require('../images/tabBar/Profile.png');
-const SettingsImageSelected = require('../images/tabBar/Settings.png');
-const NetworkImage = require('../images/tabBar/NetworkEmpty.png');
-const MyNetworkImage = require('../images/tabBar/MyNetworkEmpty.png');
-const ChatImage = require('../images/tabBar/ChatEmpty.png');
-const ProfileImage = require('../images/tabBar/ProfileEmpty.png');
-const SettingsImage = require('../images/tabBar/SettingsEmpty.png');
+const NetworkImageSelected = require('./tabBar/Network.png');
+const ContactsImageSelected = require('./tabBar/Contacts.png');
+const ChatImageSelected = require('./tabBar/Chat.png');
+const ProfileImageSelected = require('./tabBar/Profile.png');
+const SettingsImageSelected = require('./tabBar/Settings.png');
+const NetworkImage = require('./tabBar/NetworkEmpty.png');
+const ContactsImage = require('./tabBar/ContactsEmpty.png');
+const ChatImage = require('./tabBar/ChatEmpty.png');
+const ProfileImage = require('./tabBar/ProfileEmpty.png');
+const SettingsImage = require('./tabBar/SettingsEmpty.png');
+
+//Profile
+const ChatButtonImage = require('./tabBar/Chat.png');
+const EditButtonImage = require('./profile/Edit.png');
+
+//Settings
+const FacebookThumbnailImage = require('./settings/FacebookThumbnail.png');
+const LinkedInThumbnailImage = require('./settings/LinkedInThumbnail.png');
 
 module.exports = {
     Trump,
@@ -25,14 +36,22 @@ module.exports = {
     Block,
     Leave,
 
+    BackButtonImage,
+
     NetworkImageSelected,
-    MyNetworkImageSelected,
+    ContactsImageSelected,
     ChatImageSelected,
     ProfileImageSelected,
     SettingsImageSelected,
     NetworkImage,
-    MyNetworkImage,
+    ContactsImage,
     ChatImage,
     ProfileImage,
-    SettingsImage
+    SettingsImage,
+
+    ChatButtonImage,
+    EditButtonImage,
+
+    FacebookThumbnailImage,
+    LinkedInThumbnailImage
 }

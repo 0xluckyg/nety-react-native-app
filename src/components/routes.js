@@ -3,7 +3,7 @@ import {Image} from 'react-native';
 import {Router, Scene} from 'react-native-router-flux';
 
 import Network from './screens/network';
-import MyNetwork from './screens/myNetwork';
+import Contacts from './screens/contacts';
 import Chats from './screens/chats';
 import Profile from './screens/profile/profile';
 import Settings from './screens/settings';
@@ -12,15 +12,16 @@ import {MyColors} from '../helper/style';
 
 import {
     NetworkImageSelected,
-    MyNetworkImageSelected,
+    ContactsImageSelected,
     ChatImageSelected,
     ProfileImageSelected,
     SettingsImageSelected,
     NetworkImage,
-    MyNetworkImage,
+    ContactsImage,
     ChatImage,
     ProfileImage,
-    SettingsImage
+    SettingsImage,
+    BackButtonImage
 } from '../images/images';
 
 const TabIcon = ({selected, title}) => {
@@ -28,8 +29,8 @@ const TabIcon = ({selected, title}) => {
     switch(title) {
         case 'networkTab':
             tabBarImage = NetworkImage; selectedTabBarImage = NetworkImageSelected; break;
-        case 'myNetworkTab':
-            tabBarImage = MyNetworkImage; selectedTabBarImage = MyNetworkImageSelected; break;
+        case 'contactsTab':
+            tabBarImage = ContactsImage; selectedTabBarImage = ContactsImageSelected; break;
         case 'chatsTab':
             tabBarImage = ChatImage; selectedTabBarImage = ChatImageSelected; break;
         case 'myProfileTab':
@@ -42,20 +43,6 @@ const TabIcon = ({selected, title}) => {
         return <Image style={styles.tabImageSelected} source={selectedTabBarImage}/>
     }
     return <Image style={styles.tabImage} source={tabBarImage}/>
-}
-
-const renderSceneWithHeader = ({key, title, component}) => {
-    return (
-        <Scene
-            key={key}
-            component={component}
-            navigationBarStyle={styles.headerStyle}
-            titleStyle={styles.headerFontStyle}
-            sceneStyle={styles.sceneStyle}
-            title={title}
-            initial
-        />
-    )
 }
 
 const RouterComponent = () => {
@@ -82,20 +69,24 @@ const RouterComponent = () => {
                         <Scene
                             key='profile'
                             component={Profile}
-                            hideNavBar={true}
+                            navigationBarStyle={styles.headerStyle}
+                            backButtonImage={BackButtonImage}
+                            titleStyle={styles.headerFontStyle}
+                            sceneStyle={styles.profileSceneStyle}
                             hideTabBar={true}
                             direction='horizontal'
                             title='Profile'
+                            isMyProfile={false}
                         />
                     </Scene>
-                    <Scene key='myNetworkTab' title='myNetworkTab' icon={TabIcon}>
+                    <Scene key='contactsTab' title='contactsTab' icon={TabIcon}>
                         <Scene
-                            key='myNetwork'
-                            component={MyNetwork}
+                            key='contacts'
+                            component={Contacts}
                             navigationBarStyle={styles.headerStyle}
                             titleStyle={styles.headerFontStyle}
                             sceneStyle={styles.sceneStyle}
-                            title='My Network'
+                            title='Contacts'
                         />
                     </Scene>
                     <Scene key='chatsTab' title='chatsTab' icon={TabIcon}>
@@ -115,6 +106,7 @@ const RouterComponent = () => {
                             titleStyle={styles.headerFontStyle}
                             sceneStyle={styles.myProfileSceneStyle}
                             hideNavBar={true}
+                            isMyProfile={true}
                         />
                     </Scene>
                     <Scene key='settingsTab' title='settingsTab' icon={TabIcon}>
@@ -147,6 +139,9 @@ const styles = {
     sceneStyle: {
         paddingTop: 60,
         paddingBottom: 45.5
+    },
+    profileSceneStyle: {
+        paddingTop: 60
     },
     myProfileSceneStyle: {
         paddingBottom: 45.5
