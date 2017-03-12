@@ -43,7 +43,7 @@ const styles = StyleSheet.create({
         borderTopColor: MyColors.myGray
     },
     trackStyle: {
-        height: 0.5
+        height: 1
     },
     selectedStyle: {
         backgroundColor: '#496592'

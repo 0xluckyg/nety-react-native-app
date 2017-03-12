@@ -7,8 +7,11 @@ import Contacts from './screens/contacts';
 import Chats from './screens/chats';
 import Profile from './screens/profile/profile';
 import Settings from './screens/settings';
+import ChatRoom from './screens/chatRoom'
+import MyProfileEdit from './screens/profile/edit';
 
 import {MyColors} from '../helper/style';
+import { Actions } from 'react-native-router-flux';
 
 import {
     NetworkImageSelected,
@@ -72,11 +75,21 @@ const RouterComponent = () => {
                             navigationBarStyle={styles.headerStyle}
                             backButtonImage={BackButtonImage}
                             titleStyle={styles.headerFontStyle}
-                            sceneStyle={styles.profileSceneStyle}
+                            sceneStyle={styles.sceneWithoutTabbarStyle}
                             hideTabBar={true}
                             direction='horizontal'
                             title='Profile'
                             isMyProfile={false}
+                        />
+                        <Scene
+                            key='chatRoomFromNetwork'
+                            component={ChatRoom}
+                            navigationBarStyle={styles.headerStyle}
+                            backButtonImage={BackButtonImage}
+                            onBack={() => Actions.pop({popNum: 2})}
+                            titleStyle={styles.headerFontStyle}
+                            sceneStyle={styles.sceneWithoutTabbarStyle}
+                            title='Chat'
                         />
                     </Scene>
                     <Scene key='contactsTab' title='contactsTab' icon={TabIcon}>
@@ -98,15 +111,35 @@ const RouterComponent = () => {
                             sceneStyle={styles.sceneStyle}
                             title='My Chats'
                         />
+                        <Scene
+                            key='chatRoomFromChats'
+                            component={ChatRoom}
+                            navigationBarStyle={styles.headerStyle}
+                            backButtonImage={BackButtonImage}
+                            titleStyle={styles.headerFontStyle}
+                            sceneStyle={styles.sceneWithoutTabbarStyle}
+                            title='Chat'
+                        />
                     </Scene>
                     <Scene key='myProfileTab' title='myProfileTab' icon={TabIcon}>
                         <Scene
                             key='myProfile'
                             component={Profile}
                             titleStyle={styles.headerFontStyle}
-                            sceneStyle={styles.myProfileSceneStyle}
-                            hideNavBar={true}
+                            sceneStyle={styles.sceneStyle}
+                            navigationBarStyle={styles.headerStyle}
                             isMyProfile={true}
+                            title='My Profile'
+                        />
+                        <Scene
+                            key='myProfileEdit'
+                            component={MyProfileEdit}
+                            navigationBarStyle={styles.headerStyle}
+                            backButtonImage={BackButtonImage}
+                            titleStyle={styles.headerFontStyle}
+                            hideNavBar={false}
+                            sceneStyle={styles.sceneStyle}
+                            title='Edit My Profile'
                         />
                     </Scene>
                     <Scene key='settingsTab' title='settingsTab' icon={TabIcon}>
@@ -140,11 +173,8 @@ const styles = {
         paddingTop: 60,
         paddingBottom: 45.5
     },
-    profileSceneStyle: {
+    sceneWithoutTabbarStyle: {
         paddingTop: 60
-    },
-    myProfileSceneStyle: {
-        paddingBottom: 45.5
     },
     footerStyle: {
         height: 45,

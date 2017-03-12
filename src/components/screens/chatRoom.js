@@ -4,7 +4,7 @@ import {
 	View
 } from 'react-native';
 
-class Edit extends Component {
+class Chats extends Component {
 
     constructor(props) {
         super(props);
@@ -12,9 +12,15 @@ class Edit extends Component {
 
     render() {
         return (
-            <View></View>
+            <View style={styles.containerStyle}></View>
         );
     }
 }
 
-export default Edit;
+const styles = StyleSheet.create({
+    containerStyle: {
+        flex: 1
+    }
+});
+
+export default Chats;

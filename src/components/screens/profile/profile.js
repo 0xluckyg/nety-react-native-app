@@ -11,6 +11,7 @@ import {
 } from 'react-native';
 
 import ParallaxScrollView from 'react-native-parallax-scroll-view';
+import { Actions } from 'react-native-router-flux';
 
 import {ChatButtonImage, EditButtonImage} from '../../../images/images';
 import {MyColors} from '../../../helper/style';
@@ -58,13 +59,17 @@ class Profile extends Component {
         if (this.props.isMyProfile) {
             return (
                 <View style={styles.staticButtonMyProfile}>
-                    <Image style={styles.staticButtonImageStyle} source={EditButtonImage}/>
+                    <TouchableOpacity style={styles.staticButtonTouchableStyle} onPress={() => Actions.myProfileEdit()}>
+                        <Image style={styles.staticButtonImageStyle} source={EditButtonImage}/>
+                    </TouchableOpacity>
                 </View>
             )
         } else {
             return (
                 <View style={styles.staticButton}>
-                    <Image style={styles.staticButtonImageStyle} source={ChatButtonImage}/>
+                    <TouchableOpacity style={styles.staticButtonTouchableStyle} onPress={() => Actions.chatRoomFromNetwork()}>
+                        <Image style={styles.staticButtonImageStyle} source={ChatButtonImage}/>
+                    </TouchableOpacity>
                 </View>
             )
         }
@@ -115,9 +120,7 @@ class Profile extends Component {
 const window = Dimensions.get('window');
 
 const AVATAR_SIZE = 120;
-const ROW_HEIGHT = 60;
-const PARALLAX_HEADER_HEIGHT = 350;
-const STICKY_HEADER_HEIGHT = 70;
+const PARALLAX_HEADER_HEIGHT = 300;
 
 const styles = StyleSheet.create({
     container: {
@@ -142,7 +145,7 @@ const styles = StyleSheet.create({
         alignItems: 'center',
         flex: 1,
         flexDirection: 'column',
-        paddingTop: 80
+        paddingTop: 60
     },
     avatar: {
         marginBottom: 10,
@@ -164,7 +167,7 @@ const styles = StyleSheet.create({
     },
     staticButtonMyProfile: {
         marginLeft: window.width - 75,
-        marginTop: window.height - 120,
+        marginTop: window.height - 180,
         justifyContent: 'center',
         alignItems: 'center',
         width: 60,
@@ -189,6 +192,13 @@ const styles = StyleSheet.create({
     staticButtonImageStyle: {
         height: 30,
         width: 30
+    },
+    staticButtonTouchableStyle: {
+        flex: 1,
+        width: 60,
+        height: 60,
+        justifyContent: 'center',
+        alignItems: 'center'
     },
     staticButtonTextStyle: {
         fontSize: 9,

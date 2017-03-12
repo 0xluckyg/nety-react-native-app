@@ -4,7 +4,7 @@ import {
 	View
 } from 'react-native';
 
-class Edit extends Component {
+class Start extends Component {
 
     constructor(props) {
         super(props);
@@ -17,4 +17,4 @@ class Edit extends Component {
     }
 }
 
-export default Edit;
+export default Start;
