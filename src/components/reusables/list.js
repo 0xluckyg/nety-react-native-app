@@ -35,6 +35,7 @@ class List extends Component {
 							rowMap={rowMap}
 						/>
 					)}
+					swipeToOpenPercent={100}					
                     disableRightSwipe={true}
 					rightOpenValue={-150}
 				/>

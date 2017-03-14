@@ -29,7 +29,7 @@ const mockData = {
     experiences: [
         {
             name: 'Software Engineer at Nety',
-            description: 'I worked as an app developer',
+            description: 'I worked as an app developer awoeifjaowiejfo awoifjaow awo ije foawij oaiwejf oaiwej foijaw oefijawe ',
             start: 'Mar 10, 16',
             end: 'Mar 10, 17'
         },

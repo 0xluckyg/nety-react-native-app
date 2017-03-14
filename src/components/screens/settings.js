@@ -115,7 +115,7 @@ const styles = StyleSheet.create({
 		borderTopColor: MyColors.myGray,
 		borderBottomColor: MyColors.myGray,
 		justifyContent: 'center',
-		height: 38,
+		height: 45,
 		backgroundColor: '#fff'
 	},
 	whiteContainerRowStyle: {
@@ -131,7 +131,7 @@ const styles = StyleSheet.create({
 		alignSelf: 'center',
 		paddingLeft: 15,
 		fontWeight: '200',
-		fontSize: 12
+		fontSize: 14
 	},
 	grayContainerTextStyle: {
 		paddingLeft: 15,

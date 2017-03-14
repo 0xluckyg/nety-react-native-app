@@ -119,7 +119,8 @@ const styles = StyleSheet.create({
     headerText: {
         paddingLeft: 25,
         color: MyColors.myBlue,
-        fontWeight: '400'
+        fontWeight: '400',
+        fontSize: 15,
     },
     viewStyle: {
         paddingLeft: 25,
@@ -142,18 +143,22 @@ const styles = StyleSheet.create({
     },
     statusStyle: {
         fontWeight: '300',
+        fontSize: 15,
         color: MyColors.myGray
     },
     aboutKeyStyle: {
         width: 100,
-        fontWeight: '400'
+        fontWeight: '400',
+        fontSize: 15,
     },
     aboutValueStyle: {
         fontWeight: '300',
+        fontSize: 15,
         color: MyColors.myGray
     },
     aboutValueSpecialStyle: {
         fontWeight: '300',
+        fontSize: 15,
         color: MyColors.myBlue
     },
     experienceViewStyle: {
@@ -175,6 +180,7 @@ const styles = StyleSheet.create({
     },
     experienceCellNameStyle: {
         width: 170,
+        fontSize: 15,
         fontWeight: '400'
     },
     experienceCellDateViewStyle: {
@@ -187,6 +193,7 @@ const styles = StyleSheet.create({
     },
     experienceCellDescriptionStyle: {
         fontWeight: '300',
+        fontSize: 15,
         color: MyColors.myGray
 
     }

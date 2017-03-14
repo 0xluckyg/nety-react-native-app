@@ -1,7 +1,10 @@
 import React, { Component } from 'react';
 import {
+    Dimensions,
+    Image,
 	StyleSheet,
-	View
+	View,
+    TouchableOpacity
 } from 'react-native';
 
 class Start extends Component {
@@ -12,7 +15,17 @@ class Start extends Component {
 
     render() {
         return (
-            <View></View>
+            <View>
+                <Image/>
+                <View>
+                    <TouchableOpacity>
+
+                    </TouchableOpacity>
+                    <TouchableOpacity>
+
+                    </TouchableOpacity>
+                </View>
+            </View>
         );
     }
 }
