@@ -26,7 +26,11 @@ class List extends Component {
 				<SwipeListView
 					dataSource={this.dataSource.cloneWithRows(this.props.listViewData)}
 					renderRow={ data => (
-						<Cell isChat={this.props.isChat} data={data}/>
+						<Cell
+							isChat={this.props.isChat}
+							data={data}
+							goToOnPress={this.props.goToOnPress}
+						/>
 					)}
 					renderHiddenRow={ (data, secId, rowId, rowMap) => (
 						<HiddenCell
@@ -35,7 +39,7 @@ class List extends Component {
 							rowMap={rowMap}
 						/>
 					)}
-					swipeToOpenPercent={100}					
+					swipeToOpenPercent={100}
                     disableRightSwipe={true}
 					rightOpenValue={-150}
 				/>

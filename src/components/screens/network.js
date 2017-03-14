@@ -7,6 +7,8 @@ import {
 import List from '../reusables/list';
 import Slider from '../reusables/slider';
 
+import { Actions } from 'react-native-router-flux';
+
 class Network extends Component {
 
     constructor(props) {
@@ -26,7 +28,11 @@ class Network extends Component {
     render() {
         return (
 			<View style={styles.mainView}>
-            	<List listViewData={this.state.listViewData} isChat={false}/>
+            	<List
+					listViewData={this.state.listViewData}
+					isChat={false}
+					goToOnPress={() => {Actions.profile()}}
+				/>
 				<Slider/>
 			</View>
         );

@@ -4,6 +4,8 @@ import {
 	View
 } from 'react-native';
 
+import { Actions } from 'react-native-router-flux';
+
 import List from '../reusables/list';
 
 class Chats extends Component {
@@ -24,7 +26,11 @@ class Chats extends Component {
 
     render() {
         return (
-            <List listViewData={this.state.listViewData} isChat={true}/>
+            <List
+				listViewData={this.state.listViewData}
+				isChat={true}
+				goToOnPress={() => {Actions.chatRoomFromChats()}}
+			/>
         );
     }
 }

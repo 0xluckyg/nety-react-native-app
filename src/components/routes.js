@@ -118,6 +118,7 @@ const RouterComponent = () => {
                             backButtonImage={BackButtonImage}
                             titleStyle={styles.headerFontStyle}
                             sceneStyle={styles.sceneWithoutTabbarStyle}
+                            hideTabBar={true}
                             title='Chat'
                         />
                     </Scene>

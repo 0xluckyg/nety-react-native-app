@@ -6,7 +6,6 @@ import {
     Text,
     TouchableHighlight
 } from 'react-native';
-import { Actions } from 'react-native-router-flux';
 
 import {Trump} from '../../../images/images';
 import {MyColors} from '../../../helper/style';
@@ -27,7 +26,7 @@ class Cell extends Component {
     render() {
         return (
             <TouchableHighlight
-                onPress={ () => Actions.profile() }
+                onPress={ () => this.props.goToOnPress() }
                 underlayColor={'#ededed'}
             >
                 <View style={styles.rowStyle}>

@@ -4,6 +4,8 @@ import {
 	View
 } from 'react-native';
 
+import { Actions } from 'react-native-router-flux';
+
 import List from '../reusables/list';
 
 class Contacts extends Component {
@@ -24,7 +26,11 @@ class Contacts extends Component {
 
     render() {
         return (
-            <List listViewData={this.state.listViewData} isChat={false}/>
+            <List
+				listViewData={this.state.listViewData}
+				isChat={false}
+				goToOnPress={() => {Actions.profile()}}
+			/>
         );
     }
 }
