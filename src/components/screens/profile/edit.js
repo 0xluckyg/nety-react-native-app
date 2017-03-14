@@ -5,10 +5,15 @@ import {
 	TouchableOpacity,
 	Text,
 	TextInput,
-	ScrollView
+	ScrollView,
+	Image,
+	Button
 } from 'react-native';
 
+import {Actions} from 'react-native-router-flux';
+
 import {MyColors} from '../../../helper/style'
+import {AddButtonImage} from '../../../images/images';
 
 class Edit extends Component {
 
@@ -16,6 +21,12 @@ class Edit extends Component {
         super(props);
 
 		this.state = {
+			emptyExperience: {
+				name: '',
+				description: '',
+				start: '',
+				end: ''
+			},
 			experiences: [
 				{
 		            name: 'Software Engineer at Nety',
@@ -63,6 +74,9 @@ class Edit extends Component {
 				{this.renderInputCell(true, 'Starting date', 'ex.02/11/2016', experience.start)}
 				{this.renderInputCell(true, 'End date', 'Present', experience.end)}
 				{this.renderInputCell(false, 'Description', 'I worked as a product manager at Facebook', experience.description)}
+				<TouchableOpacity>
+					<Text style={styles.deleteButtonTextStyle}>Delete</Text>
+				</TouchableOpacity>
 				{this.renderShortLine()}
 			</View>
 		)
@@ -80,9 +94,14 @@ class Edit extends Component {
 		)
 	}
 
-	renderTitle(text) {
+	renderTitle(text, image) {
 		return(
-			<Text style={styles.titleStyle}>{text}</Text>
+			<View style={styles.titleViewStyle}>
+				<Text style={styles.titleStyle}>{text}</Text>
+				<TouchableOpacity style={styles.titleButtonStyle}>
+					<Image style={styles.titleImageStyle} source={image}></Image>
+				</TouchableOpacity>
+			</View>
 		)
 	}
 
@@ -116,10 +135,12 @@ class Edit extends Component {
 					{this.renderInputCell(true, 'Profession', 'ex.Software engineering')}
 					{this.renderInputCell(true, 'Work', 'ex.Backend engineer at Nety')}
 					{this.renderLine()}
-					{this.renderTitle("Experiences")}
+					{this.renderTitle("Experiences", AddButtonImage)}
 					{this.renderExperiences()}
 				</ScrollView>
-				<TouchableOpacity style={styles.buttonStyle}>
+				<TouchableOpacity onPress={() => {
+						Actions.pop()
+					}} style={styles.buttonStyle}>
 					<Text style={styles.buttonTextStyle}>Save</Text>
 				</TouchableOpacity>
 			</View>
@@ -132,13 +153,29 @@ const styles = StyleSheet.create({
 		flex: 1,
 		marginTop: 10
 	},
+	titleViewStyle: {
+		flex: 1,
+		flexDirection: 'row',
+		justifyContent:'space-between',
+	},
 	titleStyle: {
+		alignSelf: 'center',
 		marginLeft: 15,
 		marginTop: 10,
 		marginBottom: 7,
 		fontWeight: '400',
-		fontSize: 12,
+		fontSize: 18,
 		color: MyColors.myGray
+	},
+	titleImageStyle: {
+		alignSelf: 'center',
+		marginRight: 15,
+		height: 30,
+		width: 30,
+		tintColor: MyColors.myBlue,
+	},
+	titleButtonStyle: {
+		alignSelf: 'center'
 	},
 	cellStyle: {
 		marginLeft: 15,
@@ -210,6 +247,14 @@ const styles = StyleSheet.create({
 		fontWeight: '300',
 		fontSize: 16,
 		color: '#fff'
+	},
+	deleteButtonTextStyle: {
+		alignSelf: 'flex-end',
+		marginTop: 5,
+		marginBottom: 5,
+		marginRight: 15,
+		fontSize: 15,
+		color: MyColors.myBlue,
 	}
 })
 

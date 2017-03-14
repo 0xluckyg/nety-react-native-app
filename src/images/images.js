@@ -24,6 +24,7 @@ const SettingsImage = require('./tabBar/SettingsEmpty.png');
 //Profile
 const ChatButtonImage = require('./tabBar/Chat.png');
 const EditButtonImage = require('./profile/Edit.png');
+const AddButtonImage = require('./profile/Add.png');
 
 //Settings
 const FacebookThumbnailImage = require('./settings/FacebookThumbnail.png');
@@ -51,6 +52,7 @@ module.exports = {
 
     ChatButtonImage,
     EditButtonImage,
+    AddButtonImage,
 
     FacebookThumbnailImage,
     LinkedInThumbnailImage

@@ -1,26 +1,55 @@
 import React, { Component } from 'react';
 import {
 	StyleSheet,
-	View
+	View,
+	Dimensions
 } from 'react-native';
+import { GiftedChat } from 'react-native-gifted-chat';
 
-class Chats extends Component {
+const window = Dimensions.get('window');
 
-    constructor(props) {
-        super(props);
-    }
+class ChatRoom extends Component {
+	constructor(props) {
+    	super(props);
+    	this.state = {messages: []};
+    	this.onSend = this.onSend.bind(this);
+  	}
 
-    render() {
-        return (
-            <View style={styles.containerStyle}></View>
-        );
-    }
+  	componentWillMount() {
+	    this.setState({
+	    	messages: [
+	        	{
+	          		_id: 1,
+	          		text: 'Hello developer',
+	          		createdAt: new Date(Date.UTC(2016, 7, 30, 17, 20, 0)),
+	          		user: {
+	            		_id: 2,
+	            		name: 'React Native',
+	            		avatar: 'https://facebook.github.io/react/img/logo_og.png',
+	          		},
+	        	},
+			],
+	    });
+	}
+
+	onSend(messages = []) {
+    	this.setState((previousState) => {
+	    	return {
+	        	messages: GiftedChat.append(previousState.messages, messages),
+	      	};
+    	});
+	}
+
+	render() {
+    	return (
+	      		<GiftedChat
+					style={{alignSelf: 'flex-start'}}
+	        		messages={this.state.messages}
+	        		onSend={this.onSend}
+	        		user={{_id: 1,}}					
+	      		/>
+    	);
+	}
 }
 
-const styles = StyleSheet.create({
-    containerStyle: {
-        flex: 1
-    }
-});
-
-export default Chats;
+export default ChatRoom;
