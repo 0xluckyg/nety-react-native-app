@@ -88,7 +88,7 @@ class Network extends Component {
 					deletePressed={this.props.removeFromNetwork}
 					listViewData={this.props.network}
 					isChat={false}
-					goToOnPress={() => {Actions.profile()}}
+					goToOnPress={Actions.profile}
 				/>
 				<Slider value={this.props.range} onValueChange={this.didUpdateRange.bind(this)}/>
 			</View>

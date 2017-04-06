@@ -68,21 +68,101 @@ export const initialUsers = [
 		firstName: "Donald",
 		lastName: "Trump",
 		status: "Grab em by the pussy!",
-		imageUrl: "https://static3.businessinsider.com/image/56feb17752bcd01b008ba4e8-480/donald-trump.jpg"
+    bio: "Current President of the United States",
+		imageUrl: "https://static3.businessinsider.com/image/56feb17752bcd01b008ba4e8-480/donald-trump.jpg",
+    about: {
+        age: 70,
+        school: 'University of Pennsylvania',
+        profession: 'Business',
+        job: 'White House'
+    },
+    experiences: [
+        {
+            name: 'Software Engineer at Nety',
+            description: 'I worked as an app developer awoeifjaowiejfo awoifjaow awo ije foawij oaiwejf oaiwej foijaw oefijawe ',
+            start: 'Mar 10, 16',
+            end: 'Mar 10, 17'
+        },
+        {
+            name: 'App developer at TRN',
+            description: 'I worked as an app developer',
+            start: 'Mar 10, 16',
+            end: 'Mar 10, 17'
+        },
+        {
+            name: 'Marketer at Facebook',
+            description: 'I worked as an app developer',
+            start: 'Mar 10, 16',
+            end: 'Mar 10, 17'
+        }
+    ]
 	},
 	{
 		id: 2,
 		firstName: "Barack",
 		lastName: "Obama",
 		status: "Yes We Can!",
-		imageUrl: "https://upload.wikimedia.org/wikipedia/commons/thumb/8/8d/President_Barack_Obama.jpg/220px-President_Barack_Obama.jpg"
+    bio: "Former President of the United States",
+		imageUrl: "https://upload.wikimedia.org/wikipedia/commons/thumb/8/8d/President_Barack_Obama.jpg/220px-President_Barack_Obama.jpg",
+    about: {
+        age: 55,
+        school: 'Harvard Law School',
+        profession: 'Ass Kicking',
+        job: 'Retired President'
+    },
+    experiences: [
+        {
+            name: 'Software Engineer at Nety',
+            description: 'I worked as an app developer awoeifjaowiejfo awoifjaow awo ije foawij oaiwejf oaiwej foijaw oefijawe ',
+            start: 'Mar 10, 16',
+            end: 'Mar 10, 17'
+        },
+        {
+            name: 'App developer at TRN',
+            description: 'I worked as an app developer',
+            start: 'Mar 10, 16',
+            end: 'Mar 10, 17'
+        },
+        {
+            name: 'Marketer at Facebook',
+            description: 'I worked as an app developer',
+            start: 'Mar 10, 16',
+            end: 'Mar 10, 17'
+        }
+    ]
 	},
 	{
 		id: 3,
 		firstName: "Bruce",
 		lastName: "Wayne",
-		status: "I'm Batman!",
-		imageUrl: "https://s-media-cache-ak0.pinimg.com/736x/15/46/62/1546621aa77278241275cf101d8b383d.jpg"
+		status: "I am the night. I am Batman!",
+		imageUrl: "https://s-media-cache-ak0.pinimg.com/736x/15/46/62/1546621aa77278241275cf101d8b383d.jpg",
+    about: {
+        age: 30,
+        school: 'Gotham University',
+        profession: 'Justice',
+        job: 'Wayne Enterprises'
+    },
+    experiences: [
+        {
+            name: 'Software Engineer at Nety',
+            description: 'I worked as an app developer awoeifjaowiejfo awoifjaow awo ije foawij oaiwejf oaiwej foijaw oefijawe ',
+            start: 'Mar 10, 16',
+            end: 'Mar 10, 17'
+        },
+        {
+            name: 'App developer at TRN',
+            description: 'I worked as an app developer',
+            start: 'Mar 10, 16',
+            end: 'Mar 10, 17'
+        },
+        {
+            name: 'Marketer at Facebook',
+            description: 'I worked as an app developer',
+            start: 'Mar 10, 16',
+            end: 'Mar 10, 17'
+        }
+    ]
 	}
 ]
 
