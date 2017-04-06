@@ -62,27 +62,58 @@ class Network extends Component {
     // }
 
 	componentDidMount() {
-		console.log("Component did mount")
+		this.updateNavbar(this.props.range)
 	}
-	sampleData() {
-		// console.log("PRESSED")
-		this.props.addToNetwork(initialUsers)
-		console.log(this)
+	
+	
+	titleForRange(range) {
+        switch (range) {
+            case 0:
+            case 1:
+                return "Current Event"
+            case 2:
+                return "100 Meter"
+            case 3:
+                return "300 Meters"
+            case 4:
+                return "500 Meters"
+            case 5:
+                return "1 KM"
+            case 6:
+                return "3 KM"
+            case 7:
+                return "5 KM"
+            case 8:
+            case 9:
+            case 10:
+                return "10 KM"
+            default:
+                return "ERROR"
+        }
+    }
 
+	updateNavbar(range) {
+		let title = this.titleForRange(range)
+		console.log(title)
+		Actions.refresh({title: title})
+	}
+
+	didUpdateRange(range) {
+		this.props.updateRange(range)
+		this.updateNavbar(range)
 	}
 
     render() {
-		console.log("weel them")
-		console.log(this)
         return (
 			<View style={styles.mainView}>
+				<Text>Range: {this.titleForRange(this.props.range)}</Text>
             	<List
 					deletePressed={this.props.removeFromNetwork}
 					listViewData={this.props.network}
 					isChat={false}
 					goToOnPress={() => {Actions.profile()}}
 				/>
-				<Slider/>
+				<Slider value={this.props.range} onValueChange={this.didUpdateRange.bind(this)}/>
 			</View>
         );
     }

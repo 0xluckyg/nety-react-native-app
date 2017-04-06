@@ -12,10 +12,6 @@ class MySlider extends Component {
 
     constructor(props) {
         super(props);
-
-        this.state = {
-            value:[3]
-        }
     }
 
     render() {
@@ -27,9 +23,9 @@ class MySlider extends Component {
                 selectedStyle={styles.selectedStyle}
                 markerStyle={styles.markerStyle}
                 pressedMarkerStyle={styles.pressedMarkerStyle}
-				values={this.state.value}
+				values={[3]}
                 thumbStyle={styles.thumbStyle}
-				onValueChange={(value) => this.setState({value})} />
+				onValuesChange={values => this.props.onValueChange(values[0])} />
         );
     }
 }

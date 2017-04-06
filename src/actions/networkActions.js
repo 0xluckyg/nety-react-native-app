@@ -7,3 +7,7 @@ export function addToNetwork(users) {
 export function removeFromNetwork(users) {
     return { type: actionTypes.REMOVE_FROM_NETWORK, users }
 }
+
+export function updateRange(rangeValue) {
+    return { type: actionTypes.UPDATE_RANGE, rangeValue }
+}
