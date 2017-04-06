@@ -15,29 +15,7 @@ import { connect } from 'react-redux';
 
 import Reactotron from 'reactotron-react-native'
 
-const initialUsers = [
-	{
-		id: 0,
-		firstName: "Donald",
-		lastName: "Trump",
-		status: "Grab em by the pussy!",
-		imageUrl: "https://static3.businessinsider.com/image/56feb17752bcd01b008ba4e8-480/donald-trump.jpg"
-	},
-	{
-		id: 1,
-		firstName: "Barack",
-		lastName: "Obama",
-		status: "Yes We Can!",
-		imageUrl: "https://upload.wikimedia.org/wikipedia/commons/thumb/8/8d/President_Barack_Obama.jpg/220px-President_Barack_Obama.jpg"
-	},
-	{
-		id: 2,
-		firstName: "Bruce",
-		lastName: "Wayne",
-		status: "I'm Batman!",
-		imageUrl: "https://s-media-cache-ak0.pinimg.com/736x/15/46/62/1546621aa77278241275cf101d8b383d.jpg"
-	}
-]
+
 
 class Network extends Component {
 
@@ -47,7 +25,7 @@ class Network extends Component {
 		console.log(this.props)
 		
 		Reactotron.error(this.props.network)
-				this.props.addToNetwork(initialUsers)
+				// this.props.addToNetwork(initialUsers)
 
 		// this.props.addToNextwork(initialUsers)
         // this.state = {
@@ -106,7 +84,6 @@ class Network extends Component {
     render() {
         return (
 			<View style={styles.mainView}>
-				<Text>Range: {this.titleForRange(this.props.range)}</Text>
             	<List
 					deletePressed={this.props.removeFromNetwork}
 					listViewData={this.props.network}
@@ -127,8 +104,8 @@ const styles = StyleSheet.create({
 
 const mapStateToProps = (state) => (
 	{
-		network: state.network,
-		range: state.range
+		network: state.network.network,
+		range: state.network.range
 	}
 )
 

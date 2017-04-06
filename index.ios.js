@@ -1,25 +1,35 @@
 import React, { Component } from 'react';
 import { AppRegistry } from 'react-native';
-import { createStore, compose } from 'redux';
 import { Provider } from 'react-redux';
-
-import Router from './src/components/routes';
-import networkReducer from './src/reducers/networkReducer';
+import { combineReducers, compose } from 'redux'
 import Reactotron from 'reactotron-react-native'
 import { reactotronRedux } from 'reactotron-redux'
+
+import networkReducer from './src/reducers/networkReducer';
+import profileReducer from './src/reducers/profileReducer';
+import App from './src/App'
 
 Reactotron
   .configure()
   .use(reactotronRedux())
   .connect()
 
-const store = Reactotron.createStore(networkReducer, compose())
+const reducers = combineReducers({
+      network: networkReducer, 
+      profile: profileReducer
+    })
+
+const store = Reactotron.createStore(reducers, compose())
+
+console.log("---------------")
+console.log(store.getState())
+console.log("---------------")
 
 export default class Nety extends Component {
   render() {
     return (
       <Provider store={store}>
-        <Router/>
+        <App />
       </Provider>
     );
   }
