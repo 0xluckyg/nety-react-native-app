@@ -7,6 +7,8 @@ import { reactotronRedux } from 'reactotron-redux'
 
 import networkReducer from './src/reducers/networkReducer';
 import profileReducer from './src/reducers/profileReducer';
+import settingsReducer from './src/reducers/settingsReducer';
+import contactsReducer from './src/reducers/contactsReducer';
 import App from './src/App'
 
 Reactotron
@@ -16,7 +18,9 @@ Reactotron
 
 const reducers = combineReducers({
       network: networkReducer, 
-      profile: profileReducer
+      profile: profileReducer,
+      settings: settingsReducer,
+      contacts: contactsReducer
     })
 
 const store = Reactotron.createStore(reducers, compose())
