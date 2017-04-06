@@ -9,7 +9,7 @@ import {
 
 import {Block, Leave} from '../../../images/images';
 
-const HiddenCell = ({type, removeCell, blockCell, secId, rowId, rowMap}) => {
+const HiddenCell = ({deletePressed, data, type, removeCell, blockCell, secId, rowId, rowMap}) => {
 
     return(
         <View style={styles.rowBack}>
@@ -21,7 +21,7 @@ const HiddenCell = ({type, removeCell, blockCell, secId, rowId, rowMap}) => {
             </TouchableOpacity>
             <TouchableOpacity
                 style={[styles.backRightBtn, styles.backRightBtnRight]}
-                onPress={ () => {} }>
+                onPress={ () => deletePressed([data]) }>
                 <Image style={styles.imageStyle} source={Leave}/>
                 <Text style={styles.backTextWhite}>Delete</Text>
             </TouchableOpacity>

@@ -7,7 +7,7 @@ import {
     TouchableHighlight
 } from 'react-native';
 
-import {Trump} from '../../../images/images';
+// import {Trump} from '../../../images/images';
 import {MyColors} from '../../../helper/style';
 
 class Cell extends Component {

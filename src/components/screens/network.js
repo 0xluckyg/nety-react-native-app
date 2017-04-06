@@ -1,7 +1,9 @@
 import React, { Component } from 'react';
 import {
 	StyleSheet,
-	View
+	View,
+	TouchableOpacity,
+	Text
 } from 'react-native';
 
 import List from '../reusables/list';
@@ -11,6 +13,7 @@ import { Actions } from 'react-native-router-flux';
 import * as networkActions from '../../actions/networkActions';
 import { connect } from 'react-redux';
 
+import Reactotron from 'reactotron-react-native'
 
 const initialUsers = [
 	{
@@ -41,12 +44,16 @@ class Network extends Component {
     constructor(props) {
         super(props);
 
+		console.log(this.props)
 		
+		Reactotron.error(this.props.network)
+				this.props.addToNetwork(initialUsers)
+
+		// this.props.addToNextwork(initialUsers)
         // this.state = {
 		// 	listViewData: [1,2,3,4,5,6,7,8,9,10,1,2,3,4,5,6,7,8,9,10]
 		// };
     }
-
     // removeCell(secId, rowId, rowMap) {
     //     rowMap[`${secId}${rowId}`].closeRow();
     //     const newData = [...this.state.listViewData];
@@ -54,11 +61,24 @@ class Network extends Component {
     //     this.setState({listViewData: newData});
     // }
 
+	componentDidMount() {
+		console.log("Component did mount")
+	}
+	sampleData() {
+		// console.log("PRESSED")
+		this.props.addToNetwork(initialUsers)
+		console.log(this)
+
+	}
+
     render() {
+		console.log("weel them")
+		console.log(this)
         return (
 			<View style={styles.mainView}>
             	<List
-					listViewData={initialUsers}
+					deletePressed={this.props.removeFromNetwork}
+					listViewData={this.props.network}
 					isChat={false}
 					goToOnPress={() => {Actions.profile()}}
 				/>
@@ -74,4 +94,11 @@ const styles = StyleSheet.create({
 	},
 });
 
-export default connect(state => state, networkActions)(Network);
+const mapStateToProps = (state) => (
+	{
+		network: state.network,
+		range: state.range
+	}
+)
+
+export default connect(mapStateToProps, networkActions)(Network);

@@ -34,6 +34,8 @@ class List extends Component {
 					)}
 					renderHiddenRow={ (data, secId, rowId, rowMap) => (
 						<HiddenCell
+							deletePressed={this.props.deletePressed}
+							data={data}
 							secId={secId}
 							rowId={rowId}
 							rowMap={rowMap}
