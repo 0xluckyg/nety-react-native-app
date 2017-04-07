@@ -9,12 +9,13 @@ export default function (state = initialState, action) {
         case ADD_CONTACT:
             return {
                 ...state,
-                contacts: [...state.contacts, action.user]
+                contacts: [...state.contacts, ...action.users]
             }
         case REMOVE_CONTACT:
+            let ids = action.users.map( user => user.id )
             return {
                 ...state,
-                contacts: state.contacts.filter(user => user.id != action.user.id)
+                contacts: state.contacts.filter( user => !ids.includes(user.id) )
             }
         default:
             return state
