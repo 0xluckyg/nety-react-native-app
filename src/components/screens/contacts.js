@@ -30,7 +30,7 @@ class Contacts extends Component {
                 deletePressed={this.props.removeFromContacts}
 				listViewData={this.props.contacts}
 				isChat={false}
-				goToOnPress={() => {Actions.profile()}}
+				goToOnPress={Actions.profile}
 			/>
         );
     }
