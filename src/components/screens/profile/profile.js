@@ -15,6 +15,7 @@ import { Actions } from 'react-native-router-flux';
 import { connect } from 'react-redux';
 
 import * as profileActions from '../../../actions/profileActions';
+import * as contactsActions from '../../../actions/contactsActions';
 import {ChatButtonImage, EditButtonImage} from '../../../images/images';
 import {MyColors} from '../../../helper/style';
 import {Background1, Trump} from '../../../images/images';
@@ -31,11 +32,16 @@ class Profile extends Component {
         return this.props.user || this.props.currentUser
     }
 
+    messageButtonPressed() {
+        this.props.addToContacts([this.props.user])
+        Actions.chatRoomFromNetwork()
+    }
+
     renderStaticButton() {
         if (this.props.isMyProfile) {
             return (
                 <View style={styles.staticButtonMyProfile}>
-                    <TouchableOpacity style={styles.staticButtonTouchableStyle} onPress={() => Actions.myProfileEdit()}>
+                    <TouchableOpacity style={styles.staticButtonTouchableStyle} onPress={() => (Actions.myProfileEdit())}>
                         <Image style={styles.staticButtonImageStyle} source={EditButtonImage}/>
                     </TouchableOpacity>
                 </View>
@@ -43,7 +49,7 @@ class Profile extends Component {
         } else {
             return (
                 <View style={styles.staticButton}>
-                    <TouchableOpacity style={styles.staticButtonTouchableStyle} onPress={() => Actions.chatRoomFromNetwork()}>
+                    <TouchableOpacity style={styles.staticButtonTouchableStyle} onPress={() => this.messageButtonPressed()}>
                         <Image style={styles.staticButtonImageStyle} source={ChatButtonImage}/>
                     </TouchableOpacity>
                 </View>
@@ -195,4 +201,4 @@ const mapStateToProps = (state) => (
 	}
 )
 
-export default connect(mapStateToProps, profileActions)(Profile);
+export default connect(mapStateToProps, {...profileActions, ...contactsActions})(Profile);

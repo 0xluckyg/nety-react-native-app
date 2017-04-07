@@ -1,5 +1,6 @@
 import { ADD_TO_NETWORK, REMOVE_FROM_NETWORK, UPDATE_RANGE } from '../actions/actionTypes.js'
 import Reactotron from 'reactotron-react-native'
+import _ from 'lodash';
 
 const initialState = {
     network: [],
@@ -13,7 +14,7 @@ export default function (state = initialState, action) {
         case ADD_TO_NETWORK:
             return {
                 ...state,
-                network: [...state.network, ...action.users]
+                network:  _.uniq([...state.network, ...action.users])
             }
         case REMOVE_FROM_NETWORK:
             let ids = action.users.map( user => user.id )
