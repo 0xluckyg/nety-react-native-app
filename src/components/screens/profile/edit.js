@@ -57,12 +57,11 @@ class Edit extends Component {
 		this.renderExperiences = this.renderExperiences.bind(this)
     }
 
-	renderExperiences() {
+	renderExperiences() {			
 		return (
 			<View>
-				{this.state.experiences.map(experience => {
-					return this.renderExperience(this.state.experiences.indexOf(experience), experience)
-				})}
+				{this.props.user.experiences
+					.map(experience => this.renderExperience(this.props.user.experiences.indexOf(experience), experience))}
 			</View>
 		)
 	}
@@ -70,7 +69,7 @@ class Edit extends Component {
 	renderExperience(key, experience) {
 		return (
 			<View key={key}>
-				{this.renderInputCell(true, 'Name', 'ex.Product manager at Facebook', experience.name)}
+				{this.renderInputCell(true, 'Name', 'ex. Product manager at Facebook', experience.name)}
 				{this.renderInputCell(true, 'Starting date', 'ex.02/11/2016', experience.start)}
 				{this.renderInputCell(true, 'End date', 'Present', experience.end)}
 				{this.renderInputCell(false, 'Description', 'I worked as a product manager at Facebook', experience.description)}
@@ -123,17 +122,20 @@ class Edit extends Component {
 	}
 
     render() {
+		let user = this.props.user
+		let about = user.about
+
         return (
 			<View style={styles.containerStyle}>
 				<ScrollView>
 					{this.renderTitle("Status")}
-					{this.renderInputCell(false, 'Status', 'ex.I have a cool project idea, and I am looking for a business partner ')}
+					{this.renderInputCell(false, 'Status', 'ex.I have a cool project idea, and I am looking for a business partner ', user.status)}
 					{this.renderLine()}
 					{this.renderTitle("About me")}
-					{this.renderInputCell(true, 'Age', 'ex.35')}
-					{this.renderInputCell(true, 'Education', 'ex.Nety College')}
-					{this.renderInputCell(true, 'Profession', 'ex.Software engineering')}
-					{this.renderInputCell(true, 'Work', 'ex.Backend engineer at Nety')}
+					{this.renderInputCell(true, 'Age', 'ex.35', about.age.toString())}
+					{this.renderInputCell(true, 'Education', 'ex.Nety College', about.school)}
+					{this.renderInputCell(true, 'Profession', 'ex.Software engineering', about.profession)}
+					{this.renderInputCell(true, 'Work', 'ex.Backend engineer at Nety', about.job)}
 					{this.renderLine()}
 					{this.renderTitle("Experiences", AddButtonImage)}
 					{this.renderExperiences()}

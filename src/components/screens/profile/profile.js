@@ -41,7 +41,7 @@ class Profile extends Component {
         if (this.props.isMyProfile) {
             return (
                 <View style={styles.staticButtonMyProfile}>
-                    <TouchableOpacity style={styles.staticButtonTouchableStyle} onPress={() => (Actions.myProfileEdit())}>
+                    <TouchableOpacity style={styles.staticButtonTouchableStyle} onPress={() => (Actions.myProfileEdit({user: this.props.currentUser}))}>
                         <Image style={styles.staticButtonImageStyle} source={EditButtonImage}/>
                     </TouchableOpacity>
                 </View>
