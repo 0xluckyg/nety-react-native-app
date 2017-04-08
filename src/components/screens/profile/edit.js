@@ -153,7 +153,10 @@ class Edit extends Component {
 			case "Bio":
 				return user.bio
 			case "Age":
-				return user.about.age.toString()
+				if (user.about.age) {
+					return user.about.age.toString()
+				}
+				return ""
 			case "Education":
 				return user.about.school
 			case "Profession":
@@ -222,7 +225,7 @@ class Edit extends Component {
 					{this.renderLine()}
 					{this.renderTitle("About me")}
 					{this.renderInputCell(true, 'Bio', 'I am a passionate hardworking person that does yoga.', user.bio)}
-					{this.renderInputCell(true, 'Age', 'ex.35', about.age.toString())}
+					{this.renderInputCell(true, 'Age', 'ex.35', about.age)}
 					{this.renderInputCell(true, 'Education', 'ex.Nety College', about.school)}
 					{this.renderInputCell(true, 'Profession', 'ex.Software engineering', about.profession)}
 					{this.renderInputCell(true, 'Work', 'ex.Backend engineer at Nety', about.job)}
