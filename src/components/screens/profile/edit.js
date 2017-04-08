@@ -44,14 +44,22 @@ class Edit extends Component {
 		)
 	}
 
+	removeExperience(key) {
+		return function() {
+			let user = this.state.user
+			user.experiences.splice(key, 1)
+			this.setState({ user })
+		}.bind(this)
+	}
+
 	renderExperience(key, experience) {
 		return (
 			<View key={key}>
-				{this.renderInputCell(true, 'Name', 'ex. Product manager at Facebook', experience.name)}
-				{this.renderInputCell(true, 'Starting date', 'ex.02/11/2016', experience.start)}
-				{this.renderInputCell(true, 'End date', 'Present', experience.end)}
-				{this.renderInputCell(false, 'Description', 'I worked as a product manager at Facebook', experience.description)}
-				<TouchableOpacity>
+				{this.renderInputCell(true, 'Name', 'ex. Product manager at Facebook', experience.name, key)}
+				{this.renderInputCell(true, 'Starting date', 'ex.02/11/2016', experience.start, key)}
+				{this.renderInputCell(true, 'End date', 'Present', experience.end, key)}
+				{this.renderInputCell(false, 'Description', 'I worked as a product manager at Facebook', experience.description, key)}
+				<TouchableOpacity onPress={this.removeExperience(key)}>
 					<Text style={styles.deleteButtonTextStyle}>Delete</Text>
 				</TouchableOpacity>
 				{this.renderShortLine()}
@@ -71,18 +79,31 @@ class Edit extends Component {
 		)
 	}
 
+	addExperience() {
+		let blankExperience = {
+			name: '',
+			description: '',
+			start: '',
+			end: ''
+		}
+		let user = this.state.user
+		user.experiences.push(blankExperience)
+		this.setState({ user })
+	}
+
 	renderTitle(text, image) {
 		return(
 			<View style={styles.titleViewStyle}>
 				<Text style={styles.titleStyle}>{text}</Text>
-				<TouchableOpacity style={styles.titleButtonStyle}>
+				<TouchableOpacity style={styles.titleButtonStyle} onPress={this.addExperience.bind(this)}>
 					<Image style={styles.titleImageStyle} source={image}></Image>
 				</TouchableOpacity>
 			</View>
 		)
 	}
 
-	fieldValueDidChange(title) {
+	// FIXME: REFACTOR THIS
+	fieldValueDidChange(title, index) {
 		return function(value) {
 			let user = this.state.user
 			switch (title) {
@@ -104,16 +125,27 @@ class Edit extends Component {
 				case "Work":
 					user.about.job = value
 					break
+				case "Name":
+					user.experiences[index].name = value
+					break
+				case "Starting date":
+					user.experiences[index].start = value
+					break
+				case "End date":
+					user.experiences[index].end = value
+					break
+				case "Description":
+					user.experiences[index].description = value
+					break
 				default:
 					break
 			}
-			console.log("12345")
-			console.log(user)
 			this.setState({ user })
 		}.bind(this)
 	}
 
-	valueForField(title) {
+	// FIXME: REFACTOR THIS
+	valueForField(title, index) {
 		let user = this.state.user
 		switch (title) {
 			case "Status":
@@ -128,16 +160,24 @@ class Edit extends Component {
 				return user.about.profession
 			case "Work":
 				return user.about.job
+			case "Name":
+				return user.experiences[index].name
+			case "Starting date":
+				return user.experiences[index].start
+			case "End date":
+				return user.experiences[index].end
+			case "Description":
+				return user.experiences[index].description
 			default:
 				break
 		}
 	}
 
-	renderInputCell(collapse, title, placeholder, value) {
+	renderInputCell(collapse, title, placeholder, value, index) {
 
-		let valueDidChange = this.fieldValueDidChange(title)
+		let valueDidChange = this.fieldValueDidChange(title, index)
 
-		let userValue = this.valueForField(title)
+		let userValue = this.valueForField(title, index)
 		if (collapse) {
 			return (
 				<View style={styles.cellCollapseStyle}>
@@ -153,9 +193,21 @@ class Edit extends Component {
 			)
 		}
 	}
-	
-	onChangeText() {
 
+	experienceIsValid(experience) {
+		return experience.name != "" && 
+			experience.description != "" &&
+			experience.start != "" &&
+			experience.end != ""
+	}
+
+	// TODO: Error Handling. Currently removing all invalid experiences. Should highlight them instead.
+	saveButtonPressed() {
+		let user = this.state.user
+		user.experiences = user.experiences.filter( (exp) => this.experienceIsValid(exp) )
+		this.setState({ user })
+		this.props.setCurrentUser(this.state.user)
+		Actions.pop({refresh: {test: true}})
 	}
 
     render() {
@@ -178,10 +230,7 @@ class Edit extends Component {
 					{this.renderTitle("Experiences", AddButtonImage)}
 					{this.renderExperiences()}
 				</ScrollView>
-				<TouchableOpacity onPress={() => {
-						this.props.setCurrentUser(this.state.user)
-						Actions.pop({refresh: {test: true}})
-					}} style={styles.buttonStyle}>
+				<TouchableOpacity onPress={this.saveButtonPressed.bind(this)} style={styles.buttonStyle}>
 					<Text style={styles.buttonTextStyle}>Save</Text>
 				</TouchableOpacity>
 			</View>
