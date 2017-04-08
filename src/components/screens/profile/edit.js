@@ -15,38 +15,16 @@ import {Actions} from 'react-native-router-flux';
 import {MyColors} from '../../../helper/style'
 import {AddButtonImage} from '../../../images/images';
 
+import { connect } from 'react-redux';
+import * as profileActions from '../../../actions/profileActions';
+
 class Edit extends Component {
 
     constructor(props) {
         super(props);
 
 		this.state = {
-			emptyExperience: {
-				name: '',
-				description: '',
-				start: '',
-				end: ''
-			},
-			experiences: [
-				{
-		            name: 'Software Engineer at Nety',
-		            description: 'I worked as an app developer awoeifjaowiejfo awoifjaow awo ije foawij oaiwejf oaiwej foijaw oefijawe ',
-		            start: 'Mar 10, 16',
-		            end: 'Mar 10, 17'
-		        },
-				{
-		            name: 'Software Engineer at Nety',
-		            description: 'I worked as an app developer awoeifjaowiejfo awoifjaow awo ije foawij oaiwejf oaiwej foijaw oefijawe ',
-		            start: 'Mar 10, 16',
-		            end: 'Mar 10, 17'
-		        },
-				{
-		            name: 'Software Engineer at Nety',
-		            description: 'I worked as an app developer awoeifjaowiejfo awoifjaow awo ije foawij oaiwejf oaiwej foijaw oefijawe ',
-		            start: 'Mar 10, 16',
-		            end: 'Mar 10, 17'
-		        }
-			]
+			user: this.props.user
 		}
 
 		this.renderTitle = this.renderTitle.bind(this)
@@ -60,8 +38,8 @@ class Edit extends Component {
 	renderExperiences() {			
 		return (
 			<View>
-				{this.props.user.experiences
-					.map(experience => this.renderExperience(this.props.user.experiences.indexOf(experience), experience))}
+				{this.state.user.experiences
+					.map(experience => this.renderExperience(this.state.user.experiences.indexOf(experience), experience))}
 			</View>
 		)
 	}
@@ -104,25 +82,84 @@ class Edit extends Component {
 		)
 	}
 
+	fieldValueDidChange(title) {
+		return function(value) {
+			let user = this.state.user
+			switch (title) {
+				case "Status":
+					user.status = value
+					break
+				case "Bio":
+					user.bio = value
+					break
+				case "Age":
+					user.about.age = Number(value) || user.age
+					break
+				case "Education":
+					user.about.school = value
+					break
+				case "Profession":
+					user.about.profession = value
+					break
+				case "Work":
+					user.about.job = value
+					break
+				default:
+					break
+			}
+			console.log("12345")
+			console.log(user)
+			this.setState({ user })
+		}.bind(this)
+	}
+
+	valueForField(title) {
+		let user = this.state.user
+		switch (title) {
+			case "Status":
+				return user.status
+			case "Bio":
+				return user.bio
+			case "Age":
+				return user.about.age.toString()
+			case "Education":
+				return user.about.school
+			case "Profession":
+				return user.about.profession
+			case "Work":
+				return user.about.job
+			default:
+				break
+		}
+	}
+
 	renderInputCell(collapse, title, placeholder, value) {
+
+		let valueDidChange = this.fieldValueDidChange(title)
+
+		let userValue = this.valueForField(title)
 		if (collapse) {
 			return (
 				<View style={styles.cellCollapseStyle}>
 					<Text style={styles.cellTitleCollapseStyle}>{title}</Text>
-					<TextInput value={value} style={styles.cellTextInputCollapseStyle} placeholder={placeholder}></TextInput>
+					<TextInput value={userValue || value} style={styles.cellTextInputCollapseStyle} placeholder={placeholder} onChangeText={valueDidChange}></TextInput>
 				</View>
 			)
 		} else {
 			return (
 				<View style={styles.cellStyle}>
-					<TextInput value={value} multiline={true} style={styles.cellTextInputStyle} placeholder={placeholder}></TextInput>
+					<TextInput value={userValue || value} multiline={true} style={styles.cellTextInputStyle} placeholder={placeholder} onChangeText={valueDidChange}></TextInput>
 				</View>
 			)
 		}
 	}
+	
+	onChangeText() {
+
+	}
 
     render() {
-		let user = this.props.user
+		let user = this.state.user
 		let about = user.about
 
         return (
@@ -132,6 +169,7 @@ class Edit extends Component {
 					{this.renderInputCell(false, 'Status', 'ex.I have a cool project idea, and I am looking for a business partner ', user.status)}
 					{this.renderLine()}
 					{this.renderTitle("About me")}
+					{this.renderInputCell(true, 'Bio', 'I am a passionate hardworking person that does yoga.', user.bio)}
 					{this.renderInputCell(true, 'Age', 'ex.35', about.age.toString())}
 					{this.renderInputCell(true, 'Education', 'ex.Nety College', about.school)}
 					{this.renderInputCell(true, 'Profession', 'ex.Software engineering', about.profession)}
@@ -141,7 +179,8 @@ class Edit extends Component {
 					{this.renderExperiences()}
 				</ScrollView>
 				<TouchableOpacity onPress={() => {
-						Actions.pop()
+						this.props.setCurrentUser(this.state.user)
+						Actions.pop({refresh: {test: true}})
 					}} style={styles.buttonStyle}>
 					<Text style={styles.buttonTextStyle}>Save</Text>
 				</TouchableOpacity>
@@ -260,4 +299,6 @@ const styles = StyleSheet.create({
 	}
 })
 
-export default Edit;
+
+
+export default connect((state) => ({}), profileActions)(Edit);
