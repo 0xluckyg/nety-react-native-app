@@ -85,7 +85,7 @@ class Network extends Component {
         return (
 			<View style={styles.mainView}>
             	<List
-					deletePressed={this.props.removeFromNetwork}
+					blockPressed={this.props.removeFromNetwork}
 					listViewData={this.props.network}
 					isChat={false}
 					goToOnPress={Actions.profile}

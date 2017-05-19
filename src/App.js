@@ -70,7 +70,7 @@ export const initialUsers = [
 		firstName: "Donald",
 		lastName: "Trump",
 		status: "Grab em by the pussy!",
-    bio: "Current President of the United States",
+        bio: "Current President of the United States",
 		imageUrl: "https://static3.businessinsider.com/image/56feb17752bcd01b008ba4e8-480/donald-trump.jpg",
         about: {
             age: 70,

@@ -34,6 +34,7 @@ class List extends Component {
 					)}
 					renderHiddenRow={ (data, secId, rowId, rowMap) => (
 						<HiddenCell
+							blockPressed={this.props.blockPressed}
 							deletePressed={this.props.deletePressed}
 							data={data}
 							secId={secId}
@@ -43,7 +44,8 @@ class List extends Component {
 					)}
 					swipeToOpenPercent={100}
                     disableRightSwipe={true}
-					rightOpenValue={-150}
+					disableLeftSwipe={(this.props.blockPressed || this.props.deletePressed) ? false : true}
+					rightOpenValue={(!this.props.blockPressed || !this.props.deletePressed) ? -75 : -150}
 				/>
 			</View>
 		);

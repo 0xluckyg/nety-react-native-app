@@ -9,22 +9,39 @@ import {
 
 import {Block, Leave} from '../../../images/images';
 
-const HiddenCell = ({deletePressed, data, type, removeCell, blockCell, secId, rowId, rowMap}) => {
-
-    return(
-        <View style={styles.rowBack}>
+const renderBlockButton= function(blockPressed, deletePressed, data) {
+    let overrideStyle =  { right: deletePressed ? 75 : 0}
+    if (blockPressed) {
+        return (
             <TouchableOpacity
-                style={[styles.backRightBtn, styles.backRightBtnLeft]}
-                onPress={ () => {} }>
+                style={[styles.backRightBtn, styles.backRightBtnLeft, overrideStyle]}
+                onPress={ () => blockPressed([data]) }>
                 <Image style={styles.imageStyle} source={Block}/>
                 <Text style={styles.backTextWhite}>Block</Text>
             </TouchableOpacity>
+        )
+    }
+}
+
+const renderDeleteButton = function(deletePressed, data) {
+    if (deletePressed) {
+        return (
             <TouchableOpacity
                 style={[styles.backRightBtn, styles.backRightBtnRight]}
                 onPress={ () => deletePressed([data]) }>
                 <Image style={styles.imageStyle} source={Leave}/>
                 <Text style={styles.backTextWhite}>Delete</Text>
             </TouchableOpacity>
+        )
+    }
+}
+
+const HiddenCell = ({blockPressed, deletePressed, data, type, secId, rowId, rowMap}) => {
+
+    return(
+        <View style={styles.rowBack}>
+            { renderBlockButton(blockPressed, deletePressed, data) }
+            { renderDeleteButton(deletePressed, data) }
         </View>
     )
 }
@@ -51,12 +68,10 @@ const styles = StyleSheet.create({
     },
     backRightBtnLeft: {
         right: 75,
-
         backgroundColor: '#c6c6c6'
     },
     backRightBtnRight: {
         right: 0,
-
         backgroundColor: '#dc4437'
     },
     backTextWhite: {
