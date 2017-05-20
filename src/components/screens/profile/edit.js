@@ -15,38 +15,16 @@ import {Actions} from 'react-native-router-flux';
 import {MyColors} from '../../../helper/style'
 import {AddButtonImage} from '../../../images/images';
 
+import { connect } from 'react-redux';
+import * as profileActions from '../../../actions/profileActions';
+
 class Edit extends Component {
 
     constructor(props) {
         super(props);
 
 		this.state = {
-			emptyExperience: {
-				name: '',
-				description: '',
-				start: '',
-				end: ''
-			},
-			experiences: [
-				{
-		            name: 'Software Engineer at Nety',
-		            description: 'I worked as an app developer awoeifjaowiejfo awoifjaow awo ije foawij oaiwejf oaiwej foijaw oefijawe ',
-		            start: 'Mar 10, 16',
-		            end: 'Mar 10, 17'
-		        },
-				{
-		            name: 'Software Engineer at Nety',
-		            description: 'I worked as an app developer awoeifjaowiejfo awoifjaow awo ije foawij oaiwejf oaiwej foijaw oefijawe ',
-		            start: 'Mar 10, 16',
-		            end: 'Mar 10, 17'
-		        },
-				{
-		            name: 'Software Engineer at Nety',
-		            description: 'I worked as an app developer awoeifjaowiejfo awoifjaow awo ije foawij oaiwejf oaiwej foijaw oefijawe ',
-		            start: 'Mar 10, 16',
-		            end: 'Mar 10, 17'
-		        }
-			]
+			user: this.props.user
 		}
 
 		this.renderTitle = this.renderTitle.bind(this)
@@ -57,24 +35,31 @@ class Edit extends Component {
 		this.renderExperiences = this.renderExperiences.bind(this)
     }
 
-	renderExperiences() {
+	renderExperiences() {			
 		return (
 			<View>
-				{this.state.experiences.map(experience => {
-					return this.renderExperience(this.state.experiences.indexOf(experience), experience)
-				})}
+				{this.state.user.experiences
+					.map(experience => this.renderExperience(this.state.user.experiences.indexOf(experience), experience))}
 			</View>
 		)
+	}
+
+	removeExperience(key) {
+		return function() {
+			let user = this.state.user
+			user.experiences.splice(key, 1)
+			this.setState({ user })
+		}.bind(this)
 	}
 
 	renderExperience(key, experience) {
 		return (
 			<View key={key}>
-				{this.renderInputCell(true, 'Name', 'ex.Product manager at Facebook', experience.name)}
-				{this.renderInputCell(true, 'Starting date', 'ex.02/11/2016', experience.start)}
-				{this.renderInputCell(true, 'End date', 'Present', experience.end)}
-				{this.renderInputCell(false, 'Description', 'I worked as a product manager at Facebook', experience.description)}
-				<TouchableOpacity>
+				{this.renderInputCell(true, 'Name', 'ex. Product manager at Facebook', experience.name, key)}
+				{this.renderInputCell(true, 'Starting date', 'ex.02/11/2016', experience.start, key)}
+				{this.renderInputCell(true, 'End date', 'Present', experience.end, key)}
+				{this.renderInputCell(false, 'Description', 'I worked as a product manager at Facebook', experience.description, key)}
+				<TouchableOpacity onPress={this.removeExperience(key)}>
 					<Text style={styles.deleteButtonTextStyle}>Delete</Text>
 				</TouchableOpacity>
 				{this.renderShortLine()}
@@ -94,53 +79,161 @@ class Edit extends Component {
 		)
 	}
 
+	addExperience() {
+		let blankExperience = {
+			name: '',
+			description: '',
+			start: '',
+			end: ''
+		}
+		let user = this.state.user
+		user.experiences.push(blankExperience)
+		this.setState({ user })
+	}
+
 	renderTitle(text, image) {
 		return(
 			<View style={styles.titleViewStyle}>
 				<Text style={styles.titleStyle}>{text}</Text>
-				<TouchableOpacity style={styles.titleButtonStyle}>
+				<TouchableOpacity style={styles.titleButtonStyle} onPress={this.addExperience.bind(this)}>
 					<Image style={styles.titleImageStyle} source={image}></Image>
 				</TouchableOpacity>
 			</View>
 		)
 	}
 
-	renderInputCell(collapse, title, placeholder, value) {
+	// FIXME: REFACTOR THIS
+	fieldValueDidChange(title, index) {
+		return function(value) {
+			let user = this.state.user
+			switch (title) {
+				case "Status":
+					user.status = value
+					break
+				case "Bio":
+					user.bio = value
+					break
+				case "Age":
+					user.about.age = Number(value) || user.age
+					break
+				case "Education":
+					user.about.school = value
+					break
+				case "Profession":
+					user.about.profession = value
+					break
+				case "Work":
+					user.about.job = value
+					break
+				case "Name":
+					user.experiences[index].name = value
+					break
+				case "Starting date":
+					user.experiences[index].start = value
+					break
+				case "End date":
+					user.experiences[index].end = value
+					break
+				case "Description":
+					user.experiences[index].description = value
+					break
+				default:
+					break
+			}
+			this.setState({ user })
+		}.bind(this)
+	}
+
+	// FIXME: REFACTOR THIS
+	valueForField(title, index) {
+		let user = this.state.user
+		switch (title) {
+			case "Status":
+				return user.status
+			case "Bio":
+				return user.bio
+			case "Age":
+				if (user.about.age) {
+					return user.about.age.toString()
+				}
+				return ""
+			case "Education":
+				return user.about.school
+			case "Profession":
+				return user.about.profession
+			case "Work":
+				return user.about.job
+			case "Name":
+				return user.experiences[index].name
+			case "Starting date":
+				return user.experiences[index].start
+			case "End date":
+				return user.experiences[index].end
+			case "Description":
+				return user.experiences[index].description
+			default:
+				break
+		}
+	}
+
+	renderInputCell(collapse, title, placeholder, value, index) {
+
+		let valueDidChange = this.fieldValueDidChange(title, index)
+
+		let userValue = this.valueForField(title, index)
 		if (collapse) {
 			return (
 				<View style={styles.cellCollapseStyle}>
 					<Text style={styles.cellTitleCollapseStyle}>{title}</Text>
-					<TextInput value={value} style={styles.cellTextInputCollapseStyle} placeholder={placeholder}></TextInput>
+					<TextInput value={userValue || value} style={styles.cellTextInputCollapseStyle} placeholder={placeholder} onChangeText={valueDidChange}></TextInput>
 				</View>
 			)
 		} else {
 			return (
 				<View style={styles.cellStyle}>
-					<TextInput value={value} multiline={true} style={styles.cellTextInputStyle} placeholder={placeholder}></TextInput>
+					<TextInput value={userValue || value} multiline={true} style={styles.cellTextInputStyle} placeholder={placeholder} onChangeText={valueDidChange}></TextInput>
 				</View>
 			)
 		}
 	}
 
+	experienceIsValid(experience) {
+		return experience.name != "" && 
+			experience.description != "" &&
+			experience.start != "" &&
+			experience.end != ""
+	}
+
+	// TODO: Error Handling. Currently removing all invalid experiences. Should highlight them instead.
+	saveButtonPressed() {
+		let user = this.state.user
+		user.experiences = user.experiences.filter( (exp) => this.experienceIsValid(exp) )
+		this.setState({ user })
+		this.props.setCurrentUser(this.state.user)
+		Actions.pop({refresh: {test: true}})
+	}
+
     render() {
+		let user = this.state.user
+		let about = user.about
+
         return (
 			<View style={styles.containerStyle}>
 				<ScrollView>
 					{this.renderTitle("Status")}
-					{this.renderInputCell(false, 'Status', 'ex.I have a cool project idea, and I am looking for a business partner ')}
+					{this.renderInputCell(false, 'Status', 'ex.I have a cool project idea, and I am looking for a business partner ', user.status)}
 					{this.renderLine()}
 					{this.renderTitle("About me")}
-					{this.renderInputCell(true, 'Age', 'ex.35')}
-					{this.renderInputCell(true, 'Education', 'ex.Nety College')}
-					{this.renderInputCell(true, 'Profession', 'ex.Software engineering')}
-					{this.renderInputCell(true, 'Work', 'ex.Backend engineer at Nety')}
+					{this.renderInputCell(true, 'Bio', 'I am a passionate hardworking person that does yoga.', user.bio)}
+					{this.renderInputCell(true, 'Age', 'ex.35', about.age)}
+					{this.renderInputCell(true, 'Education', 'ex.Nety College', about.school)}
+					{this.renderInputCell(true, 'Profession', 'ex.Software engineering', about.profession)}
+					{this.renderInputCell(true, 'Work', 'ex.Backend engineer at Nety', about.job)}
 					{this.renderLine()}
 					{this.renderTitle("Experiences", AddButtonImage)}
 					{this.renderExperiences()}
 				</ScrollView>
-				<TouchableOpacity onPress={() => {
-						Actions.pop()
-					}} style={styles.buttonStyle}>
+				<TouchableOpacity onPress={this.saveButtonPressed.bind(this)} style={styles.buttonStyle}>
 					<Text style={styles.buttonTextStyle}>Save</Text>
 				</TouchableOpacity>
 			</View>
@@ -258,4 +351,6 @@ const styles = StyleSheet.create({
 	}
 })
 
-export default Edit;
+
+
+export default connect((state) => ({}), profileActions)(Edit);

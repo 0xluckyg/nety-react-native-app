@@ -7,7 +7,7 @@ import {
     TouchableHighlight
 } from 'react-native';
 
-import {Trump} from '../../../images/images';
+// import {Trump} from '../../../images/images';
 import {MyColors} from '../../../helper/style';
 
 class Cell extends Component {
@@ -31,14 +31,14 @@ class Cell extends Component {
             >
                 <View style={styles.rowStyle}>
                     <View style={styles.rowImageViewStyle}>
-                        <Image style={styles.rowImageStyle} source={Trump}/>
+                        <Image style={styles.rowImageStyle} source={{uri: this.props.data.imageUrl}}/>
                     </View>
                     <View style={styles.rowContentStyle}>
                         <View>
-                            <Text style={styles.topTextStyle}>Donald Trump</Text>
+                            <Text style={styles.topTextStyle}>{this.props.data.firstName + " " + this.props.data.lastName}</Text>
                         </View>
                         <View style={styles.middleContentStyle}>
-                            <Text style={styles.middleTextStyle}>Grab them by the pussy!</Text>
+                            <Text style={styles.middleTextStyle}>{this.props.data.status}</Text>
                             {this.renderChatNotifications(this.props.isChat)}
                         </View>
                         <View style={styles.bottomContentStyle}>

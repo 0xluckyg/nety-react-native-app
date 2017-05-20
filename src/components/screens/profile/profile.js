@@ -12,41 +12,14 @@ import {
 
 import ParallaxScrollView from 'react-native-parallax-scroll-view';
 import { Actions } from 'react-native-router-flux';
+import { connect } from 'react-redux';
 
+import * as profileActions from '../../../actions/profileActions';
+import * as contactsActions from '../../../actions/contactsActions';
 import {ChatButtonImage, EditButtonImage} from '../../../images/images';
 import {MyColors} from '../../../helper/style';
 import {Background1, Trump} from '../../../images/images';
 import Cell from './profileCell';
-
-const mockData = {
-    status: "I am somekid",
-    about: {
-        age: 35,
-        school: 'Some college',
-        profession: 'Computer science',
-        job: 'Some job'
-    },
-    experiences: [
-        {
-            name: 'Software Engineer at Nety',
-            description: 'I worked as an app developer awoeifjaowiejfo awoifjaow awo ije foawij oaiwejf oaiwej foijaw oefijawe ',
-            start: 'Mar 10, 16',
-            end: 'Mar 10, 17'
-        },
-        {
-            name: 'App developer at TRN',
-            description: 'I worked as an app developer',
-            start: 'Mar 10, 16',
-            end: 'Mar 10, 17'
-        },
-        {
-            name: 'Marketer at Facebook',
-            description: 'I worked as an app developer',
-            start: 'Mar 10, 16',
-            end: 'Mar 10, 17'
-        }
-    ]
-}
 
 class Profile extends Component {
     constructor(props) {
@@ -55,11 +28,20 @@ class Profile extends Component {
         this.renderStaticButton = this.renderStaticButton.bind(this);
     }
 
+    displayedUser() {
+        return this.props.user || this.props.currentUser
+    }
+
+    messageButtonPressed() {
+        this.props.addToContacts([this.props.user])
+        Actions.chatRoomFromNetwork()
+    }
+
     renderStaticButton() {
         if (this.props.isMyProfile) {
             return (
                 <View style={styles.staticButtonMyProfile}>
-                    <TouchableOpacity style={styles.staticButtonTouchableStyle} onPress={() => Actions.myProfileEdit()}>
+                    <TouchableOpacity style={styles.staticButtonTouchableStyle} onPress={() => (Actions.myProfileEdit({user: this.props.currentUser}))}>
                         <Image style={styles.staticButtonImageStyle} source={EditButtonImage}/>
                     </TouchableOpacity>
                 </View>
@@ -67,7 +49,7 @@ class Profile extends Component {
         } else {
             return (
                 <View style={styles.staticButton}>
-                    <TouchableOpacity style={styles.staticButtonTouchableStyle} onPress={() => Actions.chatRoomFromNetwork()}>
+                    <TouchableOpacity style={styles.staticButtonTouchableStyle} onPress={() => this.messageButtonPressed()}>
                         <Image style={styles.staticButtonImageStyle} source={ChatButtonImage}/>
                     </TouchableOpacity>
                 </View>
@@ -97,18 +79,18 @@ class Profile extends Component {
                     )}
                     renderForeground={() => (
                         <View key="parallax-header" style={ styles.parallaxHeader }>
-                            <Image style={ styles.avatar } source={Trump}/>
+                            <Image style={ styles.avatar } source={ {uri: this.displayedUser().imageUrl} }/>
                             <Text style={ styles.sectionSpeakerText }>
-                                Donald Trump
+                                {this.displayedUser().firstName + " " + this.displayedUser().lastName}
                             </Text>
                             <Text style={ styles.sectionTitleText }>
-                                President of the U.S
+                                {this.displayedUser().bio || "This user has no bio"}
                             </Text>
                         </View>
                     )}
                 >
                     <View style={{ flex: 1 }}>
-                        <Cell isMyProfile={this.props.isMyProfile} data={mockData}/>
+                        <Cell isMyProfile={!!this.props.currentUser} data={this.displayedUser()}/>
                     </View>
                 </ParallaxScrollView>
                 {this.renderStaticButton()}
@@ -116,6 +98,11 @@ class Profile extends Component {
         );
     }
 }
+
+
+
+
+
 
 const window = Dimensions.get('window');
 
@@ -208,4 +195,10 @@ const styles = StyleSheet.create({
     }
 });
 
-export default Profile;
+const mapStateToProps = (state) => (
+	{
+		currentUser: state.profile.currentUser,
+	}
+)
+
+export default connect(mapStateToProps, {...profileActions, ...contactsActions})(Profile);
