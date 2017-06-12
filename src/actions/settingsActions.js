@@ -1,9 +1,9 @@
-import * as actionTypes from './actionTypes'
+import {BLOCK_USER, UNBLOCK_USER} from '../helper/constants.js'
 
 export function blockUser(user) {
-    return { type: actionTypes.BLOCK_USER, user }
+    return { type: BLOCK_USER, user }
 }
 
 export function unblockUser(user) {
-    return { type: actionTypes.unblockUser, user}
+    return { type: UNBLOCK_USER, user}
 }

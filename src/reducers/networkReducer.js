@@ -1,4 +1,4 @@
-import { ADD_TO_NETWORK, REMOVE_FROM_NETWORK, UPDATE_RANGE } from '../actions/actionTypes.js'
+import { ADD_TO_NETWORK, REMOVE_FROM_NETWORK, UPDATE_RANGE } from '../helper/constants.js'
 import Reactotron from 'reactotron-react-native'
 import _ from 'lodash';
 

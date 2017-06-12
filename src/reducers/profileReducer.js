@@ -1,4 +1,4 @@
-import { SET_CURRENT_USER } from '../actions/actionTypes.js'
+import { SET_CURRENT_USER } from '../helper/constants.js'
 
 const initialState = {
     currentUser: {}

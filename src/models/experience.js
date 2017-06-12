@@ -1,5 +1,3 @@
-var Realm = require("realm")
-
 const ExperienceSchema = {
     name: 'Experience',
     primaryKey: 'id',

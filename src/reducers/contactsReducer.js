@@ -1,4 +1,4 @@
-import { ADD_CONTACT, REMOVE_CONTACT } from '../actions/actionTypes.js'
+import { ADD_CONTACT, REMOVE_CONTACT } from '../helper/constants.js'
 import _ from 'lodash';
 
 const initialState = {

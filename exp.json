@@ -1,0 +1,14 @@
+{
+	"name": "Nety-ReactNative",
+	"icon": "./src/images/NetyIcon.png",
+	"version": "1.0.0",
+	"slug": "nety-reactnative",
+	"ios": {
+		"bundleIdentifier": "com.change.nety"
+	},
+	"android": {
+		"package": "com.change.nety"
+	},	
+	"sdkVersion": "17.0.0"
+	
+}

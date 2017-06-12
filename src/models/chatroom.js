@@ -1,5 +1,3 @@
-var Realm = require("realm")
-
 const ChatroomSchema = {
     name: 'Chatroom',
     primaryKey: 'id',

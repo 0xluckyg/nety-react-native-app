@@ -172,7 +172,7 @@ export const initialUsers = [
 ///////////////////////////////////////////////////////////////////////////////////
 ///////////////////////////////////////////////////////////////////////////////////
 
-class App extends Component {
+class Main extends Component {
 
   componentDidMount() {
     this.props.addToNetwork(initialUsers)
@@ -197,4 +197,4 @@ const mapStateToProps = (state) => (
 )
 
 const actions = { ...networkActions, ...profileActions, ...contactsActions}
-export default connect(mapStateToProps, actions)(App);
+export default connect(mapStateToProps, actions)(Main);

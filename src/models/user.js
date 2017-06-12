@@ -1,5 +1,3 @@
-var Realm = require("realm")
-
 const UserSchema = {
     name: 'User',
     primaryKey: 'id',

@@ -1,10 +1,9 @@
-import * as actionTypes from './actionTypes'
+import {ADD_CONTACT, REMOVE_CONTACT} from '../helper/constants.js'
 
 export function addToContacts(users) {
-    return { type: actionTypes.ADD_CONTACT, users }
+    return { type: ADD_CONTACT, users }
 }
 
 export function removeFromContacts(users) {
-    return { type: actionTypes.REMOVE_CONTACT, users }
+    return { type: REMOVE_CONTACT, users }
 }
-

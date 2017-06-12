@@ -1,4 +1,4 @@
-import { BLOCK_USER, UNBLOCK_USER } from '../actions/actionTypes.js'
+import { BLOCK_USER, UNBLOCK_USER } from '../helper/constants.js'
 
 const initialState = {
     blockedUsers: []
