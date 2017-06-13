@@ -1,10 +1,56 @@
 import React, { Component } from 'react';
+import { View, StyleSheet } from 'react-native';
 import { connect } from 'react-redux';
 import Router from './components/routes';
 import * as networkActions from './actions/networkActions';
 import * as profileActions from './actions/profileActions';
 import * as contactsActions from './actions/contactsActions';
 // import initialUsers from './helper/initialUsers'
+
+import {MyColors} from './helper/style';
+import Spinner from './components/reusables/spinner';
+
+class Main extends Component {
+
+  componentDidMount() {
+    this.props.addToNetwork(initialUsers)
+    this.props.setCurrentUser(currentUser)
+    this.props.addToContacts([contact])
+  }
+
+  render() {
+    return (
+        <View style={styles.mainViewStyle}>
+            <Spinner/>
+            <Router/>
+        </View>
+    );
+  }
+}
+
+const styles = StyleSheet.create({
+    mainViewStyle: {
+        flex: 1
+    }
+});
+
+const mapStateToProps = (state) => (
+	{
+		network: state.network.network,
+		range: state.network.range,
+        currentUser: state.profile.currentUser,
+        contacts: state.contacts.contacts
+	}
+)
+
+const actions = { ...networkActions, ...profileActions, ...contactsActions}
+export default connect(mapStateToProps, actions)(Main);
+
+
+///////////////////////////////////////////////////////////////////////////////////
+///////////////////////////////////////////////////////////////////////////////////
+///////////////////////////////////////////////////////////////////////////////////
+
 
 export const currentUser = {
   id: 0,
@@ -167,34 +213,3 @@ export const initialUsers = [
         ]
 	}
 ]
-
-///////////////////////////////////////////////////////////////////////////////////
-///////////////////////////////////////////////////////////////////////////////////
-///////////////////////////////////////////////////////////////////////////////////
-
-class Main extends Component {
-
-  componentDidMount() {
-    this.props.addToNetwork(initialUsers)
-    this.props.setCurrentUser(currentUser)
-    this.props.addToContacts([contact])
-  }
-
-  render() {
-    return (
-      <Router/>
-    );
-  }
-}
-
-const mapStateToProps = (state) => (
-	{
-		network: state.network.network,
-		range: state.network.range,
-        currentUser: state.profile.currentUser,
-        contacts: state.contacts.contacts
-	}
-)
-
-const actions = { ...networkActions, ...profileActions, ...contactsActions}
-export default connect(mapStateToProps, actions)(Main);
