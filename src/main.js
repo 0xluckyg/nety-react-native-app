@@ -21,7 +21,7 @@ class Main extends Component {
   render() {
     return (
         <View style={styles.mainViewStyle}>
-            <Spinner/>
+            {/*<Spinner/>*/}
             <Router/>
         </View>
     );
