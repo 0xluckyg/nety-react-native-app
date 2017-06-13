@@ -10,7 +10,6 @@ import Settings from './screens/settings';
 import ChatRoom from './screens/chatRoom'
 import MyProfileEdit from './screens/profile/edit';
 import Splash from './screens/authentication/splash'
-import Login from './screens/authentication/login'
 import Signup from './screens/authentication/signup'
 
 import {MyColors} from '../helper/style';
@@ -57,8 +56,7 @@ const RouterComponent = () => {
             <Scene
                 key='root'
             >
-                <Scene hideNavBar key='splash' component={Splash} initial/>
-                <Scene hideNavBar key='login' component={Login} />
+                <Scene hideNavBar key='splash' component={Splash} initial/>                
                 <Scene hideNavBar key='signup' component={Signup} />
 
                 <Scene

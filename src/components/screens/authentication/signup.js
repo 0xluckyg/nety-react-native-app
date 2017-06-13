@@ -51,7 +51,7 @@ export default class Signup extends Component {
                     name: 'email',
                     placeholder: 'Email',
                     keyboardType: 'email-address',
-                      validations: validations.email
+                    validations: validations.email
                 },
                 {
                     name: 'password',
