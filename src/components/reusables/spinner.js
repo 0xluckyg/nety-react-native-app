@@ -63,13 +63,12 @@ const styles = StyleSheet.create({
         flexDirection: 'column',
         justifyContent: 'space-between'
     },
-    circleStyle: {
-        // flex: 1,
+    circleStyle: {    
         width: 20,
         height: 20,
         borderRadius: 10,
         backgroundColor: MyColors.myBlue,  
-        opacity: 0.7
+        opacity: 0.8
     }
 });
 
