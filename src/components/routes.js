@@ -1,5 +1,5 @@
 import React, {Component} from 'react';
-import {Image} from 'react-native';
+import {Image, TouchableOpacity} from 'react-native';
 import {Router, Scene} from 'react-native-router-flux';
 
 import Network from './screens/network';
@@ -54,15 +54,34 @@ const RouterComponent = () => {
     return(
         <Router>
             <Scene
-                key='root'
-            >
-                <Scene hideNavBar key='splash' component={Splash} initial/>                
-                <Scene hideNavBar key='signup' component={Signup} />
+                key='root'                
+            >                
+                <Scene 
+                    key='splash' 
+                    component={Splash} 
+                    initial
+                    hideNavBar
+                />                             
+                <Scene 
+                    key='signup' 
+                    navigationBarStyle={styles.authHeaderStyle}
+                    component={Signup} 
+                    renderBackButton={() => {
+                        return (
+                            <TouchableOpacity onPress={() => Actions.pop()} >
+                                <Image 
+                                    style={styles.backButtonStyle}                                     
+                                    source={BackButtonImage} />                                
+                            </TouchableOpacity>                        
+                        )
+                    }}
+                    hideNavBar={false}
+                />
 
-                <Scene
+                <Scene                    
                     key='tabBar'
                     tabBarStyle={styles.footerStyle}
-                    tabs
+                    tabs                    
                 >
                     <Scene key='networkTab' title='networkTab' icon={TabIcon}>
                         <Scene
@@ -73,6 +92,7 @@ const RouterComponent = () => {
                             sceneStyle={styles.sceneStyle}
                             title='Network'
                             initial
+                            hideBackImage
                         />
                         <Scene
                             key='profile'
@@ -105,6 +125,7 @@ const RouterComponent = () => {
                             titleStyle={styles.headerFontStyle}
                             sceneStyle={styles.sceneStyle}
                             title='Contacts'
+                            hideBackImage
                         />
                     </Scene>
                     <Scene key='chatsTab' title='chatsTab' icon={TabIcon}>
@@ -115,6 +136,7 @@ const RouterComponent = () => {
                             titleStyle={styles.headerFontStyle}
                             sceneStyle={styles.sceneStyle}
                             title='My Chats'
+                            hideBackImage
                         />
                         <Scene
                             key='chatRoomFromChats'
@@ -136,6 +158,7 @@ const RouterComponent = () => {
                             navigationBarStyle={styles.headerStyle}
                             isMyProfile={true}
                             title='My Profile'
+                            hideBackImage
                         />
                         <Scene
                             key='myProfileEdit'
@@ -156,6 +179,7 @@ const RouterComponent = () => {
                             titleStyle={styles.headerFontStyle}
                             sceneStyle={styles.sceneStyle}
                             title='Settings'
+                            hideBackImage
                         />
                     </Scene>
                 </Scene>
@@ -165,6 +189,17 @@ const RouterComponent = () => {
 }
 
 const styles = {
+    authHeaderStyle: {
+        height:60,
+        borderBottomColor: 'transparent',
+        backgroundColor: 'transparent'
+    },
+    backButtonStyle: {
+        height: 25,
+        width: 25,
+        resizeMode: 'contain',
+        tintColor: 'white'
+    },
     headerStyle: {
         height:60,
         borderBottomWidth: 0.5,
