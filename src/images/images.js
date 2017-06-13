@@ -30,6 +30,9 @@ const AddButtonImage = require('./profile/Add.png');
 const FacebookThumbnailImage = require('./settings/FacebookThumbnail.png');
 const LinkedInThumbnailImage = require('./settings/LinkedInThumbnail.png');
 
+//Toast
+const CheckmarkImage = require('./Checkmark.png');
+
 module.exports = {
     Trump,
     Background1,
@@ -55,5 +58,7 @@ module.exports = {
     AddButtonImage,
 
     FacebookThumbnailImage,
-    LinkedInThumbnailImage
+    LinkedInThumbnailImage,
+    
+    CheckmarkImage
 }

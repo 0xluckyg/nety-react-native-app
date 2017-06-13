@@ -9,6 +9,7 @@ import * as contactsActions from './actions/contactsActions';
 
 import {MyColors} from './helper/style';
 import Spinner from './components/reusables/spinner';
+import Toast from './components/reusables/toast';
 
 class Main extends Component {
 
@@ -21,7 +22,7 @@ class Main extends Component {
   render() {
     return (
         <View style={styles.mainViewStyle}>
-            <Spinner/>
+            <Toast/>
             <Router/>
         </View>
     );
