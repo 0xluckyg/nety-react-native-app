@@ -1,8 +1,8 @@
 {
   "expoServerPort": 19000,
-  "packagerPort": 19002,
-  "packagerPid": 61633,
-  "expoServerNgrokUrl": "https://ib-edb.magfurulabeer.nety-rnapp.exp.direct",
-  "packagerNgrokUrl": "https://packager.ib-edb.magfurulabeer.nety-rnapp.exp.direct",
-  "ngrokPid": 61647
+  "packagerPort": 19001,
+  "packagerPid": 9617,
+  "expoServerNgrokUrl": "https://gh-6nd.scottsgcho.nety-rnapp.exp.direct",
+  "packagerNgrokUrl": "https://packager.gh-6nd.scottsgcho.nety-rnapp.exp.direct",
+  "ngrokPid": 9638
 }

@@ -38,7 +38,8 @@ export default class Login extends Component {
                 fieldStyle: styles.field,
                 containerStyle: styles.fieldContainer,
                 placeholderColor: 'lightgray',
-                // errorStyle: {borderBottomWidth: 1, borderColor: 'red'}
+                errorStyle: {},
+                errorTextStyle: styles.errorTextStyle
             },
             fields: [
                 {
@@ -61,8 +62,7 @@ export default class Login extends Component {
             half, 
             center, 
             bottom, 
-            button, 
-            buttonBlue, 
+            button,             
             buttonText, 
             overlay, 
             paddingBottom25 
@@ -76,7 +76,7 @@ export default class Login extends Component {
                         <Form formula={structure} values={this.state.values} onChange={values => this.setState(values)} />
                         <TouchableOpacity
                             onPress={() => Actions.tabBar({type: 'replace'})}
-                            style={[button, buttonBlue, center]}
+                            style={[button, center]}
                         >
                             <Text style={buttonText}>Log In</Text>
                         </TouchableOpacity>
@@ -120,11 +120,11 @@ const styles = StyleSheet.create({
         alignItems: 'center',
         justifyContent: 'flex-end'
     },
-    button: {
-        width: screenWidth * 0.9,
-        height: 44,
-        borderRadius: screenWidth * 0.9 / 30,
-        backgroundColor: 'rgba(0,0,0,0.5)',
+    button: {        
+        width: screenWidth * 0.4,
+        height: 44,        
+        borderWidth: 1,
+        borderColor: 'white',
         marginTop: 25
     },
     buttonText: {
@@ -132,22 +132,19 @@ const styles = StyleSheet.create({
         fontFamily: 'Avenir',
         fontSize: 16,
     },
-    buttonBlue: {
-        backgroundColor: 'rgba(0,0,255,0.5)'
-    },
     paddingBottom25: {
         paddingBottom: 25
     },
     field: {
         fontFamily: 'Avenir',
-        fontSize: 20,
+        fontSize: 16,
         fontColor: 'white',
         marginLeft: 10,
         height: 44,
         color: 'white'
     },
     fieldContainer: {
-        width: screenWidth * 0.9,
+        width: screenWidth * 0.7,
         height: 44,
         borderBottomWidth: 1,
         borderColor: 'lightgray',
@@ -155,5 +152,12 @@ const styles = StyleSheet.create({
         justifyContent: 'center',
         textAlign: 'left',
         marginBottom: 10
+    },
+    errorTextStyle: {        
+        alignSelf: 'center',
+        fontFamily: 'Avenir',
+        fontSize: 16,
+        color: 'white',
+        paddingTop: 30                                    
     }
 })

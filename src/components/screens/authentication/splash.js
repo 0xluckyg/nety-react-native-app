@@ -1,6 +1,7 @@
 import React, { Component } from 'react'
 import { View, Text, TouchableOpacity, Image, StyleSheet, Dimensions } from 'react-native'
 import { Actions } from 'react-native-router-flux'
+import {MyColors} from '../../../helper/style';
 
 const screenHeight = Dimensions.get('window').height
 const screenWidth = Dimensions.get('window').width
@@ -10,14 +11,15 @@ export default class Splash extends Component {
         const { 
             backgroundImage, 
             icon, 
-            half, 
+            twoFifth, 
             center, 
             bottom, 
             button, 
             buttonBlue, 
             buttonText, 
             overlay, 
-            paddingBottom25 
+            paddingBottom25,
+            threeFifth
         } = styles
         return (
                 <Image
@@ -25,14 +27,14 @@ export default class Splash extends Component {
                     style={backgroundImage}
                 >
                     <View style={overlay}>
-                        <View style={[half, center]}>
+                        <View style={[twoFifth, center]}>
                             <Image
                                 source={require('../../../images/LogoTransparent.png')}
                                 style={icon}
                             />
                         </View>
 
-                        <View style={[half, bottom, paddingBottom25]}>
+                        <View style={[threeFifth, bottom, paddingBottom25]}>
                             <TouchableOpacity
                                 onPress={() => Actions.login()}
                                 style={[button, center]}
@@ -70,14 +72,17 @@ const styles = StyleSheet.create({
         backgroundColor: 'rgba(0,0,0,0.5)'
     },
     icon: {
-        width: screenWidth / 3,
-        height: screenWidth / 3
+        width: screenWidth / 3.5,
+        height: screenWidth / 3.5
     },
     title: {
         color: 'white'
     },
-    half: {
-        flex: 1
+    twoFifth: {
+        flex: 2
+    },
+    threeFifth: {
+        flex: 3
     },
     center: {
         alignItems: 'center',
@@ -100,7 +105,7 @@ const styles = StyleSheet.create({
         fontSize: 16,
     },
     buttonBlue: {
-        backgroundColor: 'rgba(0,0,255,0.5)'
+        backgroundColor: MyColors.myBlue
     },
     paddingBottom25: {
         paddingBottom: 25

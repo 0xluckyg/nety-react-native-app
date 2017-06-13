@@ -205,6 +205,7 @@ class Form extends React.Component {
         let errorMessage = `${_.capitalize(name)} and confirmation do not match!`
 
         if (originalValue !== confirmationValue) {
+          errors.clear();
           errors.add(errorMessage)
           invalidFields.add(name)
           invalidFields.add(confirmationName)
@@ -220,6 +221,7 @@ class Form extends React.Component {
 
         field.validations.forEach((validation) => {
           if (!validation.predicate(value)) {
+            errors.clear();
             errors.add(validation.message)
             invalidFields.add(field.name)
           } else {
@@ -379,7 +381,7 @@ class Form extends React.Component {
   validateFields () {
     let errors = [...this.state.errors]
     if (errors && errors.length > 0) {
-      let style = this.props.formula.config.errorTextStyle || {textAlign: 'center', color: 'red', fontSize: 12}
+      let style = this.props.formula.config.errorTextStyle || {textAlign: 'center', color: 'red', fontSize: 14}
       return (
         <View style={{marginBottom: 15}}>
           { errors.map((value, i) => <Text key={'Error ' + i} style={style}>{value}</Text>) }
