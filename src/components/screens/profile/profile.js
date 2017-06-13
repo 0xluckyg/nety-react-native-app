@@ -34,11 +34,15 @@ class Profile extends Component {
 
     messageButtonPressed() {
         this.props.addToContacts([this.props.user])
-        Actions.chatRoomFromNetwork()
+        if (this.props.fromType === 'network') {
+            Actions.chatRoomFromNetwork()
+        } else if (this.props.fromType === 'contacts') {
+            Actions.chatRoomFromContacts()
+        }
     }
 
     renderStaticButton() {
-        if (this.props.isMyProfile) {
+        if (this.props.fromType === 'myProfile') {
             return (
                 <View style={styles.staticButtonMyProfile}>
                     <TouchableOpacity style={styles.staticButtonTouchableStyle} onPress={() => (Actions.myProfileEdit({user: this.props.currentUser}))}>

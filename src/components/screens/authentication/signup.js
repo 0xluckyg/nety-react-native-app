@@ -1,7 +1,7 @@
 import React, { Component } from 'react'
-import { View, Text, TouchableOpacity, Image, StyleSheet, Dimensions } from 'react-native'
+import { View, Keyboard, KeyboardAvoidingView, Text, TouchableOpacity, TouchableWithoutFeedback, Image, StyleSheet, Dimensions } from 'react-native'
 import { Actions } from 'react-native-router-flux'
-import Form from '../../../helper/Formula'
+import Form from './form';
 
 const screenHeight = Dimensions.get('window').height
 const screenWidth = Dimensions.get('window').width
@@ -70,6 +70,7 @@ export default class Signup extends Component {
         }
 
         const { 
+            avoidingView,
             backgroundImage, 
             icon, 
             half, 
@@ -81,26 +82,36 @@ export default class Signup extends Component {
             paddingBottom25 
         } = styles
         return (
-                <Image
-                    source={require('../../../images/mock/Background1.png')}
-                    style={backgroundImage}
-                >
-                    <View style={[overlay, center]}>
-                        <Form formula={structure} values={this.state.values} onChange={values => this.setState(values)} />
-                        <TouchableOpacity
-                            onPress={() => Actions.tabBar({type: 'replace'})} 
-                            style={[button, center]}
-                        >
-                            <Text style={buttonText}>Sign Up</Text>
-                        </TouchableOpacity>
-                    </View>
-                   
-                </Image>
+            <KeyboardAvoidingView
+                behavior='padding'
+                style={avoidingView}
+            >
+                <TouchableWithoutFeedback onPress={Keyboard.dismiss}>
+                    <Image
+                        source={require('../../../images/mock/Background1.png')}
+                        style={backgroundImage}
+                    >
+                        <View style={[overlay, center]}>
+                            <Form formula={structure} values={this.state.values} onChange={values => this.setState(values)} />
+                            <TouchableOpacity
+                                onPress={() => Actions.tabBar({type: 'replace'})} 
+                                style={[button, center]}
+                            >
+                                <Text style={buttonText}>Sign Up</Text>
+                            </TouchableOpacity>
+                        </View>
+                    
+                    </Image>
+                </TouchableWithoutFeedback>
+            </KeyboardAvoidingView>
         )
     }
 }
 
 const styles = StyleSheet.create({
+    avoidingView: {
+        flex: 1
+    },
     backgroundImage: {
         flex: 1,
         width: null,

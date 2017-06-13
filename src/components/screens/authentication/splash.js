@@ -1,8 +1,8 @@
 import React, { Component } from 'react'
-import { View, Text, TouchableOpacity, Image, StyleSheet, Dimensions } from 'react-native'
+import { Keyboard, KeyboardAvoidingView, TouchableWithoutFeedback, View, Text, TouchableOpacity, Image, StyleSheet, Dimensions } from 'react-native'
 import { Actions } from 'react-native-router-flux'
 import {MyColors} from '../../../helper/style';
-import Form from '../../../helper/Formula';
+import Form from './form';
 import {FacebookThumbnailImage, LinkedInThumbnailImage} from '../../../images/images'
 
 const screenHeight = Dimensions.get('window').height
@@ -19,6 +19,7 @@ export default class Splash extends Component {
 
     render() {
         const { 
+            avoidingView,
             backgroundImage, 
             icon,             
             center, 
@@ -32,7 +33,7 @@ export default class Splash extends Component {
             oAuth,
             facebook,
             linkedin,
-            thumbnailStyle
+            thumbnailStyle            
         } = styles
 
         const structure = {
@@ -58,58 +59,67 @@ export default class Splash extends Component {
         }
         
         return (
-                <Image
-                    source={require('../../../images/mock/Background1.png')}
-                    style={styles.backgroundImage}
-                >
-                    <View style={overlay}>
-                        <View style={[half, center]}>
-                            <Image
-                                source={require('../../../images/LogoTransparent.png')}
-                                style={styles.icon}
-                            />
-                        </View>
+            <KeyboardAvoidingView
+                behavior='padding'
+                style={avoidingView}
+            >
+                <TouchableWithoutFeedback onPress={Keyboard.dismiss}>
+                    <Image
+                        source={require('../../../images/mock/Background1.png')}
+                        style={styles.backgroundImage}
+                    >
+                        <View style={overlay}>
+                            <View style={[half, center]}>
+                                <Image
+                                    source={require('../../../images/LogoTransparent.png')}
+                                    style={styles.icon}
+                                />
+                            </View>
 
-                        <View style={center}>
-                            <Form formula={structure} values={this.state.values} onChange={values => this.setState(values)} />
-                            <TouchableOpacity
-                                onPress={() => Actions.tabBar({type: 'replace'})}
-                                style={[button, center]}
-                            >
-                                <Text style={buttonText}>Login!</Text>
-                            </TouchableOpacity>
-                        </View>
+                            <View style={center}>
+                                <Form formula={structure} values={this.state.values} onChange={values => this.setState(values)} />
+                                <TouchableOpacity
+                                    onPress={() => Actions.tabBar({type: 'replace'})}
+                                    style={[button, center]}
+                                >
+                                    <Text style={buttonText}>Login!</Text>
+                                </TouchableOpacity>
+                            </View>
 
-                        <View style={[half, bottom]}>
-                            <TouchableOpacity
-                                onPress={() => Actions.signup()}
-                                style={[center, createAccount]}
-                            >
-                                <Text style={buttonText}>Create account?</Text>
-                            </TouchableOpacity>
-                            <TouchableOpacity
-                                onPress={() => {}}
-                                style={[oAuth, facebook, center]}
-                            >
-                                <Image style={thumbnailStyle} source={FacebookThumbnailImage}/>
-                                <Text style={buttonText}>Facebook</Text>
-                            </TouchableOpacity>                            
-                            <TouchableOpacity
-                                onPress={() => {}}
-                                style={[oAuth, linkedin, center]}
-                            >
-                                <Image style={thumbnailStyle} source={LinkedInThumbnailImage}/>
-                                <Text style={buttonText}>Linkedin</Text>
-                            </TouchableOpacity>
-                        </View>
-                    </View>
-                   
-                </Image>
+                            <View style={[half, bottom]}>
+                                <TouchableOpacity
+                                    onPress={() => Actions.signup()}
+                                    style={[center, createAccount]}
+                                >
+                                    <Text style={buttonText}>Create account?</Text>
+                                </TouchableOpacity>
+                                <TouchableOpacity
+                                    onPress={() => {}}
+                                    style={[oAuth, facebook, center]}
+                                >
+                                    <Image style={thumbnailStyle} source={FacebookThumbnailImage}/>
+                                    <Text style={buttonText}>Facebook</Text>
+                                </TouchableOpacity>                            
+                                <TouchableOpacity
+                                    onPress={() => {}}
+                                    style={[oAuth, linkedin, center]}
+                                >
+                                    <Image style={thumbnailStyle} source={LinkedInThumbnailImage}/>
+                                    <Text style={buttonText}>Linkedin</Text>
+                                </TouchableOpacity>
+                            </View>
+                        </View>                   
+                    </Image>
+                </TouchableWithoutFeedback>
+            </KeyboardAvoidingView>
         )
     }
 }
 
 const styles = StyleSheet.create({
+    avoidingView: {
+        flex: 1
+    },
     backgroundImage: {
         flex: 1,
         width: null,
