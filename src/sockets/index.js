@@ -14,13 +14,12 @@ function connect(token) {
         query: 'token=' + token
     });    
 
-    socket.on('connect', () => {
-        store.dispatch(indicatorActions.showSpinner(false));
-        store.dispatch(indicatorActions.showToast(true));        
-
+    socket.on('connect', () => {        
         AsyncStorage.getItem('token').then(storageToken => {
             if (!storageToken) {
                 saveToken();
+                store.dispatch(indicatorActions.showSpinner(false));
+                store.dispatch(indicatorActions.showToast(true));     
             }
         });
 
@@ -29,9 +28,30 @@ function connect(token) {
                 Actions.tabBar({type: 'replace'});
             })                
         }   
-    })
+
+        onGetByToken(socket);
+
+        //IF USER DOESN'T EXIST IN PERSISTED DATA
+        getByToken();        
+    })    
+}
+
+function onGetByToken(socket) {
+    socket.on('/self/getByToken/success', user => {
+        console.log(user);
+    });
+
+    socket.on('/self/getByToken/fail', err => {
+        console.log(err);
+    });
+}
+
+
+function getByToken() {    
+    socket.emit('/self/getByToken');
 }
 
 module.exports = {
-    connect
+    connect,
+    getByToken
 }
