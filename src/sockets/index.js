@@ -15,8 +15,8 @@ function connect(token) {
     });    
 
     socket.on('connect', () => {
-        store.dispatch(indicatorActions.showToast(true));
-        store.dispatch(indicatorActions.showSpinner(true));        
+        store.dispatch(indicatorActions.showSpinner(false));
+        store.dispatch(indicatorActions.showToast(true));        
 
         AsyncStorage.getItem('token').then(storageToken => {
             if (!storageToken) {

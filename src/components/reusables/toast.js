@@ -2,16 +2,20 @@ import React, { Component } from 'react';
 import {
 	StyleSheet,
 	View,
+    Text,
     Dimensions,
     Animated,
     Easing,
-    Image
+    Image,
+    TouchableWithoutFeedback
 } from 'react-native';
 import {MyColors} from '../../helper/style';
 import {CheckmarkImage} from '../../images/images'
 
 import * as indicatorActions from '../../actions/indicatorActions';
 import { connect } from 'react-redux';
+
+const window = Dimensions.get('window');
 
 class Toast extends Component {
     constructor(props) {
@@ -20,14 +24,20 @@ class Toast extends Component {
         this.visible = true;
         this.visibility = new Animated.Value(this.visible ? 0 : 1);
         this.toast = this.toast.bind(this);    
+        this.checkOrText = this.checkOrText.bind(this);
     }
 
     toast(cont) {       
+        let showDuration = 300;
+        if (typeof this.props.show === typeof '') {
+            showDuration = 1000;
+        }
+
         if (!cont) {
             setTimeout(() => {                
-                this.props.showToast(false);                
-                this.visible = true;
-            }, 500);            
+                this.props.showToast(false);
+                this.visible = true;                                                
+            }, 200);                        
         }
 
         Animated.timing(this.visibility, {
@@ -38,14 +48,34 @@ class Toast extends Component {
                 setTimeout(() => {         
                     this.visible = false;       
                     this.toast(false);                
-                }, 500);
+                }, showDuration);
             }            
         });        
     }
 
-    render() {
-        const window = Dimensions.get('window');        
+    checkOrText() {        
+        if (typeof this.props.show === typeof '') {
+            let message = ''
+            if (this.props.show.length > 60) {
+                message = 'Please try again at a later time'
+            } else {
+                message = this.props.show
+            }
+            return (
+                <View style={[styles.toast, styles.textToast]}>
+                    <Text style={styles.textStyle}>{message}</Text>
+                </View>
+            )
+        } else {
+            return (
+                <View style={[styles.toast, styles.circleToast]}>
+                    <Image style={styles.checkMark} source={CheckmarkImage}></Image>
+                </View>
+            )
+        }
+     }    
 
+    render() {        
         const animation = {
             opacity: this.visibility.interpolate({
                 inputRange: [0, 1],
@@ -61,32 +91,32 @@ class Toast extends Component {
             ],
         }
         // const combinedStyle = Object.assign(animation, obj2);                
-        if (this.props.show) {            
+        if (this.props.show) {
+            console.log('SHOW!!')          
             this.toast(true);
 
-            return (                
-                <Animated.View style={{     
-                    position: 'absolute',
-                    alignSelf: 'center',
-                    marginTop: window.height/2 - 35,
-                    zIndex: 999,    
-                    opacity: this.visibility.interpolate({
-                        inputRange: [0, 1],
-                        outputRange: [0, 0.8],
-                    }),
-                    transform: [
-                        {
-                            scale: this.visibility.interpolate({
+            return (     
+                <TouchableWithoutFeedback onPress={() => this.props.showToast(false)}>
+                    <View style={styles.transparentView} >
+                        <Animated.View style={{                             
+                            zIndex: 999,    
+                            opacity: this.visibility.interpolate({
                                 inputRange: [0, 1],
-                                outputRange: [1.1, 1],
+                                outputRange: [0, 0.8],
                             }),
-                        },
-                    ],
-                }}>              
-                    <View style={styles.circleToast}>
-                        <Image style={styles.checkMark} source={CheckmarkImage}></Image>
+                            transform: [
+                                {
+                                    scale: this.visibility.interpolate({
+                                        inputRange: [0, 1],
+                                        outputRange: [1.1, 1],
+                                    }),
+                                },
+                            ],
+                        }}>              
+                            {this.checkOrText()}
+                        </Animated.View>
                     </View>
-                </Animated.View>
+                </TouchableWithoutFeedback>
             )          
         } else {
             return null
@@ -95,15 +125,37 @@ class Toast extends Component {
 }
 
 const styles = StyleSheet.create({
-    circleToast: {
+    transparentView: {
         justifyContent: 'center',
         alignItems: 'center',
-
+        height: window.height,
+        width: window.width, 
+        flex: 1,     
+        position: 'absolute',
+        backgroundColor: 'transparent',
+        zIndex: 998
+    },
+    toast: {
+        justifyContent: 'center',
+        alignItems: 'center',
+        backgroundColor: MyColors.myBlue,   
+    },
+    textToast: {
+        width: window.width * 0.5,                
+        borderRadius: 20  
+    },
+    textStyle: {
+        textAlign: 'center',
+        margin: 16,
+        fontFamily: 'Avenir',
+        fontSize: 16,
+        color: 'white'        
+    },
+    circleToast: {        
         width: 70,
         height: 70,
 
-        borderRadius: 35,
-        backgroundColor: MyColors.myBlue,   
+        borderRadius: 35        
     }, 
     checkMark: {
         height: 40,

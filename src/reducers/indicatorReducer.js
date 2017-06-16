@@ -2,7 +2,7 @@ import { SHOW_SPINNER, SHOW_TOAST } from '../helper/constants.js'
 
 const initialState = {
     showSpinner: false,
-    showToast: true
+    showToast: false
 }
 
 export default function (state = initialState, action) {    

@@ -6,7 +6,8 @@ import store from '../store'
 import * as indicatorActions from './indicatorActions';
 
 export const signUpUser = (userInfo) => {    
-    return dispatch => {
+    store.dispatch(indicatorActions.showSpinner(true));
+    return dispatch => {        
         axios.post(`${SERVER}/signup`, userInfo, {
             headers: {
                 'Accept': 'application/json, text/plain, */*',
@@ -14,13 +15,13 @@ export const signUpUser = (userInfo) => {
             },
         }).then(res => dispatch(resolveAuth(res)))
         .catch(err => {
-            store.dispatch(indicatorActions.showToast(true));
-             console.log('SIGNUP ERR ',err.response.data);
+            store.dispatch(indicatorActions.showToast(err.response.data));             
         });
     }
 }
 
 export const signInUser = (userInfo) => {    
+    store.dispatch(indicatorActions.showSpinner(true));
     return dispatch => {
         axios.post(`${SERVER}/login`, userInfo, {
             headers: {
@@ -29,8 +30,7 @@ export const signInUser = (userInfo) => {
             },
         }).then(res => dispatch(resolveAuth(res)))
         .catch(err => {
-            store.dispatch(indicatorActions.showToast(true));
-             console.log('LOGIN ERR ',err.response.data);
+            store.dispatch(indicatorActions.showToast(err.response.data));             
         });
     }
 }
