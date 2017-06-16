@@ -202,7 +202,7 @@ class Form extends React.Component {
         let confirmationName = name + 'Confirmation'
         let originalValue = this.props.values[name]
         let confirmationValue = this.props.values[confirmationName]
-        let errorMessage = `${_.capitalize(name)} and confirmation do not match!`
+        let errorMessage = `Please confirm your ${name}!`
 
         if (originalValue !== confirmationValue) {
           errors.clear();

@@ -10,3 +10,6 @@ export const BLOCK_USER = "BLOCK_USER"
 export const UNBLOCK_USER = "UNBLOCK_USER"
 export const ADD_CONTACT = "ADD_CONTACT "
 export const REMOVE_CONTACT = "REMOVE_CONTACT"
+
+export const SHOW_SPINNER = "SHOW_SPINNER"
+export const SHOW_TOAST = "SHOW_TOAST"

@@ -21,7 +21,7 @@ class Signup extends Component {
         this.signup = this.signup.bind(this);
     }
 
-    signup() {        
+    signup() {            
         const signup = {
             name: {
                 first: this.state.values.firstName,
@@ -30,12 +30,34 @@ class Signup extends Component {
             email: this.state.values.email,
             password: this.state.values.password
         }
-        
-        this.props.signUpUser(signup);        
+
+        console.log(this.state.values);
+
+        if (signup.name.first.length > 1 && 
+            signup.name.first.length < 20 && 
+            signup.name.last.length > 1 && 
+            signup.name.last.length < 20 &&
+            signup.email.length > 7 &&
+            signup.password.length > 7 &&
+            signup.password === this.state.values.passwordConfirmation) {                
+                this.props.signUpUser(signup);
+            }
     }
 
     render() {
         const validations = {
+            firstName: [
+                {
+                predicate: value => value.length > 1 && value.length < 20,
+                message: 'Please provide a valid name'
+                }
+            ],
+            lastName: [
+                {
+                predicate: value => value.length > 1 && value.length < 20,
+                message: 'Please provide a valid name'
+                }
+            ],
             email: [
                 {
                 predicate: value => value.length > 7,
@@ -62,12 +84,14 @@ class Signup extends Component {
                 {
                     name: 'firstName',
                     placeholder: 'Firstname',
-                    autoCapitalize: 'words'
+                    autoCapitalize: 'words',
+                    validations: validations.firstName
                 },
                 {
                     name: 'lastName',
                     placeholder: 'Lastname',
-                    autoCapitalize: 'words'
+                    autoCapitalize: 'words',
+                    validations: validations.lastName
                 },
                 {
                     name: 'email',
@@ -84,8 +108,7 @@ class Signup extends Component {
                 },
                 {
                     name: 'passwordConfirmation',
-                    placeholder: 'Confirm Password',
-                    validations: validations.password,
+                    placeholder: 'Confirm Password',                    
                     secureTextEntry: true
                 }
             ]

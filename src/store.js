@@ -10,12 +10,14 @@ import networkReducer from './reducers/networkReducer';
 import profileReducer from './reducers/profileReducer';
 import settingsReducer from './reducers/settingsReducer';
 import contactsReducer from './reducers/contactsReducer';
+import indicatorReducer from './reducers/indicatorReducer';
 
 const reducers = combineReducers({
       network: networkReducer, 
       profile: profileReducer,
       settings: settingsReducer,
-      contacts: contactsReducer
+      contacts: contactsReducer,
+      indicator: indicatorReducer
 });
 
 //DEV

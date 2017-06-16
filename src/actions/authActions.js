@@ -2,6 +2,8 @@ import axios from 'axios';
 import {AsyncStorage} from 'react-native';
 import {SET_USER, SERVER} from '../helper/constants.js'
 import {connect} from '../sockets'
+import store from '../store'
+import * as indicatorActions from './indicatorActions';
 
 export const signUpUser = (userInfo) => {    
     return dispatch => {
@@ -12,7 +14,8 @@ export const signUpUser = (userInfo) => {
             },
         }).then(res => dispatch(resolveAuth(res)))
         .catch(err => {
-             console.log(err);
+            store.dispatch(indicatorActions.showToast(true));
+             console.log('SIGNUP ERR ',err.response.data);
         });
     }
 }
@@ -26,7 +29,8 @@ export const signInUser = (userInfo) => {
             },
         }).then(res => dispatch(resolveAuth(res)))
         .catch(err => {
-             console.log(err);
+            store.dispatch(indicatorActions.showToast(true));
+             console.log('LOGIN ERR ',err.response.data);
         });
     }
 }
@@ -36,9 +40,7 @@ export const resolveAuth = (res) => {
     const token = res.headers['x-auth'];
 
     function saveToken() {
-        AsyncStorage.setItem('token', token).then(() => {
-            connect(token);
-        });
+        connect(token);        
     }
 
     function persist() {
