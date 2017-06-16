@@ -17,7 +17,7 @@ export const signUpUser = (userInfo) => {
     }
 }
 
-export const signInUser = (userInfo) => {
+export const signInUser = (userInfo) => {    
     return dispatch => {
         axios.post(`${SERVER}/login`, userInfo, {
             headers: {
@@ -32,13 +32,13 @@ export const signInUser = (userInfo) => {
 }
 
 export const resolveAuth = (res) => {        
-    console.log('wtf',res.data);
-    console.log('wth',res.headers['x-auth']);
 
     const token = res.headers['x-auth'];
 
     function saveToken() {
-        AsyncStorage.setItem('token', token);
+        AsyncStorage.setItem('token', token).then(() => {
+            connect(token);
+        });
     }
 
     function persist() {
@@ -46,8 +46,7 @@ export const resolveAuth = (res) => {
     }
 
     saveToken();
-    persist();  
-    connect(token);
+    persist();      
 
     return {
         type: SET_SELF,

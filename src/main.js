@@ -4,6 +4,7 @@ import Router from './components/routes';
 import * as networkActions from './actions/networkActions';
 import * as profileActions from './actions/profileActions';
 import * as contactsActions from './actions/contactsActions';
+import {AsyncStorage} from 'react-native';
 // import initialUsers from './helper/initialUsers'
 
 import { Provider } from 'react-redux';
@@ -18,10 +19,6 @@ import Toast from './components/reusables/toast';
 import Store from './store';
 
 class Main extends Component {
-
-    componentDidMount() {
-        
-    }
 
     render() {
         return (
