@@ -8,8 +8,6 @@ const initialState = {
 }
 
 export default function (state = initialState, action) {
-   console.log(action.type)
-   console.log(action.rangeValue)
    switch (action.type) {
         case ADD_TO_NETWORK:
             return {

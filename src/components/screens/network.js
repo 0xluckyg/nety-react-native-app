@@ -20,9 +20,7 @@ import Reactotron from 'reactotron-react-native'
 class Network extends Component {
 
     constructor(props) {
-        super(props);
-
-		console.log(this.props)
+        super(props);		
 		
 		Reactotron.error(this.props.network)
 				// this.props.addToNetwork(initialUsers)
@@ -71,8 +69,7 @@ class Network extends Component {
     }
 
 	updateNavbar(range) {
-		let title = this.titleForRange(range)
-		console.log(title)
+		let title = this.titleForRange(range)		
 		Actions.refresh({title: title})
 	}
 

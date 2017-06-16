@@ -4,38 +4,26 @@ import { Actions } from 'react-native-router-flux'
 import {MyColors} from '../../../helper/style';
 import Form from './form';
 import {FacebookThumbnailImage, LinkedInThumbnailImage} from '../../../images/images'
+import * as authActions from '../../../actions/authActions';
+import { connect } from 'react-redux';
 
 const screenHeight = Dimensions.get('window').height
 const screenWidth = Dimensions.get('window').width
 
-export default class Splash extends Component {
+class Splash extends Component {
     constructor() {
         super()
         this.state = {
             values: {}
         }
+        this.login = this.login.bind(this);
     }
 
+    login() {
+        this.props.signInUser(this.state.values);        
+    }
 
     render() {
-        const { 
-            avoidingView,
-            backgroundImage, 
-            icon,             
-            center, 
-            bottom, 
-            button, 
-            buttonBlue, 
-            buttonText, 
-            overlay,                       
-            half,
-            createAccount,
-            oAuth,
-            facebook,
-            linkedin,
-            thumbnailStyle            
-        } = styles
-
         const structure = {
             config: {
                 fieldStyle: styles.field,
@@ -61,51 +49,51 @@ export default class Splash extends Component {
         return (
             <KeyboardAvoidingView
                 behavior='padding'
-                style={avoidingView}
+                style={styles.avoidingView}
             >
                 <TouchableWithoutFeedback onPress={Keyboard.dismiss}>
                     <Image
                         source={require('../../../images/mock/Background1.png')}
                         style={styles.backgroundImage}
                     >
-                        <View style={overlay}>
-                            <View style={[half, center]}>
+                        <View style={styles.overlay}>
+                            <View style={[styles.half, styles.center]}>
                                 <Image
                                     source={require('../../../images/LogoTransparent.png')}
                                     style={styles.icon}
                                 />
                             </View>
 
-                            <View style={center}>
+                            <View style={styles.center}>
                                 <Form formula={structure} values={this.state.values} onChange={values => this.setState(values)} />
                                 <TouchableOpacity
-                                    onPress={() => Actions.tabBar({type: 'replace'})}
-                                    style={[button, center]}
+                                    onPress={() => this.login()}
+                                    style={[styles.button, styles.center]}
                                 >
-                                    <Text style={buttonText}>Login!</Text>
+                                    <Text style={styles.buttonText}>Login!</Text>
                                 </TouchableOpacity>
                             </View>
 
-                            <View style={[half, bottom]}>
+                            <View style={[styles.half, styles.bottom]}>
                                 <TouchableOpacity
                                     onPress={() => Actions.signup()}
-                                    style={[center, createAccount]}
+                                    style={[styles.center, styles.createAccount]}
                                 >
-                                    <Text style={buttonText}>Create account?</Text>
+                                    <Text style={styles.buttonText}>Create account?</Text>
                                 </TouchableOpacity>
                                 <TouchableOpacity
                                     onPress={() => {}}
-                                    style={[oAuth, facebook, center]}
+                                    style={[styles.oAuth, styles.facebook, styles.center]}
                                 >
-                                    <Image style={thumbnailStyle} source={FacebookThumbnailImage}/>
-                                    <Text style={buttonText}>Facebook</Text>
+                                    <Image style={styles.thumbnailStyle} source={FacebookThumbnailImage}/>
+                                    <Text style={styles.buttonText}>Facebook</Text>
                                 </TouchableOpacity>                            
                                 <TouchableOpacity
                                     onPress={() => {}}
-                                    style={[oAuth, linkedin, center]}
+                                    style={[styles.oAuth, styles.linkedin, styles.center]}
                                 >
-                                    <Image style={thumbnailStyle} source={LinkedInThumbnailImage}/>
-                                    <Text style={buttonText}>Linkedin</Text>
+                                    <Image style={styles.thumbnailStyle} source={LinkedInThumbnailImage}/>
+                                    <Text style={styles.buttonText}>Linkedin</Text>
                                 </TouchableOpacity>
                             </View>
                         </View>                   
@@ -217,3 +205,5 @@ const styles = StyleSheet.create({
         tintColor: 'white'
     }
 })
+
+export default connect(null, authActions)(Splash);

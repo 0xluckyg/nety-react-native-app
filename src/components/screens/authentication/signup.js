@@ -3,10 +3,13 @@ import { View, Keyboard, KeyboardAvoidingView, Text, TouchableOpacity, Touchable
 import { Actions } from 'react-native-router-flux'
 import Form from './form';
 
+import * as authActions from '../../../actions/authActions';
+import { connect } from 'react-redux';
+
 const screenHeight = Dimensions.get('window').height
 const screenWidth = Dimensions.get('window').width
 
-export default class Signup extends Component {
+class Signup extends Component {
 
     constructor() {
         super()
@@ -14,8 +17,22 @@ export default class Signup extends Component {
         this.state = {
             values: {}
         }
+
+        this.signup = this.signup.bind(this);
     }
 
+    signup() {        
+        const signup = {
+            name: {
+                first: this.state.values.firstName,
+                last: this.state.values.lastName
+            },
+            email: this.state.values.email,
+            password: this.state.values.password
+        }
+        
+        this.props.signUpUser(signup);        
+    }
 
     render() {
         const validations = {
@@ -43,8 +60,13 @@ export default class Signup extends Component {
             },
             fields: [
                 {
-                    name: 'name',
-                    placeholder: 'Name',
+                    name: 'firstName',
+                    placeholder: 'Firstname',
+                    autoCapitalize: 'words'
+                },
+                {
+                    name: 'lastName',
+                    placeholder: 'Lastname',
                     autoCapitalize: 'words'
                 },
                 {
@@ -81,23 +103,24 @@ export default class Signup extends Component {
             overlay, 
             paddingBottom25 
         } = styles
+        
         return (
             <KeyboardAvoidingView
                 behavior='padding'
-                style={avoidingView}
+                style={styles.avoidingView}
             >
                 <TouchableWithoutFeedback onPress={Keyboard.dismiss}>
                     <Image
                         source={require('../../../images/mock/Background1.png')}
-                        style={backgroundImage}
+                        style={styles.backgroundImage}
                     >
-                        <View style={[overlay, center]}>
+                        <View style={[styles.overlay, styles.center]}>
                             <Form formula={structure} values={this.state.values} onChange={values => this.setState(values)} />
                             <TouchableOpacity
-                                onPress={() => Actions.tabBar({type: 'replace'})} 
-                                style={[button, center]}
+                                onPress={() => this.signup()} 
+                                style={[styles.button, styles.center]}
                             >
-                                <Text style={buttonText}>Sign Up</Text>
+                                <Text style={styles.buttonText}>Sign Up</Text>
                             </TouchableOpacity>
                         </View>
                     
@@ -187,3 +210,5 @@ const styles = StyleSheet.create({
         paddingTop: 30                    
     }
 })
+
+export default connect(null, authActions)(Signup);
