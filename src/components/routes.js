@@ -63,9 +63,9 @@ class RouterComponent extends Component {
         }
     }
 
-    componentWillMount() {
+    componentWillMount() {                
         AsyncStorage.getItem('token').then(token => {
-            if (token) {
+            if (token) {                
                 connect(token);
                 this.setState({hasToken: true, loading: false});
             } else {

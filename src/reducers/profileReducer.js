@@ -1,15 +1,19 @@
-import { SET_CURRENT_USER } from '../helper/constants.js'
+import { SET_SELF } from '../helper/constants.js'
+import _ from 'lodash'
 
 const initialState = {
-    currentUser: {}
+    self: {}
 }
 
-export default function (state = initialState, action) {
+export default function (state = initialState, action) {        
    switch (action.type) {
-        case SET_CURRENT_USER:
+        case SET_SELF:
+
+            _.omit(action.self, ['discoverable', 'blocked']);
+
             return {
                 ...state,
-                currentUser: action.user
+                currentUser: action.self
             }
         default:
             return state

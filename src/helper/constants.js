@@ -1,10 +1,10 @@
 export const SERVER = "http://localhost:3000"
-export const SET_SELF = "SET_USER"
+
+export const SET_SELF = "SET_SELF"
 
 export const ADD_TO_NETWORK = "ADD_TO_NETWORK"
 export const REMOVE_FROM_NETWORK = "REMOVE_FROM_NETWORK"
 export const UPDATE_RANGE = "UPDATE_RANGE"
-export const SET_CURRENT_USER = "SET_CURRENT_USER"
 export const UPDATE_CURRENT_USER = "UPDATE_CURRENT_USER"
 export const BLOCK_USER = "BLOCK_USER"
 export const UNBLOCK_USER = "UNBLOCK_USER"

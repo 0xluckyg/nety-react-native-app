@@ -3,12 +3,14 @@ import SocketIOClient from 'socket.io-client';
 import {SERVER} from '../helper/constants';
 import { Actions } from 'react-native-router-flux'
 
-import store from '../store';
+import {store} from '../store';
 import * as indicatorActions from '../actions/indicatorActions';
+import * as authActions from '../actions/authActions';
 
 let socket;
 
 function connect(token) {
+
     socket = SocketIOClient(SERVER, {
         transports: ['websocket'],
         query: 'token=' + token
@@ -17,17 +19,11 @@ function connect(token) {
     socket.on('connect', () => {        
         AsyncStorage.getItem('token').then(storageToken => {
             if (!storageToken) {
-                saveToken();
+                saveToken(token);
                 store.dispatch(indicatorActions.showSpinner(false));
                 store.dispatch(indicatorActions.showToast(true));     
             }
-        });
-
-        function saveToken() {
-            AsyncStorage.setItem('token', token).then(() => {                
-                Actions.tabBar({type: 'replace'});
-            })                
-        }   
+        });   
 
         onGetByToken(socket);
 
@@ -36,16 +32,21 @@ function connect(token) {
     })    
 }
 
+function saveToken(token) {
+    AsyncStorage.setItem('token', token).then(() => {                
+        Actions.tabBar({type: 'replace'});
+    })                
+}
+
 function onGetByToken(socket) {
-    socket.on('/self/getByToken/success', user => {
-        console.log(user);
+    socket.on('/self/getByToken/success', user => {        
+        store.dispatch(authActions.resolveGetByToken(user));
     });
 
     socket.on('/self/getByToken/fail', err => {
-        console.log(err);
+        store.dispatch(indicatorActions.showToast(err));
     });
 }
-
 
 function getByToken() {    
     socket.emit('/self/getByToken');
@@ -53,5 +54,6 @@ function getByToken() {
 
 module.exports = {
     connect,
-    getByToken
+    getByToken,
+    socket
 }

@@ -1,18 +1,18 @@
 import { createStore, applyMiddleware } from 'redux';
 import thunk from 'redux-thunk';
+import {AsyncStorage} from 'react-native';
 
 import { combineReducers, compose } from 'redux'
 import Reactotron from 'reactotron-react-native'
 import { reactotronRedux } from 'reactotron-redux'
 
-import authReducer from './reducers/authReducer';
 import networkReducer from './reducers/networkReducer';
 import profileReducer from './reducers/profileReducer';
-import settingsReducer from './reducers/settingsReducer';
 import contactsReducer from './reducers/contactsReducer';
+import settingsReducer from './reducers/settingsReducer';
 import indicatorReducer from './reducers/indicatorReducer';
 
-const reducers = combineReducers({
+const reducers = combineReducers({      
       network: networkReducer, 
       profile: profileReducer,
       settings: settingsReducer,
@@ -32,4 +32,6 @@ const reducers = combineReducers({
 const createStoreWithMiddleware = applyMiddleware(thunk)(createStore);
 const store = createStoreWithMiddleware(reducers);
 
-export default store
+module.exports = {
+      store
+}

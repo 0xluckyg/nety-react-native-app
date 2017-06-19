@@ -1,8 +1,8 @@
 import axios from 'axios';
 import {AsyncStorage} from 'react-native';
-import {SET_USER, SERVER} from '../helper/constants.js'
+import {SET_SELF, SERVER} from '../helper/constants.js'
 import {connect} from '../sockets'
-import store from '../store'
+import {store} from '../store'
 import * as indicatorActions from './indicatorActions';
 
 export const signUpUser = (userInfo) => {    
@@ -32,6 +32,20 @@ export const signInUser = (userInfo) => {
         .catch(err => {
             store.dispatch(indicatorActions.showToast(err.response.data));             
         });
+    }
+}
+
+export const resolveGetByToken = (user) => {
+    
+    function persist() {
+
+    }
+
+    persist();
+
+    return {
+        type: SET_SELF,
+        self: user
     }
 }
 

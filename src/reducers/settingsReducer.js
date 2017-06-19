@@ -1,20 +1,28 @@
-import { BLOCK_USER, UNBLOCK_USER } from '../helper/constants.js'
+import { BLOCK_USER, UNBLOCK_USER, SET_SELF } from '../helper/constants.js'
+import _ from 'lodash'
 
 const initialState = {
-    blockedUsers: []
+    blocked: [],
+    discoverable: true
 }
 
-export default function (state = initialState, action) {
+export default function (state = initialState, action) {    
    switch (action.type) {
-        case BLOCK_USER:
+        case SET_SELF:
             return {
                 ...state,
-                blockedUsers: [...state.blockedUsers, action.user]
+                blocked: action.self.blocked,
+                discoverable: action.self.discoverable
             }
         case BLOCK_USER:
             return {
                 ...state,
-                blockedUsers: state.blockedUsers.filter(user => user.id != action.user.id)
+                blocked: [...state.blocked, action.userId]
+            }
+        case UNBLOCK_USER:
+            return {
+                ...state,
+                blocked: _.remove(state.blocked, action.userId)
             }
         default:
             return state
