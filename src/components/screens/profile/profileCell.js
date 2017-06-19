@@ -69,12 +69,12 @@ class ProfileCell extends Component {
                     <Text style={styles.statusStyle}>No Experiences</Text>
                 </View>
         } else {
-            // experienceView = experiences.map(experience => {
-            //     return this.experienceCell(experience)
-            // });
+            experienceView = experiences.map(experience => {
+                return this.experienceCell(experience)
+            });
         }
         return (
-            <View>
+            <View style={styles.experienceContainer}>
                 {this.header("Experience")}                     
                 {experienceView}
             </View>
@@ -106,7 +106,7 @@ class ProfileCell extends Component {
 
     render() {
         return (
-            <View>
+            <View styles={styles.container}>
                 {this.status(this.props.data.status)}
                 {this.about(this.props.data)}
                 {this.experiences(this.props.data.experiences)}
@@ -116,6 +116,9 @@ class ProfileCell extends Component {
 }
 
 const styles = StyleSheet.create({
+    experienceContainer: {
+        marginBottom: 50
+    },
     header: {
         justifyContent: 'center',
         height: 35,
@@ -147,7 +150,7 @@ const styles = StyleSheet.create({
         paddingLeft: 15,
         paddingRight: 15,
         paddingTop: 30,
-        paddingBottom: 30
+        paddingBottom: 30,    
     },
     statusStyle: {
         fontWeight: '300',

@@ -10,7 +10,7 @@ import {
   TouchableOpacity
 } from 'react-native';
 
-import ParallaxScrollView from 'react-native-parallax-scroll-view';
+import ParallaxScrollView from './parallax';
 import { Actions } from 'react-native-router-flux';
 import { connect } from 'react-redux';
 
@@ -74,20 +74,20 @@ class Profile extends Component {
         const { onScroll = () => {} } = this.props;
         return (
             <View style={styles.container}>
-                <ParallaxScrollView
+                <ParallaxScrollView        
                     onScroll={onScroll}
                     parallaxHeaderHeight={ PARALLAX_HEADER_HEIGHT }
                     backgroundSpeed={10}
                     renderBackground={() => (
                         <View key="background">
-                        <Image style={{width: window.width,
-                                        height: PARALLAX_HEADER_HEIGHT}}
-                                        source={Background1}/>
-                        <View style={{position: 'absolute',
-                                        top: 0,
-                                        width: window.width,
-                                        backgroundColor: 'rgba(0,0,0,.4)',
-                                        height: PARALLAX_HEADER_HEIGHT}}/>
+                            <Image style={{width: window.width,
+                                            height: PARALLAX_HEADER_HEIGHT}}
+                                            source={Background1}/>
+                            <View style={{position: 'absolute',
+                                            top: 0,
+                                            width: window.width,
+                                            backgroundColor: 'rgba(0,0,0,.4)',
+                                            height: PARALLAX_HEADER_HEIGHT}}/>
                         </View>
                     )}
                     renderForeground={() => (
@@ -102,7 +102,7 @@ class Profile extends Component {
                         </View>
                     )}
                 >
-                    <View style={{ flex: 1 }}>
+                    <View>
                         <Cell isMyProfile={this.props.fromType === 'myProfile' ? true : false} data={this.state.user}/>
                     </View>
                 </ParallaxScrollView>
