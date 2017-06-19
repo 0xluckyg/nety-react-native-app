@@ -24,7 +24,7 @@ class Edit extends Component {
         super(props);
 
 		this.state = {
-			user: this.props.user
+			user: this.props.self
 		}
 
 		this.renderTitle = this.renderTitle.bind(this)
@@ -58,7 +58,7 @@ class Edit extends Component {
 				{this.renderInputCell(true, 'Name', 'ex. Product manager at Facebook', experience.name, key)}
 				{this.renderInputCell(true, 'Starting date', 'ex.02/11/2016', experience.start, key)}
 				{this.renderInputCell(true, 'End date', 'Present', experience.end, key)}
-				{this.renderInputCell(false, 'Description', 'I worked as a product manager at Facebook', experience.description, key)}
+				{this.renderInputCell(false, 'Description', 'Add a description!', experience.description, key)}
 				<TouchableOpacity onPress={this.removeExperience(key)}>
 					<Text style={styles.deleteButtonTextStyle}>Delete</Text>
 				</TouchableOpacity>
@@ -111,19 +111,16 @@ class Edit extends Component {
 					user.status = value
 					break
 				case "Bio":
-					user.bio = value
-					break
-				case "Age":
-					user.about.age = Number(value) || user.age
-					break
+					user.summary = value
+					break				
 				case "Education":
-					user.about.school = value
+					user.school = value
 					break
 				case "Profession":
-					user.about.profession = value
+					user.profession = value
 					break
 				case "Work":
-					user.about.job = value
+					user.work = value
 					break
 				case "Name":
 					user.experiences[index].name = value
@@ -151,18 +148,13 @@ class Edit extends Component {
 			case "Status":
 				return user.status
 			case "Bio":
-				return user.bio
-			case "Age":
-				if (user.about.age) {
-					return user.about.age.toString()
-				}
-				return ""
+				return user.summary			
 			case "Education":
-				return user.about.school
+				return user.education
 			case "Profession":
-				return user.about.profession
+				return user.profession
 			case "Work":
-				return user.about.job
+				return user.work
 			case "Name":
 				return user.experiences[index].name
 			case "Starting date":
@@ -214,8 +206,7 @@ class Edit extends Component {
 	}
 
     render() {
-		let user = this.state.user
-		let about = user.about
+		let user = this.state.user		
 
         return (
 			<View style={styles.containerStyle}>
@@ -224,11 +215,10 @@ class Edit extends Component {
 					{this.renderInputCell(false, 'Status', 'ex.I have a cool project idea, and I am looking for a business partner ', user.status)}
 					{this.renderLine()}
 					{this.renderTitle("About me")}
-					{this.renderInputCell(true, 'Bio', 'I am a passionate hardworking person that does yoga.', user.bio)}
-					{this.renderInputCell(true, 'Age', 'ex.35', about.age)}
-					{this.renderInputCell(true, 'Education', 'ex.Nety College', about.school)}
-					{this.renderInputCell(true, 'Profession', 'ex.Software engineering', about.profession)}
-					{this.renderInputCell(true, 'Work', 'ex.Backend engineer at Nety', about.job)}
+					{this.renderInputCell(true, 'Bio', 'I am a passionate hardworking person that does yoga.', user.summary)}	
+					{this.renderInputCell(true, 'Education', 'ex.Nety College', user.school)}
+					{this.renderInputCell(true, 'Profession', 'ex.Software engineering', user.profession)}
+					{this.renderInputCell(true, 'Work', 'ex.Backend engineer at Nety', user.work)}
 					{this.renderLine()}
 					{this.renderTitle("Experiences", AddButtonImage)}
 					{this.renderExperiences()}
@@ -351,6 +341,10 @@ const styles = StyleSheet.create({
 	}
 })
 
+const mapStateToProps = (state) => (
+	{
+		self: state.profile.self
+	}
+)
 
-
-export default connect((state) => ({}), profileActions)(Edit);
+export default connect(mapStateToProps, profileActions)(Edit);

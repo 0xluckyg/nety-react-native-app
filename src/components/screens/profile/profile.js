@@ -1,13 +1,13 @@
 import React, { Component } from 'react';
 import {
-  Dimensions,
-  Image,
-  ListView,
-  PixelRatio,
-  StyleSheet,
-  Text,
-  View,
-  TouchableOpacity
+    Dimensions,
+    Image,
+    ListView,
+    PixelRatio,
+    StyleSheet,
+    Text,
+    View,
+    TouchableOpacity
 } from 'react-native';
 
 import ParallaxScrollView from './parallax';
