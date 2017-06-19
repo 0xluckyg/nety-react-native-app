@@ -1,8 +1,9 @@
-import { SET_SELF } from '../helper/constants.js'
+import { SET_SELF, SET_USER } from '../helper/constants.js'
 import _ from 'lodash'
 
 const initialState = {
-    self: {}
+    self: {},
+    user: {}
 }
 
 export default function (state = initialState, action) {        
@@ -13,7 +14,12 @@ export default function (state = initialState, action) {
 
             return {
                 ...state,
-                currentUser: action.self
+                self: action.self
+            }
+        case SET_USER:
+            return {
+                ...state,
+                user: action.user
             }
         default:
             return state

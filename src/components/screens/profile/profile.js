@@ -16,7 +16,7 @@ import { connect } from 'react-redux';
 
 import * as profileActions from '../../../actions/profileActions';
 import * as contactsActions from '../../../actions/contactsActions';
-import {ChatButtonImage, EditButtonImage} from '../../../images/images';
+import {ChatButtonImage, EditButtonImage, DefaultProfilePicture} from '../../../images/images';
 import {MyColors} from '../../../helper/style';
 import {Background1, Trump} from '../../../images/images';
 import Cell from './profileCell';
@@ -25,11 +25,20 @@ class Profile extends Component {
     constructor(props) {
         super(props);
 
+        this.state = {
+            user: {}
+        }
+
         this.renderStaticButton = this.renderStaticButton.bind(this);
     }
 
-    displayedUser() {
-        return this.props.user || this.props.currentUser
+    componentWillMount() {        
+        if (this.props.fromType === 'myProfile') {
+            console.log('whee',this.props.self);
+            this.setState({user:this.props.self})
+        } else {
+            this.setState({user:this.props.user})
+        }     
     }
 
     messageButtonPressed() {
@@ -83,18 +92,18 @@ class Profile extends Component {
                     )}
                     renderForeground={() => (
                         <View key="parallax-header" style={ styles.parallaxHeader }>
-                            <Image style={ styles.avatar } source={ {uri: this.displayedUser().imageUrl} }/>
+                            <Image style={ styles.avatar } source={DefaultProfilePicture}/>
                             <Text style={ styles.sectionSpeakerText }>
-                                {this.displayedUser().firstName + " " + this.displayedUser().lastName}
+                                {this.state.user.name.first + " " + this.state.user.name.last}
                             </Text>
                             <Text style={ styles.sectionTitleText }>
-                                {this.displayedUser().bio || "This user has no bio"}
+                                {this.state.user.summary || "This user has no bio"}
                             </Text>
                         </View>
                     )}
                 >
                     <View style={{ flex: 1 }}>
-                        <Cell isMyProfile={!!this.props.currentUser} data={this.displayedUser()}/>
+                        <Cell isMyProfile={this.props.fromType === 'myProfile' ? true : false} data={this.state.user}/>
                     </View>
                 </ParallaxScrollView>
                 {this.renderStaticButton()}
@@ -201,7 +210,8 @@ const styles = StyleSheet.create({
 
 const mapStateToProps = (state) => (
 	{
-		currentUser: state.profile.currentUser,
+		self: state.profile.self,
+        user: state.profile.user
 	}
 )
 

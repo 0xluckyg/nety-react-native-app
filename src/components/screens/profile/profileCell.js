@@ -24,7 +24,7 @@ class ProfileCell extends Component {
             <View>
                 {this.header("Status")}
                 <View style={styles.statusViewStyle}>
-                    <Text style={styles.statusStyle}>{text}</Text>
+                    <Text style={styles.statusStyle}>{text || 'No Status'}</Text>
                 </View>
             </View>
         )
@@ -34,41 +34,49 @@ class ProfileCell extends Component {
         return (
             <View>
                 {this.header("About")}
-                <View style={styles.viewStyle}>
-                    <View style={styles.aboutCellStyle}>
-                        <Text style={styles.aboutKeyStyle}>Age</Text>
-                        <Text style={styles.aboutValueStyle}>I am </Text>
-                        <Text style={styles.aboutValueSpecialStyle}>{about.age}</Text>
+                {!about.education && !about.profession && !about.work ?
+                    <View style={styles.statusViewStyle}>
+                        <Text style={styles.statusStyle}>No Information</Text>
+                    </View> :                    
+                    <View style={styles.viewStyle}>                          
+                        {about.education ? <View style={styles.aboutCellStyle}>
+                            <Text style={styles.aboutKeyStyle}>School</Text>                        
+                            <Text style={styles.aboutValueStyle}>I went to </Text>
+                            <Text style={styles.aboutValueSpecialStyle}>{about.education}</Text>
+                        </View> : null}
+                        {about.profession ? <View style={styles.aboutCellStyle}>
+                            <Text style={styles.aboutKeyStyle}>Profession</Text>
+                            <Text style={styles.aboutValueStyle}>I specialize in </Text>
+                            <Text style={styles.aboutValueSpecialStyle}>{about.profession}</Text>
+                        </View> : null}
+                        {about.work ? <View style={styles.aboutCellStyle}>
+                            <Text style={styles.aboutKeyStyle}>Job</Text>
+                            <Text style={styles.aboutValueStyle}>I work at </Text>
+                            <Text style={styles.aboutValueSpecialStyle}>{about.work}</Text>
+                        </View> : null}                    
                     </View>
-                    <View style={styles.aboutCellStyle}>
-                        <Text style={styles.aboutKeyStyle}>School</Text>
-                        <Text style={styles.aboutValueStyle}>I went to </Text>
-                        <Text style={styles.aboutValueSpecialStyle}>{about.school}</Text>
-                    </View>
-                    <View style={styles.aboutCellStyle}>
-                        <Text style={styles.aboutKeyStyle}>Profession</Text>
-                        <Text style={styles.aboutValueStyle}>I specialize in </Text>
-                        <Text style={styles.aboutValueSpecialStyle}>{about.profession}</Text>
-                    </View>
-                    <View style={styles.aboutCellStyle}>
-                        <Text style={styles.aboutKeyStyle}>Job</Text>
-                        <Text style={styles.aboutValueStyle}>I work at </Text>
-                        <Text style={styles.aboutValueSpecialStyle}>{about.job}</Text>
-                    </View>
-                </View>
+                }
             </View>
         )
     }
 
-    experiences(experiences) {
+    experiences(experiences) {        
+        let experienceView;
+
+        if (!experiences || experiences.length < 1) {
+            experienceView = 
+                <View style={styles.statusViewStyle}>                          
+                    <Text style={styles.statusStyle}>No Experiences</Text>
+                </View>
+        } else {
+            // experienceView = experiences.map(experience => {
+            //     return this.experienceCell(experience)
+            // });
+        }
         return (
             <View>
-                {this.header("Experience")}
-                <View style={styles.experienceViewStyle}>
-                    {experiences.map(experience => {
-                        return this.experienceCell(experience)
-                    })}
-                </View>
+                {this.header("Experience")}                     
+                {experienceView}
             </View>
         )
     }
@@ -100,7 +108,7 @@ class ProfileCell extends Component {
         return (
             <View>
                 {this.status(this.props.data.status)}
-                {this.about(this.props.data.about)}
+                {this.about(this.props.data)}
                 {this.experiences(this.props.data.experiences)}
             </View>
         )
