@@ -18,6 +18,8 @@ import {AddButtonImage} from '../../../images/images';
 import { connect } from 'react-redux';
 import * as profileActions from '../../../actions/profileActions';
 
+import DatePicker from 'react-native-datepicker';
+
 class Edit extends Component {
 
     constructor(props) {
@@ -86,8 +88,8 @@ class Edit extends Component {
 			start: '',
 			end: ''
 		}
-		let user = this.state.user
-		user.experiences.push(blankExperience)
+		let user = this.state.user		
+		user.experiences = [blankExperience, ...user.experiences];
 		this.setState({ user })
 	}
 
@@ -170,10 +172,44 @@ class Edit extends Component {
 
 	renderInputCell(collapse, title, placeholder, value, index) {
 
-		let valueDidChange = this.fieldValueDidChange(title, index)
-
+		let valueDidChange = this.fieldValueDidChange(title, index)		
 		let userValue = this.valueForField(title, index)
-		if (collapse) {
+		if (title === 'Starting date' || title === 'End date') {			
+			return (
+				<View style={styles.cellCollapseStyle}>
+					<Text style={styles.cellTitleCollapseStyle}>{title}</Text>
+					<DatePicker 
+						style={{width: null, flex: 2}}
+						customStyles={{
+							dateInput: {
+								borderColor: 'transparent',
+								flex: 2
+							},							
+							dateTouchBody: styles.cellTextInputCollapseStyle,									
+							dateText: {
+								alignSelf: 'flex-start'
+							},
+							placeholderText: {
+								alignSelf: 'flex-start',
+								fontWeight: '200',
+								fontSize: 15								
+							}	
+						}}						
+						showIcon={false}
+						date={value}
+						mode="date"
+						placeholder={placeholder}
+						format="YYYY-MM-DD"
+						minDate="1940-01-01"
+						maxDate="2019-01-01"
+						confirmBtnText="Confirm"
+						cancelBtnText="Cancel"
+						onDateChange={valueDidChange}
+					>				
+					</DatePicker>
+				</View>
+			)
+		} else if (collapse) {
 			return (
 				<View style={styles.cellCollapseStyle}>
 					<Text style={styles.cellTitleCollapseStyle}>{title}</Text>
@@ -190,8 +226,8 @@ class Edit extends Component {
 	}
 
 	experienceIsValid(experience) {
-		return experience.name != "" && 
-			experience.description != "" &&
+		return experience.name != "" && experience.name.length < 30 &&
+			experience.description != "" && experience.description.length < 100 &&
 			experience.start != "" &&
 			experience.end != ""
 	}
