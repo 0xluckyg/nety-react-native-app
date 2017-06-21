@@ -13,6 +13,7 @@ class ProfileCell extends Component {
     constructor(props) {
         super(props)
         this.status = this.status.bind(this);
+        this.bio = this.bio.bind(this);
         this.about = this.about.bind(this);
         this.experiences = this.experiences.bind(this);
         this.experienceCell = this.experienceCell.bind(this);
@@ -29,8 +30,18 @@ class ProfileCell extends Component {
             </View>
         )
     }
+    bio(text) {
+        return (
+            <View>
+                {this.header("Bio")}
+                <View style={styles.statusViewStyle}>
+                    <Text style={styles.statusStyle}>{text || 'No Bio'}</Text>
+                </View>
+            </View>
+        )
+    }
 
-    about(about) {
+    about(about) {        
         return (
             <View>
                 {this.header("About")}
@@ -38,12 +49,7 @@ class ProfileCell extends Component {
                     <View style={styles.statusViewStyle}>
                         <Text style={styles.statusStyle}>No Information</Text>
                     </View> :                    
-                    <View style={styles.viewStyle}>                          
-                        {about.education ? <View style={styles.aboutCellStyle}>
-                            <Text style={styles.aboutKeyStyle}>School</Text>                        
-                            <Text style={styles.aboutValueStyle}>I went to </Text>
-                            <Text style={styles.aboutValueSpecialStyle}>{about.education}</Text>
-                        </View> : null}
+                    <View style={styles.viewStyle}>                        
                         {about.profession ? <View style={styles.aboutCellStyle}>
                             <Text style={styles.aboutKeyStyle}>Profession</Text>
                             <Text style={styles.aboutValueStyle}>I specialize in </Text>
@@ -53,7 +59,12 @@ class ProfileCell extends Component {
                             <Text style={styles.aboutKeyStyle}>Job</Text>
                             <Text style={styles.aboutValueStyle}>I work at </Text>
                             <Text style={styles.aboutValueSpecialStyle}>{about.work}</Text>
-                        </View> : null}                    
+                        </View> : null}      
+                        {about.education ? <View style={styles.aboutCellStyle}>
+                            <Text style={styles.aboutKeyStyle}>School</Text>                        
+                            <Text style={styles.aboutValueStyle}>I went to </Text>
+                            <Text style={styles.aboutValueSpecialStyle}>{about.education}</Text>
+                        </View> : null}              
                     </View>
                 }
             </View>
@@ -108,6 +119,7 @@ class ProfileCell extends Component {
         return (
             <View styles={styles.container}>
                 {this.status(this.props.data.status)}
+                {this.bio(this.props.data.summary)}
                 {this.about(this.props.data)}
                 {this.experiences(this.props.data.experiences)}
             </View>
@@ -179,6 +191,8 @@ const styles = StyleSheet.create({
         paddingBottom: 90
     },
     experienceCellStyle: {
+        marginLeft: 25,
+        marginRight: 25,
         paddingTop: 20,
         paddingBottom: 20,
         borderBottomWidth: 0.5,

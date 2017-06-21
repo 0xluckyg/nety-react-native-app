@@ -32,7 +32,8 @@ class Profile extends Component {
         this.renderStaticButton = this.renderStaticButton.bind(this);
     }
 
-    componentWillMount() {        
+    componentWillMount() {  
+        console.log('FROM?',this.props.fromType, this.props.self);
         if (this.props.fromType === 'myProfile') {            
             this.setState({user:this.props.self})
         } else {
@@ -96,7 +97,7 @@ class Profile extends Component {
                                 {this.state.user.name.first + " " + this.state.user.name.last}
                             </Text>
                             <Text style={ styles.sectionTitleText }>
-                                {this.state.user.summary || "This user has no bio"}
+                                {this.state.user.profession || "This user has no bio"}
                             </Text>
                         </View>
                     )}

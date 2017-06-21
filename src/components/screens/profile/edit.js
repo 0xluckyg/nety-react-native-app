@@ -19,6 +19,7 @@ import { connect } from 'react-redux';
 import * as profileActions from '../../../actions/profileActions';
 
 import DatePicker from 'react-native-datepicker';
+import * as indicatorActions from '../../../actions/indicatorActions'
 
 class Edit extends Component {
 
@@ -35,6 +36,7 @@ class Edit extends Component {
 		this.renderShortLine = this.renderShortLine.bind(this)
 		this.renderExperience = this.renderExperience.bind(this)
 		this.renderExperiences = this.renderExperiences.bind(this)
+		this.checkValid = this.checkValid.bind(this)
     }
 
 	renderExperiences() {			
@@ -104,9 +106,71 @@ class Edit extends Component {
 		)
 	}
 
-	// FIXME: REFACTOR THIS
-	fieldValueDidChange(title, index) {
-		return function(value) {
+	renderInputCell(collapse, title, placeholder, value, index) {
+
+		let valueDidChange = this.fieldValueDidChange(title, index)		
+		let userValue = this.valueForField(title, index)
+		if (title === 'Starting date' || title === 'End date') {			
+			return (
+				<View style={styles.cellCollapseStyle}>
+					<Text style={styles.cellTitleCollapseStyle}>{title}</Text>
+					<DatePicker 
+						style={{width: null, flex: 2}}
+						customStyles={{
+							dateInput: {
+								borderColor: 'transparent',
+								flex: 2
+							},							
+							dateTouchBody: styles.cellTextInputCollapseStyle,									
+							dateText: {
+								alignSelf: 'flex-start'
+							},
+							placeholderText: {
+								alignSelf: 'flex-start',
+								fontWeight: '200',
+								fontSize: 15								
+							},
+							btnTextConfirm: {
+								color: MyColors.myBlue
+							},
+							datePickerMask: {
+								backgroundColor: '#00000077'
+							}
+						}}						
+						showIcon={false}
+						date={value}
+						mode="date"
+						placeholder={placeholder}
+						format="YYYY-MM-DD"
+						minDate="1940-01-01"
+						maxDate="2019-01-01"
+						confirmBtnText="Confirm"
+						cancelBtnText="Cancel"
+						onDateChange={valueDidChange}
+					/>
+				</View>
+			)
+		} else if (collapse) {
+			return (
+				<View style={styles.cellCollapseStyle}>
+					<Text style={styles.cellTitleCollapseStyle}>{title}</Text>
+					<TextInput value={userValue || value} style={styles.cellTextInputCollapseStyle} placeholder={placeholder} onChangeText={valueDidChange}></TextInput>
+				</View>
+			)
+		} else {
+			return (
+				<View style={styles.cellStyle}>
+					<TextInput value={userValue || value} multiline={true} style={styles.cellTextInputStyle} placeholder={placeholder} onChangeText={valueDidChange}></TextInput>
+				</View>
+			)
+		}
+	}
+
+		// FIXME: REFACTOR THIS
+	fieldValueDidChange(title, index) {	
+		console.log(title, ' ', index)
+		return function(value) {		
+			console.log(value);	
 			let user = this.state.user
 			switch (title) {
 				case "Status":
@@ -116,7 +180,7 @@ class Edit extends Component {
 					user.summary = value
 					break				
 				case "Education":
-					user.school = value
+					user.education = value
 					break
 				case "Profession":
 					user.profession = value
@@ -170,75 +234,64 @@ class Edit extends Component {
 		}
 	}
 
-	renderInputCell(collapse, title, placeholder, value, index) {
-
-		let valueDidChange = this.fieldValueDidChange(title, index)		
-		let userValue = this.valueForField(title, index)
-		if (title === 'Starting date' || title === 'End date') {			
-			return (
-				<View style={styles.cellCollapseStyle}>
-					<Text style={styles.cellTitleCollapseStyle}>{title}</Text>
-					<DatePicker 
-						style={{width: null, flex: 2}}
-						customStyles={{
-							dateInput: {
-								borderColor: 'transparent',
-								flex: 2
-							},							
-							dateTouchBody: styles.cellTextInputCollapseStyle,									
-							dateText: {
-								alignSelf: 'flex-start'
-							},
-							placeholderText: {
-								alignSelf: 'flex-start',
-								fontWeight: '200',
-								fontSize: 15								
-							}	
-						}}						
-						showIcon={false}
-						date={value}
-						mode="date"
-						placeholder={placeholder}
-						format="YYYY-MM-DD"
-						minDate="1940-01-01"
-						maxDate="2019-01-01"
-						confirmBtnText="Confirm"
-						cancelBtnText="Cancel"
-						onDateChange={valueDidChange}
-					>				
-					</DatePicker>
-				</View>
-			)
-		} else if (collapse) {
-			return (
-				<View style={styles.cellCollapseStyle}>
-					<Text style={styles.cellTitleCollapseStyle}>{title}</Text>
-					<TextInput value={userValue || value} style={styles.cellTextInputCollapseStyle} placeholder={placeholder} onChangeText={valueDidChange}></TextInput>
-				</View>
-			)
-		} else {
-			return (
-				<View style={styles.cellStyle}>
-					<TextInput value={userValue || value} multiline={true} style={styles.cellTextInputStyle} placeholder={placeholder} onChangeText={valueDidChange}></TextInput>
-				</View>
-			)
-		}
+	experienceIsNotEmpty(experience) {
+		return !(experience.name === "" &&
+			experience.description === "" &&
+			experience.start === "" &&
+			experience.end === "")
 	}
 
-	experienceIsValid(experience) {
-		return experience.name != "" && experience.name.length < 30 &&
-			experience.description != "" && experience.description.length < 100 &&
-			experience.start != "" &&
-			experience.end != ""
+	checkValid(user) {
+		if (user.status !== null && user.status.length > 30) {
+			this.props.showToast('Please keep your status under 30 characters!');
+			return false;
+		}		
+		if (user.education !== null && user.education.length > 30) {
+			this.props.showToast('Please keep your school under 30 characters!');
+			return false;
+		}
+		if (user.profession !== null && user.profession.length > 30) {
+			this.props.showToast('Please keep your profession under 30 characters!');
+			return false;
+		}
+		if (user.work !== null && user.work.length > 30) {
+			this.props.showToast('Please keep your job under 30 characters!');
+			return false;
+		}
+		if (user.status !== null && user.status.length > 200) {
+			this.props.showToast('Please keep your school under 200 characters!');
+			return false;
+		}
+		if (user.summary !== null && user.summary.length > 200) {
+			this.props.showToast('Please keep your summary under 200 characters!');
+			return false;
+		}				
+		user.experiences.map(exp => {
+			if (exp.name.length > 30) {
+				this.props.showToast('Please keep your experience name under 30 characters!');
+				return false;
+			}
+
+			if (exp.description.length > 30) {
+				this.props.showToast('Please keep your experience description under 100 characters!');
+				return false;
+			}
+		})
+		return true;
 	}
 
 	// TODO: Error Handling. Currently removing all invalid experiences. Should highlight them instead.
 	saveButtonPressed() {
 		let user = this.state.user
-		user.experiences = user.experiences.filter( (exp) => this.experienceIsValid(exp) )
-		this.setState({ user })
-		this.props.setCurrentUser(this.state.user)
-		Actions.pop({refresh: {test: true}})
+		console.log('save?',user);
+		user.experiences = user.experiences.filter( (exp) => this.experienceIsNotEmpty(exp) )
+		this.setState({ user }, () => {
+			const valid = this.checkValid(this.state.user)
+			if (valid) {
+				this.props.updateCurrentUser(this.state.user)
+				Actions.pop({refresh: {test: true}})				
+			}			
+		})				
 	}
 
     render() {
@@ -250,11 +303,13 @@ class Edit extends Component {
 					{this.renderTitle("Status")}
 					{this.renderInputCell(false, 'Status', 'ex.I have a cool project idea, and I am looking for a business partner ', user.status)}
 					{this.renderLine()}
-					{this.renderTitle("About me")}
-					{this.renderInputCell(true, 'Bio', 'I am a passionate hardworking person that does yoga.', user.summary)}	
-					{this.renderInputCell(true, 'Education', 'ex.Nety College', user.school)}
+					{this.renderTitle("Bio")}
+					{this.renderInputCell(false, 'Bio', 'ex.I am a passionate hardworking person that does yoga.', user.summary)}	
+					{this.renderLine()}
+					{this.renderTitle("About me")}					
 					{this.renderInputCell(true, 'Profession', 'ex.Software engineering', user.profession)}
 					{this.renderInputCell(true, 'Work', 'ex.Backend engineer at Nety', user.work)}
+					{this.renderInputCell(true, 'Education', 'ex.Nety College', user.education)}					
 					{this.renderLine()}
 					{this.renderTitle("Experiences", AddButtonImage)}
 					{this.renderExperiences()}
@@ -383,4 +438,4 @@ const mapStateToProps = (state) => (
 	}
 )
 
-export default connect(mapStateToProps, profileActions)(Edit);
+export default connect(mapStateToProps, {...profileActions, ...indicatorActions})(Edit);
