@@ -8,33 +8,37 @@ import * as indicatorActions from '../actions/indicatorActions';
 import * as authActions from '../actions/authActions';
 
 import {onUpdateUser} from './profileSocket';
+import { CONNECT_SOCKET } from '../helper/constants'
 
-let socket;
+let initialState = {
+    socket: {}
+};
 
-function connect(token, id) {    
-    console.log('connected');
+export default function (state = initialState, action) {        
+    console.log('??', CONNECT_SOCKET);
+    switch (action.type) {        
+        case CONNECT_SOCKET:            
+            state.socket = SocketIOClient(SERVER, {
+                transports: ['websocket'],
+                query: 'token=' + action.self.token + '&userId=' + action.self._id
+            });    
+            state.socket.on('connect', () => {        
+                AsyncStorage.getItem('token').then(storageToken => {
+                    if (!storageToken) {                        
+                        saveToken(action.self.token, action.self._id);
+                        store.dispatch(indicatorActions.showSpinner(false));
+                        store.dispatch(indicatorActions.showToast(true));     
+                    }
+                });                   
+                onGetByToken(state.socket);
 
-    socket = SocketIOClient(SERVER, {
-        transports: ['websocket'],
-        query: 'token=' + token + '&userId=' + id
-    });    
-
-    console.log('connected?');
-
-    socket.on('connect', () => {        
-        AsyncStorage.getItem('token').then(storageToken => {
-            if (!storageToken) {
-                saveToken(token, id);
-                store.dispatch(indicatorActions.showSpinner(false));
-                store.dispatch(indicatorActions.showToast(true));     
-            }
-        });   
-
-        onGetByToken(socket);
-
-        //IF USER DOESN'T EXIST IN PERSISTED DATA
-        getByToken();        
-    })    
+                //IF USER DOESN'T EXIST IN PERSISTED DATA
+                getByToken(state.socket);        
+            })   
+            return {...state}
+        default:            
+            return {...state}
+    } 
 }
 
 function saveToken(token, id) {
@@ -55,17 +59,17 @@ function onGetByToken(socket) {
     });
 }
 
-function getByToken() {    
+function getByToken(socket) {    
     socket.emit('/self/getByToken');
 }
 
-function emitUpdate(self) {
+function emitUpdate(socket) {
     socket.emit('/self/update', self);
 }
 
-module.exports = {
-    connect,
-    // getByToken,
-    // socket,
-    emitUpdate
-}
+// module.exports = {
+//     connect,
+//     // getByToken,
+//     // socket,
+//     emitUpdate
+// }

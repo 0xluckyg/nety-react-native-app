@@ -1,6 +1,6 @@
 import axios from 'axios';
 import {AsyncStorage} from 'react-native';
-import {SET_SELF, SERVER} from '../helper/constants.js'
+import {SET_SELF, SERVER, CONNECT_SOCKET} from '../helper/constants.js'
 import {connect} from '../sockets/socket'
 import {store} from '../store'
 import * as indicatorActions from './indicatorActions';
@@ -54,22 +54,16 @@ export const resolveGetByToken = (user) => {
 
 export const resolveAuth = (res) => {        
 
-    const token = res.headers['x-auth'];
-    const id = res.data._id;
-
-    function saveToken() {
-        connect(token, id);        
-    }
+    const token = res.headers['x-auth'];    
 
     function persist() {
                 
     }
 
-    saveToken();
     persist();      
 
     return {
-        type: SET_SELF,
-        self: res.data
+        type: CONNECT_SOCKET,
+        self: {...res.data, token}
     }
 }

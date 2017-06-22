@@ -5,6 +5,8 @@ export const SET_USER = "SET_USER"
 export const UPDATE_SELF = "SET_SELF"
 export const UPDATE_USER = "SET_USER"
 
+export const CONNECT_SOCKET = 'CONNECT_SOCKET'
+
 export const ADD_TO_NETWORK = "ADD_TO_NETWORK"
 export const REMOVE_FROM_NETWORK = "REMOVE_FROM_NETWORK"
 export const UPDATE_RANGE = "UPDATE_RANGE"

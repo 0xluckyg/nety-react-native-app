@@ -11,13 +11,15 @@ import profileReducer from './reducers/profileReducer';
 import contactsReducer from './reducers/contactsReducer';
 import settingsReducer from './reducers/settingsReducer';
 import indicatorReducer from './reducers/indicatorReducer';
+import socketReducer from './sockets/socket';
 
 const reducers = combineReducers({      
       network: networkReducer, 
       profile: profileReducer,
       settings: settingsReducer,
       contacts: contactsReducer,
-      indicator: indicatorReducer
+      indicator: indicatorReducer,      
+      socket: socketReducer
 });
 
 //DEV
