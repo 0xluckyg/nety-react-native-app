@@ -1,7 +1,7 @@
 import axios from 'axios';
 import {AsyncStorage} from 'react-native';
 import {SET_SELF, SERVER} from '../helper/constants.js'
-import {connect} from '../sockets'
+import {connect} from '../sockets/socket'
 import {store} from '../store'
 import * as indicatorActions from './indicatorActions';
 
@@ -15,6 +15,7 @@ export const signUpUser = (userInfo) => {
             },
         }).then(res => dispatch(resolveAuth(res)))
         .catch(err => {
+            store.dispatch(indicatorActions.showSpinner(false));
             store.dispatch(indicatorActions.showToast(err.response.data));             
         });
     }
@@ -30,6 +31,8 @@ export const signInUser = (userInfo) => {
             },
         }).then(res => dispatch(resolveAuth(res)))
         .catch(err => {
+            console.log(err);
+            store.dispatch(indicatorActions.showSpinner(false));
             store.dispatch(indicatorActions.showToast(err.response.data));             
         });
     }
@@ -52,9 +55,10 @@ export const resolveGetByToken = (user) => {
 export const resolveAuth = (res) => {        
 
     const token = res.headers['x-auth'];
+    const id = res.data._id;
 
     function saveToken() {
-        connect(token);        
+        connect(token, id);        
     }
 
     function persist() {

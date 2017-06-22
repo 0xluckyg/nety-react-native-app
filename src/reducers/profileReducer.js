@@ -1,4 +1,4 @@
-import { SET_SELF, SET_USER, UPDATE_CURRENT_USER } from '../helper/constants.js'
+import { SET_SELF, SET_USER, UPDATE_SELF } from '../helper/constants.js'
 import _ from 'lodash'
 
 const initialState = {
@@ -6,8 +6,7 @@ const initialState = {
     user: {}
 }
 
-export default function (state = initialState, action) {
-    console.log(action.self);
+export default function (state = initialState, action) {        
     switch (action.type) {
         case SET_SELF:
 
@@ -17,11 +16,11 @@ export default function (state = initialState, action) {
                 ...state,
                 self: action.self
             }
-        case UPDATE_CURRENT_USER: 
+        case UPDATE_SELF: 
             return {
                 ...state,
                 self: action.self
-            }
+            }        
         case SET_USER:
             return {
                 ...state,

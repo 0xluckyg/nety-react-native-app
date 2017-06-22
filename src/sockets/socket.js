@@ -7,19 +7,24 @@ import {store} from '../store';
 import * as indicatorActions from '../actions/indicatorActions';
 import * as authActions from '../actions/authActions';
 
+import {onUpdateUser} from './profileSocket';
+
 let socket;
 
-function connect(token) {
+function connect(token, id) {    
+    console.log('connected');
 
     socket = SocketIOClient(SERVER, {
         transports: ['websocket'],
-        query: 'token=' + token
+        query: 'token=' + token + '&userId=' + id
     });    
+
+    console.log('connected?');
 
     socket.on('connect', () => {        
         AsyncStorage.getItem('token').then(storageToken => {
             if (!storageToken) {
-                saveToken(token);
+                saveToken(token, id);
                 store.dispatch(indicatorActions.showSpinner(false));
                 store.dispatch(indicatorActions.showToast(true));     
             }
@@ -32,9 +37,11 @@ function connect(token) {
     })    
 }
 
-function saveToken(token) {
+function saveToken(token, id) {
     AsyncStorage.setItem('token', token).then(() => {                
-        Actions.tabBar({type: 'replace'});
+        AsyncStorage.setItem('id', id).then(() => { 
+            Actions.tabBar({type: 'replace'});
+        });        
     })                
 }
 
@@ -52,8 +59,13 @@ function getByToken() {
     socket.emit('/self/getByToken');
 }
 
+function emitUpdate(self) {
+    socket.emit('/self/update', self);
+}
+
 module.exports = {
     connect,
-    getByToken,
-    socket
+    // getByToken,
+    // socket,
+    emitUpdate
 }

@@ -39,7 +39,13 @@ class Edit extends Component {
 		this.checkValid = this.checkValid.bind(this)
     }
 
-	renderExperiences() {			
+	componentDidMount() {
+		if (this.state.user.experiences.length < 1) {
+			this.addExperience();
+		}
+	}
+
+	renderExperiences() {	
 		return (
 			<View>
 				{this.state.user.experiences
@@ -56,6 +62,18 @@ class Edit extends Component {
 		}.bind(this)
 	}
 
+	addExperience() {
+		let blankExperience = {
+			name: '',
+			description: '',
+			start: '',
+			end: ''
+		}
+		let user = this.state.user		
+		user.experiences = [blankExperience, ...user.experiences];
+		this.setState({ user })
+	}
+
 	renderExperience(key, experience) {
 		return (
 			<View key={key}>
@@ -69,7 +87,7 @@ class Edit extends Component {
 				{this.renderShortLine()}
 			</View>
 		)
-	}
+	}	
 
 	renderShortLine() {
 		return (
@@ -81,18 +99,6 @@ class Edit extends Component {
 		return (
 			<View style={styles.lineStyle}></View>
 		)
-	}
-
-	addExperience() {
-		let blankExperience = {
-			name: '',
-			description: '',
-			start: '',
-			end: ''
-		}
-		let user = this.state.user		
-		user.experiences = [blankExperience, ...user.experiences];
-		this.setState({ user })
 	}
 
 	renderTitle(text, image) {
@@ -167,10 +173,8 @@ class Edit extends Component {
 	}
 
 		// FIXME: REFACTOR THIS
-	fieldValueDidChange(title, index) {	
-		console.log(title, ' ', index)
-		return function(value) {		
-			console.log(value);	
+	fieldValueDidChange(title, index) {			
+		return function(value) {					
 			let user = this.state.user
 			switch (title) {
 				case "Status":
@@ -234,11 +238,11 @@ class Edit extends Component {
 		}
 	}
 
-	experienceIsNotEmpty(experience) {
-		return !(experience.name === "" &&
+	experienceIsNotEmpty(experience) {		
+		return!(experience.name === "" &&
 			experience.description === "" &&
 			experience.start === "" &&
-			experience.end === "")
+			experience.end === "")				
 	}
 
 	checkValid(user) {
@@ -282,14 +286,13 @@ class Edit extends Component {
 
 	// TODO: Error Handling. Currently removing all invalid experiences. Should highlight them instead.
 	saveButtonPressed() {
-		let user = this.state.user
-		console.log('save?',user);
-		user.experiences = user.experiences.filter( (exp) => this.experienceIsNotEmpty(exp) )
+		let user = this.state.user		
+		user.experiences = user.experiences.filter( (exp) => this.experienceIsNotEmpty(exp) )		
 		this.setState({ user }, () => {
 			const valid = this.checkValid(this.state.user)
 			if (valid) {
-				this.props.updateCurrentUser(this.state.user)
-				Actions.pop({refresh: {test: true}})				
+				this.props.updateSelf(this.state.user)
+				Actions.pop({refresh: {test: true}})
 			}			
 		})				
 	}

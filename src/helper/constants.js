@@ -2,6 +2,8 @@ export const SERVER = "http://localhost:3000"
 
 export const SET_SELF = "SET_SELF"
 export const SET_USER = "SET_USER"
+export const UPDATE_SELF = "SET_SELF"
+export const UPDATE_USER = "SET_USER"
 
 export const ADD_TO_NETWORK = "ADD_TO_NETWORK"
 export const REMOVE_FROM_NETWORK = "REMOVE_FROM_NETWORK"
