@@ -11,15 +11,15 @@ import profileReducer from './reducers/profileReducer';
 import contactsReducer from './reducers/contactsReducer';
 import settingsReducer from './reducers/settingsReducer';
 import indicatorReducer from './reducers/indicatorReducer';
-import socketReducer from './sockets/socket';
+
+import socketMiddleware from './sockets';
 
 const reducers = combineReducers({      
       network: networkReducer, 
       profile: profileReducer,
       settings: settingsReducer,
       contacts: contactsReducer,
-      indicator: indicatorReducer,      
-      socket: socketReducer
+      indicator: indicatorReducer
 });
 
 //DEV
@@ -31,7 +31,7 @@ const reducers = combineReducers({
 // const store = Reactotron.createStore(reducers, compose([thunk]));
 
 //PRODUCTION
-const createStoreWithMiddleware = applyMiddleware(thunk)(createStore);
+const createStoreWithMiddleware = applyMiddleware(thunk, socketMiddleware)(createStore);
 const store = createStoreWithMiddleware(reducers);
 
 module.exports = {

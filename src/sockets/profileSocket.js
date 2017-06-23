@@ -2,9 +2,10 @@ import {store} from '../store';
 import * as profileActions from '../actions/profileActions';
 import * as indicatorActions from '../actions/indicatorActions';
 
-// import {socket} from './socket';
-
 function onUpdateUser(socket) {
+    // const socket = store.getState()
+    console.log('sOCK',socket);
+
     socket.on('/self/update/success', user => {
         store.dispatch(profileActions.resolveUpdateSelf(user));
     })

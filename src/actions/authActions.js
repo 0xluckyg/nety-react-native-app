@@ -38,13 +38,7 @@ export const signInUser = (userInfo) => {
     }
 }
 
-export const resolveGetByToken = (user) => {
-    
-    function persist() {
-
-    }
-
-    persist();
+export const resolveGetByToken = (user) => {    
 
     return {
         type: SET_SELF,
@@ -55,12 +49,6 @@ export const resolveGetByToken = (user) => {
 export const resolveAuth = (res) => {        
 
     const token = res.headers['x-auth'];    
-
-    function persist() {
-                
-    }
-
-    persist();      
 
     return {
         type: CONNECT_SOCKET,

@@ -4,7 +4,6 @@ export function showSpinner(show) {
     return { type: SHOW_SPINNER, show }
 }
 
-export function showToast(show) {
-    console.log(show);
+export function showToast(show) {    
     return { type: SHOW_TOAST, show }
 }

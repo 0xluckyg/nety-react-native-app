@@ -7,7 +7,7 @@ import {store} from '../store';
 import * as indicatorActions from '../actions/indicatorActions';
 import * as authActions from '../actions/authActions';
 
-import {onUpdateUser} from './profileSocket';
+// import {onUpdateUser} from './profileSocket';
 import { CONNECT_SOCKET } from '../helper/constants'
 
 let initialState = {
@@ -33,7 +33,10 @@ export default function (state = initialState, action) {
                 onGetByToken(state.socket);
 
                 //IF USER DOESN'T EXIST IN PERSISTED DATA
-                getByToken(state.socket);        
+                getByToken(state.socket);   
+                console.log('why??!')     
+                onUpdateUser(state.socket);
+                console.log('why?')     
             })   
             return {...state}
         default:            
@@ -50,7 +53,8 @@ function saveToken(token, id) {
 }
 
 function onGetByToken(socket) {
-    socket.on('/self/getByToken/success', user => {        
+    socket.on('/self/getByToken/success', user => {   
+        console.log(user);
         store.dispatch(authActions.resolveGetByToken(user));
     });
 
@@ -60,16 +64,31 @@ function onGetByToken(socket) {
 }
 
 function getByToken(socket) {    
+
+    console.log('sOCK');
+
     socket.emit('/self/getByToken');
+
+    console.log('sOCK?');
 }
 
 function emitUpdate(socket) {
     socket.emit('/self/update', self);
 }
 
-// module.exports = {
-//     connect,
-//     // getByToken,
-//     // socket,
-//     emitUpdate
-// }
+function onUpdateUser(socket) {
+    // const socket = store.getState()
+    console.log('sOCK',socket);
+
+    socket.on('/self/update/success', user => {
+        store.dispatch(profileActions.resolveUpdateSelf(user));
+    })
+
+    socket.on('/user/update', user => {
+        store.dispatch(profileActions.resolveUpdateUser(user));
+    })
+
+    socket.on('/self/update/fail', err => {
+        store.dispatch(indicatorActions.showToast('Could not update. Please try again later'));
+    })
+}
