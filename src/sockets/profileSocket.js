@@ -3,6 +3,7 @@ import * as indicatorActions from '../actions/indicatorActions';
 
 function onUpdateUser(socket, dispatch) {
     socket.on('/self/update/success', user => {
+        dispatch(indicatorActions.showToast(true));   
         dispatch(profileActions.resolveUpdateSelf(user));
     })
 

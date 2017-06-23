@@ -5,11 +5,16 @@ import {
 	View,
 	Text,
 	Switch,
-	Image
+	Image,
+	TouchableOpacity
 } from 'react-native';
 
 import {MyColors} from '../../helper/style';
 import {FacebookThumbnailImage, LinkedInThumbnailImage} from '../../images/images'
+
+import { Actions } from 'react-native-router-flux';
+import { connect } from 'react-redux';
+import * as settingsActions from '../../actions/settingsActions';
 
 class Settings extends Component {
 
@@ -24,18 +29,19 @@ class Settings extends Component {
 		}
     }
 
-	renderWhiteContainer(text, borderTop, borderBottom, isSwitch, image, imageColor, callback) {
+	renderWhiteContainer(text, borderTop, borderBottom, isSwitch, image, imageColor, callback, value) {
 		const renderSwitch = () => {
 			if (isSwitch){
 				return <Switch
 						style={styles.switchStyle}
 						onTintColor={MyColors.myBlue}
-						value={this.state.switchValue}/>
+						value={value}
+						onValueChange={callback}/>
 			}
 		}
 
 		const renderImage = () => {
-			if (image !== undefined) {
+			if (image) {
 				const thumbnailStyle = {
 					resizeMode: 'contain',
 					marginLeft: 15,
@@ -80,22 +86,37 @@ class Settings extends Component {
             <ScrollView style={styles.containerStyle}>
 				{this.renderGrayContainer()}
 				{this.renderGrayContainer('SECURITY SETTINGS')}
-				{this.renderWhiteContainer('I am discoverable', b, null, true)}
-				{this.renderWhiteContainer('Allow people to send me chats', b, b, true)}
+				{this.renderWhiteContainer('I am discoverable', b, b, true, null, null, () => {
+					if (this.props.discoverable) {
+						this.props.changeDiscoverable(false);
+					} else {
+						this.props.changeDiscoverable(true);
+					}
+				}, this.props.discoverable)}
+				{/*{this.renderWhiteContainer('Allow people to send me chats', b, b, true)}*/}
 				{this.renderGrayContainer()}
 				{this.renderGrayContainer('NOTIFICATIONS')}
-				{this.renderWhiteContainer('Chat notifications', b, b, true)}
+				{this.renderWhiteContainer('Chat notifications', b, b, true, null, null, ()=>{}, true)}
 				{this.renderGrayContainer()}
 				{this.renderGrayContainer('FRIENDS')}
-				{this.renderWhiteContainer('Blocked', b, b)}
+				<TouchableOpacity
+					activeOpacity={0.5}
+				>				
+					{this.renderWhiteContainer('Blocked', b, b)}
+				</TouchableOpacity>
 				{this.renderGrayContainer()}
 				{this.renderGrayContainer('SHARE')}
 				{this.renderWhiteContainer('Share on Facebook!', b, null, false, FacebookThumbnailImage, MyColors.facebookColor)}
 				{this.renderWhiteContainer('Share on Linkedin!', b, b, false, LinkedInThumbnailImage, MyColors.linkedInColor)}
 				{this.renderGrayContainer()}
 				{this.renderGrayContainer('ACCOUNT')}
-				{this.renderWhiteContainer('Log out', b, b)}
-				{this.renderGrayContainer()}
+				<TouchableOpacity 
+					onPress={() => this.props.logout()}
+					activeOpacity={0.5}
+				>
+					{this.renderWhiteContainer('Log out', b, b, false, null, null)}
+					{this.renderGrayContainer()}
+				</TouchableOpacity>
             </ScrollView>
         );
     }
@@ -143,4 +164,10 @@ const styles = StyleSheet.create({
 	}
 });
 
-export default Settings;
+const mapStateToProps = (state) => (
+	{
+		discoverable: state.settings.discoverable        
+	}
+)
+
+export default connect(mapStateToProps, {...settingsActions})(Settings);

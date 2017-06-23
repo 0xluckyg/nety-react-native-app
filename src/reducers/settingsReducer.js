@@ -1,4 +1,4 @@
-import { BLOCK_USER, UNBLOCK_USER, SET_SELF } from '../helper/constants.js'
+import * as keys from '../helper/constants.js'
 import _ from 'lodash'
 
 const initialState = {
@@ -8,18 +8,23 @@ const initialState = {
 
 export default function (state = initialState, action) {    
    switch (action.type) {
-        case SET_SELF:
+        case keys.SET_SELF:
             return {
                 ...state,
                 blocked: action.self.blocked,
                 discoverable: action.self.discoverable
             }
-        case BLOCK_USER:
+        case keys.RESOLVE_CHANGE_DISCOVERABLE:
+            return {
+                ...state,
+                discoverable: action.discoverable
+            }
+        case keys.RESOLVE_BLOCK_USER:
             return {
                 ...state,
                 blocked: [...state.blocked, action.userId]
             }
-        case UNBLOCK_USER:
+        case keys.RESOLVE_UNBLOCK_USER:
             return {
                 ...state,
                 blocked: _.remove(state.blocked, action.userId)

@@ -68,7 +68,7 @@ class RouterComponent extends Component {
         // AsyncStorage.removeItem('token');
         AsyncStorage.getItem('token').then(token => {
             AsyncStorage.getItem('id').then(id => {
-                if (token) {                                    
+                if (token) {                                           
                     store.dispatch(authActions.connectWithToken({id, token}))
                     this.setState({hasToken: true, loading: false});
                 } else {

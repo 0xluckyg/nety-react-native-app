@@ -37,7 +37,7 @@ export const signInUser = (userInfo) => {
 }
 
 export const resolveGetByToken = (user) => {    
-
+    console.log(user)
     return {
         type: SET_SELF,
         self: user
@@ -54,7 +54,7 @@ export const resolveAuth = (res) => {
     }
 }
 
-export const connectWithToken = (data) => {
+export const connectWithToken = (data) => {    
     return {
         type: CONNECT_SOCKET,
         self: {_id: data.id, token: data.token}
