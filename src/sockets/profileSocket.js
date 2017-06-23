@@ -1,24 +1,25 @@
-import {store} from '../store';
 import * as profileActions from '../actions/profileActions';
 import * as indicatorActions from '../actions/indicatorActions';
 
-function onUpdateUser(socket) {
-    // const socket = store.getState()
-    console.log('sOCK',socket);
-
+function onUpdateUser(socket, dispatch) {
     socket.on('/self/update/success', user => {
-        store.dispatch(profileActions.resolveUpdateSelf(user));
+        dispatch(profileActions.resolveUpdateSelf(user));
+    })
+
+    socket.on('/self/update/fail', err => {        
+        dispatch(indicatorActions.showToast('Could not update. Please try again later'));
     })
 
     socket.on('/user/update', user => {
-        store.dispatch(profileActions.resolveUpdateUser(user));
-    })
+        dispatch(profileActions.resolveUpdateUser(user));
+    })    
+}
 
-    socket.on('/self/update/fail', err => {
-        store.dispatch(indicatorActions.showToast('Could not update. Please try again later'));
-    })
+function updateSelf(socket, dispatch, self) {
+    socket.emit('/self/update', self);
 }
 
 module.exports = {
-    onUpdateUser
+    onUpdateUser,
+    updateSelf
 }

@@ -1,17 +1,18 @@
-import {UPDATE_SELF, UPDATE_USER} from '../helper/constants.js'
+import {UPDATE_SELF, UPDATE_USER, RESOLVE_UPDATE_SELF} from '../helper/constants.js'
 // import {emitUpdate} from '../huh'
 import _ from 'lodash'
 
 export function updateSelf(self) {    
-    return () => { 
-        self = _.omit(self, ['email']);        
-        emitUpdate(self);
+    self = _.omit(self, ['email']);    
+    return {         
+        type: UPDATE_SELF,
+        self
     }    
 }
 
 export function resolveUpdateSelf(self) {
     return {
-        type: UPDATE_SELF,
+        type: RESOLVE_UPDATE_SELF,
         self
     }
 }

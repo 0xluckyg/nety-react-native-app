@@ -1,7 +1,6 @@
 import axios from 'axios';
 import {AsyncStorage} from 'react-native';
 import {SET_SELF, SERVER, CONNECT_SOCKET} from '../helper/constants.js'
-import {connect} from '../sockets/socket'
 import {store} from '../store'
 import * as indicatorActions from './indicatorActions';
 
@@ -30,8 +29,7 @@ export const signInUser = (userInfo) => {
                 'Content-Type': 'application/json'
             },
         }).then(res => dispatch(resolveAuth(res)))
-        .catch(err => {
-            console.log(err);
+        .catch(err => {            
             store.dispatch(indicatorActions.showSpinner(false));
             store.dispatch(indicatorActions.showToast(err.response.data));             
         });
@@ -53,5 +51,12 @@ export const resolveAuth = (res) => {
     return {
         type: CONNECT_SOCKET,
         self: {...res.data, token}
+    }
+}
+
+export const connectWithToken = (data) => {
+    return {
+        type: CONNECT_SOCKET,
+        self: {_id: data.id, token: data.token}
     }
 }

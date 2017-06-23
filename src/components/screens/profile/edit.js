@@ -19,6 +19,7 @@ import { connect } from 'react-redux';
 import * as profileActions from '../../../actions/profileActions';
 
 import DatePicker from 'react-native-datepicker';
+import moment from 'moment';
 import * as indicatorActions from '../../../actions/indicatorActions'
 
 class Edit extends Component {
@@ -74,7 +75,7 @@ class Edit extends Component {
 		this.setState({ user })
 	}
 
-	renderExperience(key, experience) {
+	renderExperience(key, experience) {		
 		return (
 			<View key={key}>
 				{this.renderInputCell(true, 'Name', 'ex. Product manager at Facebook', experience.name, key)}
@@ -196,10 +197,10 @@ class Edit extends Component {
 					user.experiences[index].name = value
 					break
 				case "Starting date":
-					user.experiences[index].start = value
+					user.experiences[index].start = new Date(value)
 					break
 				case "End date":
-					user.experiences[index].end = value
+					user.experiences[index].end = new Date(value)
 					break
 				case "Description":
 					user.experiences[index].description = value

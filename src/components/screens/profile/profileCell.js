@@ -5,6 +5,7 @@ import {
   Text,
   View
 } from 'react-native';
+import moment from 'moment';
 
 import {MyColors} from '../../../helper/style';
 
@@ -93,13 +94,15 @@ class ProfileCell extends Component {
     }
 
     experienceCell(experience) {
+        const start = moment(experience.start).format("MMM Do YY"); 
+		const end = moment(experience.end).format("MMM Do YY"); 
         return (
             <View style={styles.experienceCellStyle} key={experience.name}>
                 <View style={styles.experienceCellTopViewStyle}>
                     <Text style={styles.experienceCellNameStyle}>{experience.name}</Text>
                     <View style={styles.experienceCellDateViewStyle}>
-                        <Text style={styles.experienceCellDateStyle}>{experience.start}</Text>
-                        <Text style={styles.experienceCellDateStyle}> ~ {experience.end}</Text>
+                        <Text style={styles.experienceCellDateStyle}>{start}</Text>
+                        <Text style={styles.experienceCellDateStyle}> ~ {end}</Text>
                     </View>
                 </View>
                 <Text style={styles.experienceCellDescriptionStyle}>{experience.description}</Text>
@@ -152,7 +155,8 @@ const styles = StyleSheet.create({
         paddingBottom: 30
     },
     aboutCellStyle: {
-        flexDirection: 'row',
+        width: 135,
+        flexDirection: 'row',        
         paddingTop: 7,
         paddingBottom: 7
     },

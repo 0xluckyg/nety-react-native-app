@@ -34,7 +34,7 @@ class Profile extends Component {
 
     componentWillMount() {  
         console.log('FROM?',this.props.fromType, this.props.self);
-        if (this.props.fromType === 'myProfile') {            
+        if (this.props.fromType === 'myProfile') {
             this.setState({user:this.props.self})
         } else {
             this.setState({user:this.props.user})

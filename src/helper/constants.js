@@ -2,8 +2,9 @@ export const SERVER = "http://localhost:3000"
 
 export const SET_SELF = "SET_SELF"
 export const SET_USER = "SET_USER"
-export const UPDATE_SELF = "SET_SELF"
-export const UPDATE_USER = "SET_USER"
+export const UPDATE_SELF = "UPDATE_SELF"
+export const RESOLVE_UPDATE_SELF = "RESOLVE_UPDATE_SELF"
+export const UPDATE_USER = "UPDATE_USER"
 
 export const CONNECT_SOCKET = 'CONNECT_SOCKET'
 

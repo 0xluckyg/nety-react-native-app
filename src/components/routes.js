@@ -30,7 +30,8 @@ import {
     BackButtonImage
 } from '../images/images';
 
-import {connect} from '../sockets/socket'
+import * as authActions from '../actions/authActions';
+import {store} from '../store';
 
 const TabIcon = ({selected, title}) => {
     let tabBarImage; let selectedTabBarImage;
@@ -64,11 +65,11 @@ class RouterComponent extends Component {
     }
 
     componentWillMount() {  
-        AsyncStorage.removeItem('token');
+        // AsyncStorage.removeItem('token');
         AsyncStorage.getItem('token').then(token => {
             AsyncStorage.getItem('id').then(id => {
-                if (token) {                
-                    connect(token, id);
+                if (token) {                                    
+                    store.dispatch(authActions.connectWithToken({id, token}))
                     this.setState({hasToken: true, loading: false});
                 } else {
                     this.setState({loading: false});
