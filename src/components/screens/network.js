@@ -14,22 +14,24 @@ import * as networkActions from '../../actions/networkActions';
 import { connect } from 'react-redux';
 
 import Reactotron from 'reactotron-react-native'
-
-
+import NoContent from '../reusables/noContent';
+import {NetworkNoContentImage} from '../../images/images'
 
 class Network extends Component {
 
     constructor(props) {
         super(props);		
+				
+        this.renderView = this.renderView.bind(this);
 		
-		Reactotron.error(this.props.network)
-				// this.props.addToNetwork(initialUsers)
+        // this.props.addToNetwork(initialUsers)
 
 		// this.props.addToNextwork(initialUsers)
         // this.state = {
 		// 	listViewData: [1,2,3,4,5,6,7,8,9,10,1,2,3,4,5,6,7,8,9,10]
 		// };
     }
+    
     // removeCell(secId, rowId, rowMap) {
     //     rowMap[`${secId}${rowId}`].closeRow();
     //     const newData = [...this.state.listViewData];
@@ -38,8 +40,24 @@ class Network extends Component {
     // }
 
 	componentDidMount() {
-		this.updateNavbar(this.props.range)
+		this.updateNavbar(this.props.range)        
 	}
+
+    renderView() {
+        if (!this.props.network || this.props.network.length < 1) {                        
+            return <NoContent   
+                        image={NetworkNoContentImage}              
+                        placeholderText={"No one is around you. Try a bigger range!"}
+                    />            
+        } else {
+            return <List
+                blockPressed={this.props.removeFromNetwork}
+                listViewData={this.props.network}
+                isChat={false}
+                goToOnPress={Actions.profile}
+            />
+        }
+    }
 	
 	
 	titleForRange(range) {
@@ -81,12 +99,7 @@ class Network extends Component {
     render() {
         return (
 			<View style={styles.mainView}>
-            	<List
-					blockPressed={this.props.removeFromNetwork}
-					listViewData={this.props.network}
-					isChat={false}
-					goToOnPress={Actions.profile}
-				/>
+            	{this.renderView()}                
 				<Slider value={this.props.range} onValueChange={this.didUpdateRange.bind(this)}/>
 			</View>
         );

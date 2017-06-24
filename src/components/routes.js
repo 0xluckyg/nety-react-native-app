@@ -6,7 +6,8 @@ import Network from './screens/network';
 import Contacts from './screens/contacts';
 import Chats from './screens/chats';
 import Profile from './screens/profile/profile';
-import Settings from './screens/settings';
+import Settings from './screens/settings/settings';
+import Blocked from './screens/settings/blocked';
 import ChatRoom from './screens/chatRoom'
 import MyProfileEdit from './screens/profile/edit';
 import Splash from './screens/authentication/splash'
@@ -237,6 +238,15 @@ class RouterComponent extends Component {
                                 sceneStyle={styles.sceneStyle}
                                 title='Settings'
                                 hideBackImage
+                            />
+                            <Scene
+                                key='blocked'
+                                component={Blocked}
+                                navigationBarStyle={styles.headerStyle}
+                                titleStyle={styles.headerFontStyle}
+                                sceneStyle={styles.sceneStyle}
+                                title='Blocked'     
+                                backButtonImage={BackButtonImage}                           
                             />
                         </Scene>
                     </Scene>

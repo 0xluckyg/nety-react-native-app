@@ -31,6 +31,12 @@ const DefaultProfilePicture = require('./profile/DefaultProfilePicture.png');
 const FacebookThumbnailImage = require('./settings/FacebookThumbnail.png');
 const LinkedInThumbnailImage = require('./settings/LinkedInThumbnail.png');
 
+//NoContent
+const BlockedNoContentImage = require('./BlockedNoContent.png');
+const ContactsNoContentImage = require('./ContactsNoContent.png');
+const NetworkNoContentImage = require('./NetworkNoContent.png');
+const ChatsNoContentImage = require('./ChatsNoContent.png');
+
 //Toast
 const CheckmarkImage = require('./Checkmark.png');
 
@@ -53,6 +59,11 @@ module.exports = {
     ChatImage,
     ProfileImage,
     SettingsImage,
+
+    BlockedNoContentImage,
+    ContactsNoContentImage,
+    NetworkNoContentImage,
+    ChatsNoContentImage,
 
     ChatButtonImage,
     EditButtonImage,

@@ -9,12 +9,12 @@ import {
 	TouchableOpacity
 } from 'react-native';
 
-import {MyColors} from '../../helper/style';
-import {FacebookThumbnailImage, LinkedInThumbnailImage} from '../../images/images'
+import {MyColors} from '../../../helper/style';
+import {FacebookThumbnailImage, LinkedInThumbnailImage} from '../../../images/images'
 
 import { Actions } from 'react-native-router-flux';
 import { connect } from 'react-redux';
-import * as settingsActions from '../../actions/settingsActions';
+import * as settingsActions from '../../../actions/settingsActions';
 
 class Settings extends Component {
 
@@ -100,6 +100,7 @@ class Settings extends Component {
 				{this.renderGrayContainer()}
 				{this.renderGrayContainer('FRIENDS')}
 				<TouchableOpacity
+					onPress={() => Actions.blocked()}
 					activeOpacity={0.5}
 				>				
 					{this.renderWhiteContainer('Blocked', b, b)}
