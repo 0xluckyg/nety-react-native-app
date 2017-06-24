@@ -134,8 +134,7 @@ const styles = StyleSheet.create({
     },
     field: {
         fontFamily: 'Avenir',
-        fontSize: 16,
-        fontColor: 'white',
+        fontSize: 16,        
         marginLeft: 10,
         height: 40,
         color: 'white'
@@ -147,8 +146,7 @@ const styles = StyleSheet.create({
         borderBottomWidth: 1,
         borderColor: 'lightgray',
         alignItems: 'center',
-        justifyContent: 'center',
-        textAlign: 'left',
+        justifyContent: 'center',        
         marginBottom: 10
     },
     errorTextStyle: {       

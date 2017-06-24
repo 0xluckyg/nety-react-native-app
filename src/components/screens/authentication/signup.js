@@ -208,10 +208,9 @@ const styles = StyleSheet.create({
     field: {        
         fontFamily: 'Avenir',
         fontSize: 16,
-        fontColor: 'white',
+        color: 'white',
         marginLeft: 10,
-        height: 44,
-        color: 'white'
+        height: 44,        
     },
     fieldContainer: {
         alignSelf: 'center',
@@ -220,8 +219,7 @@ const styles = StyleSheet.create({
         borderBottomWidth: 1,
         borderColor: 'lightgray',
         alignItems: 'center',
-        justifyContent: 'center',
-        textAlign: 'left',
+        justifyContent: 'center',        
         marginBottom: 10
     },
     errorTextStyle: {        

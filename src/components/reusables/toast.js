@@ -160,7 +160,7 @@ const styles = StyleSheet.create({
     checkMark: {
         height: 40,
         width: 40,
-        color: 'white'
+        tintColor: 'white'
     }
 });
 
