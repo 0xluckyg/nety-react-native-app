@@ -22,8 +22,7 @@ function logout(socket, dispatch) {
 }
 
 function onLogout(socket, dispatch) {
-    socket.on('/self/logout/success', () => {
-        console.log('success?');
+    socket.on('/self/logout/success', () => {        
         AsyncStorage.removeItem('token').then(() => {
             AsyncStorage.removeItem('id').then(() => { 
                 dispatch(indicatorActions.showToast(true));   

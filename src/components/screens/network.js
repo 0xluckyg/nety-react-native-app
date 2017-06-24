@@ -22,14 +22,7 @@ class Network extends Component {
     constructor(props) {
         super(props);		
 				
-        this.renderView = this.renderView.bind(this);
-		
-        // this.props.addToNetwork(initialUsers)
-
-		// this.props.addToNextwork(initialUsers)
-        // this.state = {
-		// 	listViewData: [1,2,3,4,5,6,7,8,9,10,1,2,3,4,5,6,7,8,9,10]
-		// };
+        this.renderView = this.renderView.bind(this);	        
     }
     
     // removeCell(secId, rowId, rowMap) {

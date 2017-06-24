@@ -37,7 +37,6 @@ export default function ({ dispatch }) {
 }
 
 function connectSocket(action, dispatch, next) {
-    console.log('connected?', action);    
     socket = SocketIOClient(keys.SERVER, {
         transports: ['websocket'],
         query: 'token=' + action.self.token + '&userId=' + action.self._id
@@ -79,13 +78,11 @@ function saveToken(token, id) {
 }
 
 function onGetByToken(socket, dispatch) {
-    socket.on('/self/getByToken/success', user => {   
-        console.log(user);
+    socket.on('/self/getByToken/success', user => {           
         dispatch(authActions.resolveGetByToken(user));
     });
 
-    socket.on('/self/getByToken/fail', err => {
-        console.log('ER',err)
+    socket.on('/self/getByToken/fail', err => {        
         dispatch(indicatorActions.showToast('Something went wrong!'));
     });
 }
@@ -93,8 +90,7 @@ function onGetByToken(socket, dispatch) {
 function onCriticalError(socket, dispatch) {
     socket.on('/criticalError', () => {
         AsyncStorage.removeItem('token').then(() => {
-            AsyncStorage.removeItem('id').then(() => { 
-                console.log('success?');
+            AsyncStorage.removeItem('id').then(() => {                 
                 Actions.splash({type: 'replace'});
             })
         }) 
