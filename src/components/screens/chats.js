@@ -15,18 +15,22 @@ class Chats extends Component {
 
     constructor(props) {
         super(props);
-        this.renderView = this.renderView.bind(this);        
+        this.renderView = this.renderView.bind(this);  
+        this.state = {
+            chats: [0,1,2,3,4,5]
+        }      
     }
 
     renderView() {
-        if (!this.props.contacts || this.props.contacts.length < 1) {                        
+        console.log(this.state.chats)
+        if (!this.state.chats || this.state.chats.length < 1) {                        
             return <NoContent   
                         image={ChatsNoContentImage}              
                         placeholderText={"You have no chats yet. Talk to people in Network tab!"}
                     />    
         } else {
             return <List
-                        listViewData={this.props.contacts}
+                        listViewData={this.state.chats}
                         isChat={true}
                         goToOnPress={() => {Actions.chatRoomFromChats()}}
                     />

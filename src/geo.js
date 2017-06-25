@@ -1,4 +1,5 @@
 import React, { Component } from 'react';
+import { View } from 'react-native';
 import BackgroundGeolocation from "react-native-background-geolocation";
 
 class Geo extends Component {
@@ -74,6 +75,12 @@ class Geo extends Component {
 
     onMotionChange(location) {
         console.log('- [js]motionchanged: ', JSON.stringify(location));
+    }
+
+    render() {
+        return (
+            <View></View>
+        )
     }
 };
 
