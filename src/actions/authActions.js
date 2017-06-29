@@ -14,6 +14,7 @@ export const signUpUser = (userInfo) => {
             },
         }).then(res => dispatch(resolveAuth(res)))
         .catch(err => {
+            console.log('ERR?',err);
             store.dispatch(indicatorActions.showSpinner(false));
             store.dispatch(indicatorActions.showToast(err.response.data));             
         });

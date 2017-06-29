@@ -1,4 +1,5 @@
-export const SERVER = "http://localhost:3000"
+// export const SERVER = "http://localhost:3000"
+export const SERVER = "https://nety-development.herokuapp.com"
 
 //AUTH
 export const SET_SELF = "SET_SELF"

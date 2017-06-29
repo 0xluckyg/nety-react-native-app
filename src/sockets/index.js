@@ -36,11 +36,15 @@ export default function ({ dispatch }) {
     }
 }
 
-function connectSocket(action, dispatch, next) {
+function connectSocket(action, dispatch, next) {    
     socket = SocketIOClient(keys.SERVER, {
         transports: ['websocket'],
         query: 'token=' + action.self.token + '&userId=' + action.self._id
     });    
+    
+    if (!socket.connected) {
+        backToMain();
+    }
 
     socket.on('connect', () => {        
         AsyncStorage.getItem('token').then(storageToken => {
@@ -67,6 +71,12 @@ function connectSocket(action, dispatch, next) {
 
         next(action);
     });
+
+    socket.on('error', () => {        
+        if (!socket.socket.connected) {
+            backToMain();
+        }
+    });
 }
 
 function saveToken(token, id) {    
@@ -89,11 +99,7 @@ function onGetByToken(socket, dispatch) {
 
 function onCriticalError(socket, dispatch) {
     socket.on('/criticalError', () => {
-        AsyncStorage.removeItem('token').then(() => {
-            AsyncStorage.removeItem('id').then(() => {                 
-                Actions.splash({type: 'replace'});
-            })
-        }) 
+        backToMain();
     })   
 }
 
@@ -101,3 +107,11 @@ function getByToken(socket, dispatch) {
     socket.emit('/self/getByToken');
 }
 
+function backToMain() {
+    AsyncStorage.removeItem('token').then(() => {
+        AsyncStorage.removeItem('id').then(() => {      
+            dispatch(indicatorActions.showToast('Something went wrong! Please login again'));           
+            Actions.splash({type: 'replace'});
+        })
+    }) 
+}
