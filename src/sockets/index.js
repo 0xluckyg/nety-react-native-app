@@ -4,7 +4,9 @@ import {AsyncStorage} from 'react-native';
 import { Actions } from 'react-native-router-flux';
 import * as indicatorActions from '../actions/indicatorActions';
 import * as authActions from '../actions/authActions';
+
 import {onUpdateUser, updateSelf} from './profileSocket';
+import {onGetNetwork, onUpdateNetwork, getNetwork} from './networkSocket';
 import {onChangeDiscoverable, changeDiscoverable, logout, onLogout} from './settingsSocket';
 
 const socket = null;
@@ -15,12 +17,20 @@ export default function ({ dispatch }) {
             case keys.CONNECT_SOCKET:
                 connectSocket(action, dispatch, next);
                 break;
+
+            //PROFILE
             case keys.UPDATE_SELF:                
-                updateSelf(socket, dispatch, action.self);
+                updateSelf(socket, action.self);
                 next(action);
                 break;
 
+            //NETWORK
+            case keys.GET_NETWORK:
+                getNetwork(socket);
+                next(action);
+                break;
 
+            //SETTINGS
             case keys.CHANGE_DISCOVERABLE:
                 changeDiscoverable(socket, dispatch, action.discoverable);
                 next(action);
@@ -65,6 +75,9 @@ function connectSocket(action, dispatch, next) {
         //PROFILE
         onUpdateUser(socket, dispatch);
 
+        //NETWORK
+        onGetNetwork(socket, dispatch);
+
         //SETTINGS
         onChangeDiscoverable(socket, dispatch);
         onLogout(socket, dispatch);
@@ -73,7 +86,7 @@ function connectSocket(action, dispatch, next) {
     });
 
     socket.on('error', () => {        
-        if (!socket.socket.connected) {
+        if (!socket.connected) {
             backToMain();
         }
     });

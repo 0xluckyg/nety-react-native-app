@@ -37,7 +37,7 @@ class Geo extends Component {
             },
             // debug: true, // <-- enable this hear sounds for background-geolocation life-cycle.
         }, function(state) {
-                console.log("BackgroundGeolocation is configured and ready: ", state.enabled);
+                // console.log("BackgroundGeolocation is configured and ready: ", state.enabled);
                 if (!state.enabled) {
                     BackgroundGeolocation.start();
                 }
@@ -56,25 +56,25 @@ class Geo extends Component {
     }
     
     onLocation(location) {
-        console.log('- [js]location: ', JSON.stringify(location));
+        console.log('LOC ON',JSON.stringify(location));
     }
 
     onError(error) {
         var type = error.type;
         var code = error.code;
-        alert(type + " Error: " + code);
+        // alert(type + " Error: " + code);
     }
 
     onActivityChange(activityName) {
-        console.log('- Current motion activity: ', activityName);  // eg: 'on_foot', 'still', 'in_vehicle'
+        // console.log('- Current motion activity: ', activityName);  // eg: 'on_foot', 'still', 'in_vehicle'
     }
 
     onProviderChange(provider) {
-        console.log('- Location provider changed: ', provider.enabled);    
+        // console.log('- Location provider changed: ', provider.enabled);    
     }
 
     onMotionChange(location) {
-        console.log('- [js]motionchanged: ', JSON.stringify(location));
+        console.log('LOC CHANGE', JSON.stringify(location));
     }
 
     render() {

@@ -16,7 +16,7 @@ function onUpdateUser(socket, dispatch) {
     })    
 }
 
-function updateSelf(socket, dispatch, self) {
+function updateSelf(socket, self) {
     socket.emit('/self/update', self);
 }
 

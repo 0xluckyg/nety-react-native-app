@@ -35,7 +35,7 @@ class Cell extends Component {
                     </View>
                     <View style={styles.rowContentStyle}>
                         <View>
-                            <Text style={styles.topTextStyle}>{this.props.data.firstName + " " + this.props.data.lastName}</Text>
+                            <Text style={styles.topTextStyle}>{this.props.data.name.first + " " + this.props.data.name.last}</Text>
                         </View>
                         <View style={styles.middleContentStyle}>
                             <Text style={styles.middleTextStyle}>{this.props.data.status}</Text>

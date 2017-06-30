@@ -33,6 +33,7 @@ class Network extends Component {
     // }
 
 	componentDidMount() {
+        this.props.getNetwork();
 		this.updateNavbar(this.props.range)        
 	}
 
@@ -44,7 +45,7 @@ class Network extends Component {
                     />            
         } else {
             return <List
-                blockPressed={this.props.removeFromNetwork}
+                blockPressed={() => {}}
                 listViewData={this.props.network}
                 isChat={false}
                 goToOnPress={Actions.profile}

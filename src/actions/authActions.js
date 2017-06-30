@@ -14,7 +14,7 @@ export const signUpUser = (userInfo) => {
             },
         }).then(res => dispatch(resolveAuth(res)))
         .catch(err => {
-            console.log('ERR?',err);
+            console.log('WHYY?',err);
             store.dispatch(indicatorActions.showSpinner(false));
             store.dispatch(indicatorActions.showToast(err.response.data));             
         });
@@ -30,7 +30,8 @@ export const signInUser = (userInfo) => {
                 'Content-Type': 'application/json'
             },
         }).then(res => dispatch(resolveAuth(res)))
-        .catch(err => {            
+        .catch(err => {    
+            console.log('WHY?', err);
             store.dispatch(indicatorActions.showSpinner(false));
             store.dispatch(indicatorActions.showToast(err.response.data));             
         });
