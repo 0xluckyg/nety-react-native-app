@@ -1,5 +1,5 @@
-// export const SERVER = "http://localhost:3000"
-export const SERVER = "https://nety-development.herokuapp.com"
+export const SERVER = "http://localhost:3000"
+// export const SERVER = "https://nety-development.herokuapp.com"
 
 //AUTH
 export const SET_SELF = "SET_SELF"
@@ -9,7 +9,6 @@ export const CONNECT_SOCKET = 'CONNECT_SOCKET'
 
 //PROFILE
 export const UPDATE_SELF = "UPDATE_SELF"
-export const SET_USER = "SET_USER"
 export const RESOLVE_UPDATE_SELF = "RESOLVE_UPDATE_SELF"
 export const UPDATE_USER = "UPDATE_USER"
 
@@ -24,6 +23,13 @@ export const UPDATE_RANGE = "UPDATE_RANGE"
 //CONTACTS
 export const ADD_CONTACT = "ADD_CONTACT "
 export const REMOVE_CONTACT = "REMOVE_CONTACT"
+
+//MESSAAGES
+export const GET_MESSAGES = "GET_MESSAGES"
+export const RESOLVE_GET_MESSAGES = "RESOLVE_GET_MESSAGES"
+export const SEND_MESSAGE = "SEND_MESSAGE"
+export const RESOLVE_SEND_MESSAGE = "RESOLVE_SEND_MESSAGE"
+export const GOT_MESSAGE = "GOT_MESSAGE"
 
 //SETTINGS
 export const CHANGE_DISCOVERABLE = "CHANGE_DISCOVERY"

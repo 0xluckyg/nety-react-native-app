@@ -82,7 +82,7 @@ class Network extends Component {
 
 	updateNavbar(range) {
 		let title = this.titleForRange(range)		
-		Actions.refresh({title: title})
+		Actions.refresh({title})
 	}
 
 	didUpdateRange(range) {

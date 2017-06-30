@@ -23,10 +23,3 @@ export function resolveUpdateUser(user) {
         user
     }
 }
-
-export function setUser(user) {
-    return {
-        type: keys.SET_USER,
-        user
-    }
-}

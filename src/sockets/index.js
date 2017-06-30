@@ -8,6 +8,7 @@ import * as authActions from '../actions/authActions';
 import {onUpdateUser, updateSelf} from './profileSocket';
 import {onGetNetwork, onUpdateNetwork, getNetwork} from './networkSocket';
 import {onChangeDiscoverable, changeDiscoverable, logout, onLogout} from './settingsSocket';
+import {onGetMessages, onSendMessage, onGotMessage, sendMessage, getMessages} from './messagesSocket';
 
 const socket = null;
 
@@ -29,6 +30,14 @@ export default function ({ dispatch }) {
                 getNetwork(socket);
                 next(action);
                 break;
+
+            //MESSAGES
+            case keys.SEND_MESSAGE:
+                sendMessage(socket, action.msg);
+                next(action);
+            case keys.GET_MESSAGES:
+                getMessages(socket, action.query);
+                next(action);
 
             //SETTINGS
             case keys.CHANGE_DISCOVERABLE:
@@ -78,6 +87,11 @@ function connectSocket(action, dispatch, next) {
         //NETWORK
         onGetNetwork(socket, dispatch);
 
+        //MESSAGES
+        onGetMessages(socket, dispatch);
+        onSendMessage(socket, dispatch);
+        onGotMessage(socket, dispatch);
+
         //SETTINGS
         onChangeDiscoverable(socket, dispatch);
         onLogout(socket, dispatch);
@@ -110,14 +124,14 @@ function onGetByToken(socket, dispatch) {
     });
 }
 
+function getByToken(socket, dispatch) {        
+    socket.emit('/self/getByToken');
+}
+
 function onCriticalError(socket, dispatch) {
     socket.on('/criticalError', () => {
         backToMain();
     })   
-}
-
-function getByToken(socket, dispatch) {        
-    socket.emit('/self/getByToken');
 }
 
 function backToMain() {

@@ -32,8 +32,8 @@ class Profile extends Component {
         this.renderStaticButton = this.renderStaticButton.bind(this);
     }
 
-    componentWillMount() {  
-        console.log('FROM?',this.props.fromType, this.props.self);
+    componentWillMount() {          
+        console.log('FROM?',this.props.fromType, this.props.self);        
         if (this.props.fromType === 'myProfile') {
             this.setState({user:this.props.self})
         } else {
@@ -44,9 +44,9 @@ class Profile extends Component {
     messageButtonPressed() {
         this.props.addToContacts([this.props.user])
         if (this.props.fromType === 'network') {
-            Actions.chatRoomFromNetwork()
+            Actions.chatRoomFromNetwork({self: this.props.self, user:this.props.user})
         } else if (this.props.fromType === 'contacts') {
-            Actions.chatRoomFromContacts()
+            Actions.chatRoomFromContacts({self: this.props.self, user:this.props.user})
         }
     }
 
