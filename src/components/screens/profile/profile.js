@@ -210,8 +210,7 @@ const styles = StyleSheet.create({
 
 const mapStateToProps = (state) => (
 	{
-		self: state.profile.self,
-        user: state.profile.user
+		self: state.profile.self        
 	}
 )
 

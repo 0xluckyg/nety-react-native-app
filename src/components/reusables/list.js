@@ -29,7 +29,9 @@ class List extends Component {
 						<Cell
 							isChat={this.props.isChat}
 							data={data}
-							goToOnPress={() => this.props.goToOnPress({user: data}) }
+							goToOnPress={() => 
+								{this.props.goToOnPress({user: data})
+							}}
 						/>
 					)}
 					renderHiddenRow={ (data, secId, rowId, rowMap) => (

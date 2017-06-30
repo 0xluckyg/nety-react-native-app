@@ -17,6 +17,7 @@ export const signUpUser = (userInfo) => {
             console.log('WHYY?',err);
             store.dispatch(indicatorActions.showSpinner(false));
             store.dispatch(indicatorActions.showToast(err.response.data));             
+            return;
         });
     }
 }
@@ -34,6 +35,7 @@ export const signInUser = (userInfo) => {
             console.log('WHY?', err);
             store.dispatch(indicatorActions.showSpinner(false));
             store.dispatch(indicatorActions.showToast(err.response.data));             
+            return;
         });
     }
 }

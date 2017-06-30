@@ -3,13 +3,13 @@ export const SERVER = "https://nety-development.herokuapp.com"
 
 //AUTH
 export const SET_SELF = "SET_SELF"
-export const SET_USER = "SET_USER"
 
 //CONNECTION
 export const CONNECT_SOCKET = 'CONNECT_SOCKET'
 
 //PROFILE
 export const UPDATE_SELF = "UPDATE_SELF"
+export const SET_USER = "SET_USER"
 export const RESOLVE_UPDATE_SELF = "RESOLVE_UPDATE_SELF"
 export const UPDATE_USER = "UPDATE_USER"
 
