@@ -18,7 +18,7 @@ class ChatRoom extends Component {
     	this.state = {
 			chatroomId: ''			
 		};
-    	this.onSend = this.onSend.bind(this);
+    	this.onSend = this.onSend.bind(this);		
   	}
 
   	componentWillMount() {	
@@ -35,19 +35,19 @@ class ChatRoom extends Component {
 		
 	    this.setState({
 			chatroomId: createChatroomId(this.props.self._id, this.props.user._id),
-	    });		
-
-		if (this.props.messages[this.state.chatroomId]) {
-			this.props.getMessages({
-				chatroomId: this.state.chatroomId,
-				start: this.props.messages[this.state.chatroomId].length
-			})
-		} else {
-			this.props.getMessages({
-				chatroomId: this.state.chatroomId,
-				start: 0
-			})
-		}		
+	    }, () => {
+			if (this.props.messages[this.state.chatroomId]) {
+				this.props.getMessages({
+					chatroomId: this.state.chatroomId,
+					start: this.props.messages[this.state.chatroomId].length
+				})
+			} else {
+				this.props.getMessages({
+					chatroomId: this.state.chatroomId,
+					start: 0
+				})
+			}	
+		});			
 	}
 
 	onSend(msg) {
@@ -55,14 +55,12 @@ class ChatRoom extends Component {
 			text: msg[0].text,
 			toId: this.props.user._id,
 			chatroomId: this.state.chatroomId
-		}
-		console.log('THIS IS MSG.',msg);
-		console.log('THIS IS MSG MOFO',sendMsg);
+		}		
     	this.props.sendMessage(sendMsg);
 	}
 
-	render() {
-    	return (
+	render() {				
+    	return (			
 	      		<GiftedChat
 					style={{alignSelf: 'flex-start'}}
 	        		messages={this.props.messages[this.state.chatroomId]}

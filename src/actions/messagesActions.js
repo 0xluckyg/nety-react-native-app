@@ -1,11 +1,11 @@
 import * as keys from '../helper/constants.js'
 
 //query: { start: startFromIndex, chatroomId: idOfChatroom }
-export function getMessages(query) {
+export function getMessages(query) {    
     return { type: keys.GET_MESSAGES, query }
 }
 
-export function resolveGetMessages(messages) {
+export function resolveGetMessages(messages) {    
     return { 
         type: keys.RESOLVE_GET_MESSAGES, 
         messages: messages.messages, 
