@@ -24,22 +24,24 @@ class Cell extends Component {
         this.formatDate = this.formatDate.bind(this);
     }
 
-    componentWillMount() {
+    componentWillMount() {        
         this.renderText();
     }
 
     renderChatNotifications() {
         if (this.props.isChat) {
-            var reference = moment(this.props.data.updatedAt); // fixed just for testing, use moment();
-            var today = reference.clone().startOf('day');
-            return <Text style={styles.notificationTextStyle}>12</Text>
+            if (this.props.data.unread > 0) {
+                var reference = moment(this.props.data.updatedAt); // fixed just for testing, use moment();
+                var today = reference.clone().startOf('day');
+                return <Text style={styles.notificationTextStyle}>{this.props.data.unread}</Text>
+            } 
         }
     }
 
-    renderText() {
-        if (this.props.isChat) {
+    renderText() {        
+        if (this.props.isChat) {            
             this.setState({
-                middleText: this.props.data.lastMessage,
+                middleText: this.props.data.lastMessage.text,
                 subText: this.formatDate(this.props.data.updatedAt)
             })            
         } else {
@@ -72,24 +74,25 @@ class Cell extends Component {
         var weekAgo = ref.clone().subtract(7, 'days').startOf('day');
 
         var weekdays = ['Mon', 'Tues', 'Wed', 'Thur', 'Fri', 'Sat', 'Sun'];
-
+        
         function isToday(momentDate) {
-            return momentDate.isSame(today, 'd');
+            return moment(momentDate).isSame(today, 'd');
         }        
         function isWithinAWeek(momentDate) {
-            return momentDate.isAfter(weekAgo);
+            return moment(momentDate).isAfter(weekAgo);
         }        
 
         if (isToday(date)) {
-            return moment(date).locale('en').format("h:mm A");
+            return moment(date).locale('en').format("h:mm A") + '';
         } else if (isWithinAWeek(date)) {
             return weekdays[moment(date).isoWeekday() - 1]
         } else {
-            return moment(date).format("MMM Do YY");
+            return moment(date).format("MMM Do YY") + '';
         }
     }
 
     render() {
+        console.log('data??', this.props.data);
         return (
             <TouchableHighlight
                 onPress={ () => this.props.goToOnPress() }

@@ -10,6 +10,8 @@ import List from '../reusables/list';
 
 import NoContent from '../reusables/noContent';
 import {ChatsNoContentImage} from '../../images/images'
+import { connect } from 'react-redux';
+import * as chatsActions from '../../actions/chatsActions';
 
 class Chats extends Component {
 
@@ -21,6 +23,10 @@ class Chats extends Component {
         }      
     }
 
+    componentWillMount() {
+        this.props.getChatrooms();
+    }
+
     renderView() {
         console.log(this.state.chats)
         if (!this.state.chats || this.state.chats.length < 1) {                        
@@ -29,10 +35,11 @@ class Chats extends Component {
                         placeholderText={"You have no chats yet. Talk to people in Network tab!"}
                     />    
         } else {
+            console.log('CHATROOMS?', this.props.chatrooms)
             return <List
-                        listViewData={this.state.chats}
+                        listViewData={this.props.chatrooms}
                         isChat={true}
-                        goToOnPress={() => {Actions.chatRoomFromChats()}}
+                        goToOnPress={(data) => {Actions.chatRoomFromChats({self: this.props.self, user: data.user})}}
                     />
         }
     }
@@ -44,4 +51,11 @@ class Chats extends Component {
     }
 }
 
-export default Chats;
+const mapStateToProps = (state) => (
+	{
+		chatrooms: state.chats.chatrooms,
+        self: state.profile.self
+	}
+)
+
+export default connect(mapStateToProps, chatsActions)(Chats);

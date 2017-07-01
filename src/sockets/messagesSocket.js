@@ -6,7 +6,7 @@ function onGetMessages(socket, dispatch) {
         dispatch(messagesActions.resolveGetMessages(messages));
     })
 
-    socket.on('/self/getMessages/fail', messages => {        
+    socket.on('/self/getMessages/fail', err => {        
         
     })
 }

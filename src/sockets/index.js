@@ -9,6 +9,7 @@ import {onUpdateUser, updateSelf} from './profileSocket';
 import {onGetNetwork, onUpdateNetwork, getNetwork} from './networkSocket';
 import {onChangeDiscoverable, changeDiscoverable, logout, onLogout} from './settingsSocket';
 import {onGetMessages, onSendMessage, onGotMessage, sendMessage, getMessages} from './messagesSocket';
+import {onGetChatrooms, getChatrooms, removeChatroom, onRemoveChatroom} from './chatroomsSocket';
 
 const socket = null;
 
@@ -31,6 +32,16 @@ export default function ({ dispatch }) {
                 next(action);
                 break;
 
+            //CHATS
+            case keys.GET_CHATROOMS:
+                getChatrooms(socket);
+                next(action);
+                break;            
+            case keys.REMOVE_CHATROOM:
+                removeChatroom(socket, action.chatroomId);
+                next(action);
+                break;        
+            
             //MESSAGES
             case keys.SEND_MESSAGE:
                 sendMessage(socket, action.msg);
@@ -86,6 +97,10 @@ function connectSocket(action, dispatch, next) {
 
         //NETWORK
         onGetNetwork(socket, dispatch);
+
+        //CHATS
+        onGetChatrooms(socket, dispatch);        
+        onRemoveChatroom(socket, dispatch);
 
         //MESSAGES
         onGetMessages(socket, dispatch);

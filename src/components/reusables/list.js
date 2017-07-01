@@ -20,17 +20,20 @@ class List extends Component {
 		this.dataSource = new ListView.DataSource({rowHasChanged: (r1, r2) => r1 !== r2});
 	}
 
-	render() {
+	render() {		
 		return (
 			<View style={styles.container}>
 				<SwipeListView
 					dataSource={this.dataSource.cloneWithRows(this.props.listViewData)}
-					renderRow={ data => (
+					renderRow={ data => (						
 						<Cell
 							isChat={this.props.isChat}
 							data={data}
-							goToOnPress={() => 
-								{this.props.goToOnPress({user: data})
+							goToOnPress={() => {								
+								this.props.goToOnPress({user:{
+									_id: data.senderId || data._id,
+									name: data.name
+								}})
 							}}
 						/>
 					)}

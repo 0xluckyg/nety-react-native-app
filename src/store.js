@@ -9,6 +9,7 @@ import { reactotronRedux } from 'reactotron-redux'
 import networkReducer from './reducers/networkReducer';
 import profileReducer from './reducers/profileReducer';
 import contactsReducer from './reducers/contactsReducer';
+import chatsReducer from './reducers/chatsReducer';
 import messagesReducer from './reducers/messagesReducer';
 import settingsReducer from './reducers/settingsReducer';
 import indicatorReducer from './reducers/indicatorReducer';
@@ -19,6 +20,7 @@ const reducers = combineReducers({
       network: networkReducer, 
       profile: profileReducer,
       contacts: contactsReducer,
+      chats: chatsReducer,
       messages: messagesReducer,
       settings: settingsReducer,      
       indicator: indicatorReducer      

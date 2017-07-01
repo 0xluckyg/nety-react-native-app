@@ -1,4 +1,4 @@
-import { ADD_CONTACT, REMOVE_CONTACT } from '../helper/constants.js'
+import * as keys from '../helper/constants.js'
 import _ from 'lodash';
 
 const initialState = {
@@ -7,12 +7,12 @@ const initialState = {
 
 export default function (state = initialState, action) {
    switch (action.type) {
-        case ADD_CONTACT:
+        case keys.ADD_CONTACT:
             return {
                 ...state,
                 contacts: _.uniq([...state.contacts, ...action.users])
             }
-        case REMOVE_CONTACT:
+        case keys.REMOVE_CONTACT:
             let ids = action.users.map( user => user.id )
             return {
                 ...state,

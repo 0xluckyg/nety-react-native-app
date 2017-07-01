@@ -27,8 +27,7 @@ function formatMessages(messages, chatroomId) {
 }
 
 function formatMessage(msg, chatroomId) {
-    if (msg) {        
-        console.log('WHY THO',msg, chatroomId);
+    if (msg) {                
         return {
             text: msg.text,
             createdAt: msg.createdAt,
@@ -64,8 +63,7 @@ export default function (state = initialState, action) {
             }     
             resolveSendMessages[action.msg.chatroomId] = [formatMessage(action.msg, action.msg.chatroomId)].concat(
                 state.messages[action.msg.chatroomId]                
-            );
-            console.log('RESOLVE BItCH', resolveSendMessages)
+            );            
             return {                
                 messages: resolveSendMessages
             }
