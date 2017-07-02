@@ -91,8 +91,7 @@ class Toast extends Component {
             ],
         }
         // const combinedStyle = Object.assign(animation, obj2);                
-        if (this.props.show) {
-            console.log('SHOW!!')          
+        if (this.props.show) {            
             this.toast(true);
 
             return (     

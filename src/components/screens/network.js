@@ -37,7 +37,7 @@ class Network extends Component {
 		this.updateNavbar(this.props.range)        
 	}
 
-    renderView() {
+    renderView() {                        
         if (!this.props.network || this.props.network.length < 1) {                        
             return <NoContent   
                         image={NetworkNoContentImage}              

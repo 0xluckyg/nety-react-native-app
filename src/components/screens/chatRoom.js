@@ -14,47 +14,34 @@ const window = Dimensions.get('window');
 
 class ChatRoom extends Component {
 	constructor(props) {
-    	super(props);
-    	this.state = {
-			chatroomId: ''			
-		};
+    	super(props);    	
     	this.onSend = this.onSend.bind(this);		
   	}
 
-  	componentWillMount() {	
-		Actions.refresh({title: this.props.user.name.first + " " + this.props.user.name.last});
-
-		function createChatroomId(id1, id2) {
-			const compare = id1.localeCompare(id2);    
-			if (compare === -1) {
-				return id1 + id2;
-			} else {
-				return id2 + id1;
-			}    
-		}
-		
-	    this.setState({
-			chatroomId: createChatroomId(this.props.self._id, this.props.user._id),
-	    }, () => {
-			if (this.props.messages[this.state.chatroomId]) {
-				this.props.getMessages({
-					chatroomId: this.state.chatroomId,
-					start: this.props.messages[this.state.chatroomId].length
-				})
-			} else {
-				this.props.getMessages({
-					chatroomId: this.state.chatroomId,
-					start: 0
-				})
-			}	
-		});			
+  	componentWillMount() {
+		console.log('MOUNT')								    	
+		if (!this.props.messages[this.props.chatroomId]) {				
+			this.props.getMessages({
+				chatroomId: this.props.chatroomId,
+				start: 0
+			})
+		}		
+	}
+	componentDidUpdate(props) {
+		console.log('PROPS')
+		if (!this.props.messages[this.props.chatroomId]) {				
+			this.props.getMessages({
+				chatroomId: this.props.chatroomId,
+				start: 0
+			})
+		}		
 	}
 
 	onSend(msg) {
 		const sendMsg = {
 			text: msg[0].text,
 			toId: this.props.user._id,
-			chatroomId: this.state.chatroomId
+			chatroomId: this.props.chatroomId
 		}		
     	this.props.sendMessage(sendMsg);
 	}
@@ -63,7 +50,7 @@ class ChatRoom extends Component {
     	return (			
 	      		<GiftedChat
 					style={{alignSelf: 'flex-start'}}
-	        		messages={this.props.messages[this.state.chatroomId]}
+	        		messages={this.props.messages[this.props.chatroomId]}
 	        		onSend={this.onSend}
 	        		user={{_id: this.props.self._id}}					
 	      		/>

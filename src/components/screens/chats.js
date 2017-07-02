@@ -27,19 +27,33 @@ class Chats extends Component {
         this.props.getChatrooms();
     }
 
-    renderView() {
-        console.log(this.state.chats)
+    renderView() {        
+        function createChatroomId(id1, id2) {
+            const compare = id1.localeCompare(id2);    
+            if (compare === -1) {
+                return id1 + id2;
+            } else {
+                return id2 + id1;
+            }    
+        }        
+
         if (!this.state.chats || this.state.chats.length < 1) {                        
             return <NoContent   
                         image={ChatsNoContentImage}              
                         placeholderText={"You have no chats yet. Talk to people in Network tab!"}
                     />    
-        } else {
-            console.log('CHATROOMS?', this.props.chatrooms)
+        } else {            
             return <List
                         listViewData={this.props.chatrooms}
                         isChat={true}
-                        goToOnPress={(data) => {Actions.chatRoomFromChats({self: this.props.self, user: data.user})}}
+                        goToOnPress={(data) => {
+                            Actions.chatRoomFromChats({
+                                self: this.props.self, 
+                                user: data.user,
+                                title: data.user.name.first + ' ' + data.user.name.last,
+                                chatroomId: createChatroomId(data.user._id, this.props.self._id)
+                            }
+                        )}}
                     />
         }
     }

@@ -29,9 +29,7 @@ class Signup extends Component {
             },
             email: this.state.values.email,
             password: this.state.values.password
-        }
-
-        console.log(this.state.values);
+        }        
 
         if (signup.name.first.length > 1 && 
             signup.name.first.length < 20 && 

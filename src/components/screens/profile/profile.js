@@ -32,8 +32,7 @@ class Profile extends Component {
         this.renderStaticButton = this.renderStaticButton.bind(this);
     }
 
-    componentWillMount() {          
-        console.log('FROM?',this.props.fromType, this.props.self);        
+    componentWillMount() {                  
         if (this.props.fromType === 'myProfile') {
             this.setState({user:this.props.self})
         } else {
@@ -42,11 +41,32 @@ class Profile extends Component {
     }
 
     messageButtonPressed() {
+        function createChatroomId(id1, id2) {
+            const compare = id1.localeCompare(id2);    
+            if (compare === -1) {
+                return id1 + id2;
+            } else {
+                return id2 + id1;
+            }    
+        }
+
+        const chatroomId = createChatroomId(this.props.user._id, this.props.self._id)
+
         this.props.addToContacts([this.props.user])
         if (this.props.fromType === 'network') {
-            Actions.chatRoomFromNetwork({self: this.props.self, user:this.props.user})
+            Actions.chatRoomFromNetwork({
+                self: this.props.self, 
+                user:this.props.user,
+                title:this.props.user.name.first + ' ' + this.props.user.name.last,
+                chatroomId
+            })
         } else if (this.props.fromType === 'contacts') {
-            Actions.chatRoomFromContacts({self: this.props.self, user:this.props.user})
+            Actions.chatRoomFromContacts({
+                self: this.props.self, 
+                user:this.props.user,
+                title:this.props.user.name.first + ' ' + this.props.user.name.last,
+                chatroomId
+            })
         }
     }
 

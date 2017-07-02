@@ -24,6 +24,7 @@ class List extends Component {
 		return (
 			<View style={styles.container}>
 				<SwipeListView
+					enableEmptySections={true}
 					dataSource={this.dataSource.cloneWithRows(this.props.listViewData)}
 					renderRow={ data => (						
 						<Cell

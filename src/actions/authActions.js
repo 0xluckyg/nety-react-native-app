@@ -13,8 +13,7 @@ export const signUpUser = (userInfo) => {
                 'Content-Type': 'application/json'
             },
         }).then(res => dispatch(resolveAuth(res)))
-        .catch(err => {
-            console.log('WHYY?',err);
+        .catch(err => {            
             store.dispatch(indicatorActions.showSpinner(false));
             store.dispatch(indicatorActions.showToast(err.response.data));             
             return;
@@ -31,8 +30,7 @@ export const signInUser = (userInfo) => {
                 'Content-Type': 'application/json'
             },
         }).then(res => dispatch(resolveAuth(res)))
-        .catch(err => {    
-            console.log('WHY?', err);
+        .catch(err => {                
             store.dispatch(indicatorActions.showSpinner(false));
             store.dispatch(indicatorActions.showToast(err.response.data));             
             return;
@@ -40,8 +38,7 @@ export const signInUser = (userInfo) => {
     }
 }
 
-export const resolveGetByToken = (user) => {    
-    console.log(user)
+export const resolveGetByToken = (user) => {        
     return {
         type: SET_SELF,
         self: user

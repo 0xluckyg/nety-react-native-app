@@ -56,7 +56,7 @@ class Geo extends Component {
     }
     
     onLocation(location) {
-        console.log('LOC ON',JSON.stringify(location));
+        // console.log('LOC ON',JSON.stringify(location));
     }
 
     onError(error) {
@@ -74,7 +74,7 @@ class Geo extends Component {
     }
 
     onMotionChange(location) {
-        console.log('LOC CHANGE', JSON.stringify(location));
+        // console.log('LOC CHANGE', JSON.stringify(location));
     }
 
     render() {

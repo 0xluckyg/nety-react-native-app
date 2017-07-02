@@ -12,7 +12,7 @@ function onGetMessages(socket, dispatch) {
 }
 
 function onSendMessage(socket, dispatch) {
-    socket.on('/self/sendMessage/success', msg => {
+    socket.on('/self/sendMessage/success', msg => {        
         dispatch(messagesActions.resolveSendMessage(msg));
     });
 

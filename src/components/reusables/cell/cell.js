@@ -91,8 +91,7 @@ class Cell extends Component {
         }
     }
 
-    render() {
-        console.log('data??', this.props.data);
+    render() {        
         return (
             <TouchableHighlight
                 onPress={ () => this.props.goToOnPress() }
