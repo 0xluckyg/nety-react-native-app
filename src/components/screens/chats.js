@@ -17,15 +17,16 @@ class Chats extends Component {
 
     constructor(props) {
         super(props);
-        this.renderView = this.renderView.bind(this);  
-        this.state = {
-            chats: [0,1,2,3,4,5]
-        }      
+        this.renderView = this.renderView.bind(this);          
     }
 
     componentWillMount() {
         this.props.getChatrooms();
     }
+
+    componentDidUpdate(props) {
+		console.log('UPDATED!',this.props.chatrooms);
+	}
 
     renderView() {        
         function createChatroomId(id1, id2) {
@@ -37,7 +38,7 @@ class Chats extends Component {
             }    
         }        
 
-        if (!this.state.chats || this.state.chats.length < 1) {                        
+        if (!this.props.chatrooms || this.props.chatrooms.length < 1) {                        
             return <NoContent   
                         image={ChatsNoContentImage}              
                         placeholderText={"You have no chats yet. Talk to people in Network tab!"}
@@ -59,6 +60,7 @@ class Chats extends Component {
     }
 
     render() {
+        console.log('RERENDERED');
         return (
             this.renderView()
         );

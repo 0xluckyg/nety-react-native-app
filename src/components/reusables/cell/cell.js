@@ -20,13 +20,13 @@ class Cell extends Component {
             subText: ''
         }
         this.renderChatNotifications = this.renderChatNotifications.bind(this);
-        this.renderText = this.renderText.bind(this);
-        this.formatDate = this.formatDate.bind(this);
+        this.renderMiddleText = this.renderMiddleText.bind(this);        
+        this.renderSubText = this.renderSubText.bind(this);
     }
 
-    componentWillMount() {        
-        this.renderText();
-    }
+    componentDidUpdate(props) {
+		console.log('UPDATED CELL!',this.props.data);
+	}
 
     renderChatNotifications() {
         if (this.props.isChat) {
@@ -38,56 +38,56 @@ class Cell extends Component {
         }
     }
 
-    renderText() {        
-        if (this.props.isChat) {            
-            this.setState({
-                middleText: this.props.data.lastMessage.text,
-                subText: this.formatDate(this.props.data.updatedAt)
-            })            
+    renderMiddleText() {        
+        if (this.props.isChat) {                        
+                return this.props.data.lastMessage.text;
         } else {
-            if (this.props.data.status) {                
-                this.setState({
-                    middleText: this.props.data.status,
-                    subText: this.props.profession || this.props.work || this.props.education || 'No work description'
-                })
-                return;
-            } else if (this.props.data.summary) {
-                this.setState({
-                    middleText: this.props.data.summary,
-                    subText: this.props.profession || this.props.work || this.props.education || 'No work description'
-                })
-                return;
-            } else {
-                this.setState({
-                    middleText: 'No self description',
-                    subText: this.props.profession || this.props.work || this.props.education || 'No work description'
-                })
-                return;
+            if (this.props.data.status) {                                
+                return this.props.data.status;
+            } else if (this.props.data.summary) {                
+                return this.props.data.summary                                 
+            } else {                
+                return 'No self description'                
             }          
         }
     }
 
-    formatDate(date) {
-        if (!date) {return null}
-        var ref = moment("2015-06-05"); // fixed just for testing, use moment();
-        var today = ref.clone().startOf('day');        
-        var weekAgo = ref.clone().subtract(7, 'days').startOf('day');
-
-        var weekdays = ['Mon', 'Tues', 'Wed', 'Thur', 'Fri', 'Sat', 'Sun'];
-        
-        function isToday(momentDate) {
-            return moment(momentDate).isSame(today, 'd');
-        }        
-        function isWithinAWeek(momentDate) {
-            return moment(momentDate).isAfter(weekAgo);
-        }        
-
-        if (isToday(date)) {
-            return moment(date).locale('en').format("h:mm A") + '';
-        } else if (isWithinAWeek(date)) {
-            return weekdays[moment(date).isoWeekday() - 1]
+    renderSubText() {
+        if (this.props.isChat) {
+            return formatDate(this.props.data.updatedAt) 
         } else {
-            return moment(date).format("MMM Do YY") + '';
+            if (this.props.data.status) {                                
+                return this.props.profession || this.props.work || this.props.education || 'No work description'                                
+            } else if (this.props.data.summary) {                
+                return this.props.profession || this.props.work || this.props.education || 'No work description'                
+            } else {                
+                return this.props.profession || this.props.work || this.props.education || 'No work description'                
+            }
+        }
+
+        function formatDate(date) {
+            if (!date) {return null}
+            var ref = moment();
+            var today = ref.clone().startOf('day');        
+            var weekAgo = ref.clone().subtract(7, 'days').startOf('day');
+
+            var weekdays = ['Mon', 'Tues', 'Wed', 'Thur', 'Fri', 'Sat', 'Sun'];
+            
+            function isToday(momentDate) {
+                return moment(momentDate).isSame(today, 'd');
+            }        
+            function isWithinAWeek(momentDate) {
+                return moment(momentDate).isAfter(weekAgo);
+            }        
+
+            if (isToday(date)) {
+                console.log('TODAY');
+                return moment(date).locale('en').format("h:mm A") + '';
+            } else if (isWithinAWeek(date)) {
+                return weekdays[moment(date).isoWeekday() - 1]
+            } else {
+                return moment(date).format("MMM Do YY") + '';
+            }
         }
     }
 
@@ -109,11 +109,11 @@ class Cell extends Component {
                             <Text style={styles.topTextStyle}>{this.props.data.name.first + " " + this.props.data.name.last}</Text>
                         </View>
                         <View style={styles.middleContentStyle}>
-                            <Text style={styles.middleTextStyle}>{this.state.middleText}</Text>
+                            <Text style={styles.middleTextStyle}>{this.renderMiddleText()}</Text>
                             {this.renderChatNotifications()}
                         </View>
                         <View style={styles.bottomContentStyle}>
-                            <Text style={styles.bottomTextStyle}>{this.state.subText}</Text>
+                            <Text style={styles.bottomTextStyle}>{this.renderSubText()}</Text>
                         </View>
                     </View>
                 </View>

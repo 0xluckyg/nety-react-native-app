@@ -16,25 +16,23 @@ class ChatRoom extends Component {
 	constructor(props) {
     	super(props);    	
     	this.onSend = this.onSend.bind(this);		
+		this.fetchInitialMessages = this.fetchInitialMessages.bind(this);
   	}
 
-  	componentWillMount() {
-		console.log('MOUNT')								    	
+	fetchInitialMessages() {
 		if (!this.props.messages[this.props.chatroomId]) {				
 			this.props.getMessages({
 				chatroomId: this.props.chatroomId,
 				start: 0
 			})
-		}		
+		}	
 	}
-	componentDidUpdate(props) {
-		console.log('PROPS')
-		if (!this.props.messages[this.props.chatroomId]) {				
-			this.props.getMessages({
-				chatroomId: this.props.chatroomId,
-				start: 0
-			})
-		}		
+
+  	componentWillMount() {								    	
+		this.fetchInitialMessages();
+	}
+	componentDidUpdate(props) {		
+		this.fetchInitialMessages();	
 	}
 
 	onSend(msg) {
@@ -46,7 +44,7 @@ class ChatRoom extends Component {
     	this.props.sendMessage(sendMsg);
 	}
 
-	render() {				
+	render() {						
     	return (			
 	      		<GiftedChat
 					style={{alignSelf: 'flex-start'}}
