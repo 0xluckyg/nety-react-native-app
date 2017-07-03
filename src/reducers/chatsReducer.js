@@ -6,18 +6,25 @@ const initialState = {
 }
 
 function updateChatroom(chatrooms, message, fromSelf) {     
-    console.log('CHATROOMS BEFORE', chatrooms);   
+    console.log('CHATROOMS BEFORE', chatrooms);       
+    console.log('MSG BEFORE', message);       
     var index = _.findIndex(chatrooms, {_id: message.chatroomId});
-    const chatroom = chatrooms[index];
+    let chatroom = {
+        lastMessage: {}        
+    }
+    if (index >= 0) {
+        chatroom = chatrooms[index];  
+        chatrooms.splice(index, 1);     
+    }    
     chatroom.updatedAt = message.updatedAt
     chatroom.lastMessage.text = message.text
     chatroom.lastMessage.sender = message.senderId
-    if (!fromSelf) {chatroom.unread ++}
-    
-    chatrooms.splice(index, 1);
+    chatroom.name = message.name    
+    if (!fromSelf) {
+        if (chatroom.unread) { chatroom.unread = 1 } else { chatroom.unread ++ }
+    }    
     chatrooms = [chatroom].concat(chatrooms);    
 
-    console.log('CHATROOMS AFTER', chatrooms);
     return chatrooms;
 }
 

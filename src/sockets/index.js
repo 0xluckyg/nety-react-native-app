@@ -46,10 +46,12 @@ export default function ({ dispatch }) {
             case keys.SEND_MESSAGE:
                 sendMessage(socket, action.msg);
                 next(action);
+                break;
             case keys.GET_MESSAGES:
                 getMessages(socket, action.query);
                 next(action);
-
+                break;
+                
             //SETTINGS
             case keys.CHANGE_DISCOVERABLE:
                 changeDiscoverable(socket, dispatch, action.discoverable);

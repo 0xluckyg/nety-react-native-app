@@ -1,9 +1,17 @@
-import {ADD_CONTACT, REMOVE_CONTACT} from '../helper/constants.js'
+import * as keys from '../helper/constants.js'
 
-export function addToContacts(users) {
-    return { type: ADD_CONTACT, users }
+export function addContact(users) {
+    return { type: keys.ADD_CONTACT, users }
 }
 
-export function removeFromContacts(users) {
-    return { type: REMOVE_CONTACT, users }
+export function resolveAddContact(users) {
+    return { type: keys.RESOLVE_ADD_CONTACT, users }
+}
+
+export function removeContact(users) {
+    return { type: keys.REMOVE_CONTACT, users }
+}
+
+export function resolveRemoveContact(users) {
+    return { type: keys.RESOLVE_REMOVE_CONTACT, users }
 }

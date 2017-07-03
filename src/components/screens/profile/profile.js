@@ -51,8 +51,7 @@ class Profile extends Component {
         }
 
         const chatroomId = createChatroomId(this.props.user._id, this.props.self._id)
-
-        this.props.addToContacts([this.props.user])
+        
         if (this.props.fromType === 'network') {
             Actions.chatRoomFromNetwork({
                 self: this.props.self, 

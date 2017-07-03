@@ -24,10 +24,6 @@ class Chats extends Component {
         this.props.getChatrooms();
     }
 
-    componentDidUpdate(props) {
-		console.log('UPDATED!',this.props.chatrooms);
-	}
-
     renderView() {        
         function createChatroomId(id1, id2) {
             const compare = id1.localeCompare(id2);    
@@ -52,15 +48,15 @@ class Chats extends Component {
                                 self: this.props.self, 
                                 user: data.user,
                                 title: data.user.name.first + ' ' + data.user.name.last,
-                                chatroomId: createChatroomId(data.user._id, this.props.self._id)
+                                chatroomId: createChatroomId(data.user._id, this.props.self._id),
+                                isContact: data.isContact
                             }
                         )}}
                     />
         }
     }
 
-    render() {
-        console.log('RERENDERED');
+    render() {        
         return (
             this.renderView()
         );

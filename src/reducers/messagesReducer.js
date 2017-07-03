@@ -42,6 +42,7 @@ function formatMessage(msg, chatroomId) {
 export default function (state = initialState, action) {    
     switch (action.type) {        
         case keys.RESOLVE_GET_MESSAGES:            
+            console.log('messages', action.messages);
             if (!state.messages[action.chatroomId]) {
                 state.messages[action.chatroomId] = [];        
             }                        

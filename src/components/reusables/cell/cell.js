@@ -24,10 +24,6 @@ class Cell extends Component {
         this.renderSubText = this.renderSubText.bind(this);
     }
 
-    componentDidUpdate(props) {
-		console.log('UPDATED CELL!',this.props.data);
-	}
-
     renderChatNotifications() {
         if (this.props.isChat) {
             if (this.props.data.unread > 0) {

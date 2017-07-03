@@ -29,6 +29,7 @@ export function resolveGetMessages(messages) {
 //      text: 
 //      createdAt:
 //      updatedAt:
+//     name: {first, last}
 // }
 export function sendMessage(msg) {
     return { type: keys.SEND_MESSAGE, msg }
@@ -40,6 +41,7 @@ export function sendMessage(msg) {
 //      text: 
 //      createdAt:
 //      updatedAt:
+//     name: {first, last}
 // }
 export function resolveSendMessage(msg) {
     return { type: keys.RESOLVE_SEND_MESSAGE, msg }
