@@ -5,18 +5,32 @@ const initialState = {
     contacts: []
 }
 
+function sortContacts(contacts) {
+    contacts.sort((a, b) => {
+        return a.name.first.localeCompare(b.name.first);
+    });
+    return contacts;
+}
+
 export default function (state = initialState, action) {
    switch (action.type) {
-        case keys.ADD_CONTACT:
-            return {
-                ...state,
-                contacts: _.uniq([...state.contacts, ...action.users])
+        case keys.RESOLVE_GET_CONTACTS:
+            console.log('GOT CONTACTS', action.contacts);
+            return {                
+                contacts: action.contacts
             }
-        case keys.REMOVE_CONTACT:
-            let ids = action.users.map( user => user.id )
-            return {
-                ...state,
-                contacts: state.contacts.filter( user => !ids.includes(user.id) )
+        case keys.RESOLVE_ADD_CONTACT:
+            let addContacts = _.uniqBy([...state.contacts, ...[action.user]], '_id');
+            addContacts = sortContacts(addContacts);
+            console.log('ADD', action.user);
+            console.log('ADD', addContacts)
+            return {                
+                contacts: addContacts
+            }            
+        case keys.RESOLVE_REMOVE_CONTACT:            
+            let removeContacts = state.contacts.filter( contact => contact._id.toString() !== action.userId.toString() );
+            return {                
+                contacts: removeContacts
             }
         default:
             return state

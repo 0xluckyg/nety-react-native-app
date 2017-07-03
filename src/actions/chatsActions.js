@@ -37,3 +37,17 @@ export function resolveRemoveChatroom(chatroomId) {
         chatroomId
     }
 }
+
+export function readMessages(chatroomId) {
+    return { 
+        type: keys.READ_MESSAGES, 
+        chatroomId
+    }
+}
+
+export function resolveReadMessages(chatroomId) {
+    return { 
+        type: keys.RESOLVE_READ_MESSAGES, 
+        chatroomId
+    }
+}

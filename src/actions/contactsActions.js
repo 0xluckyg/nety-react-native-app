@@ -1,17 +1,25 @@
 import * as keys from '../helper/constants.js'
 
-export function addContact(users) {
-    return { type: keys.ADD_CONTACT, users }
+export function getContacts() {
+    return {type: keys.GET_CONTACTS}
 }
 
-export function resolveAddContact(users) {
-    return { type: keys.RESOLVE_ADD_CONTACT, users }
+export function resolveGetContacts(contacts) {
+    return {type: keys.RESOLVE_GET_CONTACTS, contacts}
 }
 
-export function removeContact(users) {
-    return { type: keys.REMOVE_CONTACT, users }
+export function addContact(userId) {    
+    return { type: keys.ADD_CONTACT, userId }
 }
 
-export function resolveRemoveContact(users) {
-    return { type: keys.RESOLVE_REMOVE_CONTACT, users }
+export function resolveAddContact(user) {
+    return { type: keys.RESOLVE_ADD_CONTACT, user }
+}
+
+export function removeContact(userId) {
+    return { type: keys.REMOVE_CONTACT, userId }
+}
+
+export function resolveRemoveContact(user) {
+    return { type: keys.RESOLVE_REMOVE_CONTACT, user }
 }

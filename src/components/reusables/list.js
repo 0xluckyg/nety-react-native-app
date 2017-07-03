@@ -34,7 +34,9 @@ class List extends Component {
 								this.props.goToOnPress({user:{
 									_id: data.senderId || data._id,
 									name: data.name
-								}})
+								},
+								isContact: data.isContact								
+								})
 							}}
 						/>
 					)}

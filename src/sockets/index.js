@@ -10,6 +10,7 @@ import {onGetNetwork, onUpdateNetwork, getNetwork} from './networkSocket';
 import {onChangeDiscoverable, changeDiscoverable, logout, onLogout} from './settingsSocket';
 import {onGetMessages, onSendMessage, onGotMessage, sendMessage, getMessages} from './messagesSocket';
 import {onGetChatrooms, getChatrooms, removeChatroom, onRemoveChatroom} from './chatroomsSocket';
+import {getContacts, onGetContacts, removeContact, onRemoveContact, addContact, onAddContact } from './contactsSocket';
 
 const socket = null;
 
@@ -29,6 +30,21 @@ export default function ({ dispatch }) {
             //NETWORK
             case keys.GET_NETWORK:
                 getNetwork(socket);
+                next(action);
+                break;
+
+            //CONTACTS
+            case keys.GET_CONTACTS:
+                getContacts(socket);
+                next(action);
+                break;
+            case keys.ADD_CONTACT:
+                console.log('ADD!?!?')
+                addContact(socket, action.userId);
+                next(action);
+                break;
+            case keys.REMOVE_CONTACT:
+                removeContact(socket);
                 next(action);
                 break;
 
@@ -99,6 +115,11 @@ function connectSocket(action, dispatch, next) {
 
         //NETWORK
         onGetNetwork(socket, dispatch);
+
+        //CONTACTS
+        onGetContacts(socket, dispatch);
+        onRemoveContact(socket, dispatch);
+        onAddContact(socket, dispatch);
 
         //CHATS
         onGetChatrooms(socket, dispatch);        

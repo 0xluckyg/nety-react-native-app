@@ -18,6 +18,10 @@ class Contacts extends Component {
         this.renderView = this.renderView.bind(this);
     }
 
+    componentWillMount() {
+        this.props.getContacts();
+    }
+
     renderView() {
         if (!this.props.contacts || this.props.contacts.length < 1) {                        
             return <NoContent   
@@ -26,7 +30,7 @@ class Contacts extends Component {
                     />    
         } else {
             return <List
-                        deletePressed={this.props.removeFromContacts}
+                        deletePressed={this.props.removeContact}
                         listViewData={this.props.contacts}
                         isChat={false}
                         goToOnPress={Actions.profileFromContacts}

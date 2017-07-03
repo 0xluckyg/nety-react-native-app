@@ -44,6 +44,8 @@ class Chats extends Component {
                         listViewData={this.props.chatrooms}
                         isChat={true}
                         goToOnPress={(data) => {
+                            console.log("DATA",data);
+                            console.log("DATA",this.props.chatrooms);
                             Actions.chatRoomFromChats({
                                 self: this.props.self, 
                                 user: data.user,

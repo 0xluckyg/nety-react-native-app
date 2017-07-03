@@ -14,6 +14,7 @@ import {MyColors} from '../../helper/style';
 import {ChatButtonImage} from '../../images/images';
 import { connect } from 'react-redux';
 import * as messagesActions from '../../actions/messagesActions';
+import * as contactsActions from '../../actions/contactsActions';
 
 const window = Dimensions.get('window');
 
@@ -34,7 +35,7 @@ class ChatRoom extends Component {
 		}			
 	}
 
-  	componentWillMount() {								    	
+  	componentWillMount() {			
 		this.fetchInitialMessages();				
 	}
 
@@ -44,7 +45,7 @@ class ChatRoom extends Component {
 
 	renderAddUserButton() {		
 		const messages = this.props.messages[this.props.chatroomId];		
-		let senderId = '';		
+		let senderId = '';				
 		if (this.props.isContact) { return }
 		if (!messages) { return }
 		
@@ -57,11 +58,12 @@ class ChatRoom extends Component {
 					return (
 						<TouchableOpacity 
 							onPress={() => {
-
+								console.log('ADD!')
+								this.props.addContact(this.props.user._id);
 							}} 
 							style={styles.buttonStyle}>
 							<Text style={styles.buttonTextStyle}>{`Add ${this.props.user.name.first} to contacts`}</Text>
-						</TouchableOpacity>	
+						</TouchableOpacity>
 					)  
 				}
 			}	
@@ -143,8 +145,8 @@ const styles = StyleSheet.create({
 
 const mapStateToProps = (state) => (
 	{
-		messages: state.messages.messages
+		messages: state.messages.messages		
 	}
 )
 
-export default connect(mapStateToProps, messagesActions)(ChatRoom);
+export default connect(mapStateToProps, {...messagesActions, ...contactsActions})(ChatRoom);

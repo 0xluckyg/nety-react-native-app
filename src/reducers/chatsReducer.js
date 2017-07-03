@@ -5,9 +5,7 @@ const initialState = {
     chatrooms: []
 }
 
-function updateChatroom(chatrooms, message, fromSelf) {     
-    console.log('CHATROOMS BEFORE', chatrooms);       
-    console.log('MSG BEFORE', message);       
+function updateChatroom(chatrooms, message, fromSelf) {         
     var index = _.findIndex(chatrooms, {_id: message.chatroomId});
     let chatroom = {
         lastMessage: {}        
@@ -28,10 +26,19 @@ function updateChatroom(chatrooms, message, fromSelf) {
     return chatrooms;
 }
 
+function updateIsContact(chatrooms, userId, bool) {
+    var index = _.findIndex(chatrooms, {senderId: userId});
+    if (index >= 0) {
+        chatroom = chatrooms[index];  
+        chatroom.isContact = bool;
+        chatrooms.splice(index, 1, chatroom);
+    }
+    return chatrooms;
+}
+
 export default function (state = initialState, action) {
    switch (action.type) {
-        case keys.RESOLVE_GET_CHATROOMS:         
-            console.log('CHATROOMS', action.chatrooms);
+        case keys.RESOLVE_GET_CHATROOMS:                     
             return {
                 ...state,                
                 chatrooms: action.chatrooms
@@ -47,6 +54,15 @@ export default function (state = initialState, action) {
         case keys.GOT_MESSAGE:
             return {
                 chatrooms: updateChatroom(state.chatrooms, action.msg, false)
+            }
+
+        case keys.RESOLVE_ADD_CONTACT:
+            return {
+                chatrooms: updateIsContact(state.chatrooms, action.userId, true)
+            }
+        case keys.RESOLVE_REMOVE_CONTACT:
+            return {
+                chatrooms: updateIsContact(state.chatrooms, action.userId, false)
             }
 
         default:
