@@ -81,7 +81,7 @@ class Splash extends Component {
                                 >
                                     <Text style={styles.buttonText}>Create account?</Text>
                                 </TouchableOpacity>
-                                <TouchableOpacity
+                                {/*<TouchableOpacity
                                     onPress={() => {}}
                                     style={[styles.oAuth, styles.facebook, styles.center]}
                                 >
@@ -94,7 +94,7 @@ class Splash extends Component {
                                 >
                                     <Image style={styles.thumbnailStyle} source={LinkedInThumbnailImage}/>
                                     <Text style={styles.buttonText}>Linkedin</Text>
-                                </TouchableOpacity>
+                                </TouchableOpacity>*/}
                             </View>
                         </View>                   
                     </Image>

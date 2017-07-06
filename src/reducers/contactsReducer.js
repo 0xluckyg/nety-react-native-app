@@ -14,16 +14,13 @@ function sortContacts(contacts) {
 
 export default function (state = initialState, action) {
    switch (action.type) {
-        case keys.RESOLVE_GET_CONTACTS:
-            console.log('GOT CONTACTS', action.contacts);
+        case keys.RESOLVE_GET_CONTACTS:            
             return {                
                 contacts: action.contacts
             }
         case keys.RESOLVE_ADD_CONTACT:
             let addContacts = _.uniqBy([...state.contacts, ...[action.user]], '_id');
-            addContacts = sortContacts(addContacts);
-            console.log('ADD', action.user);
-            console.log('ADD', addContacts)
+            addContacts = sortContacts(addContacts);            
             return {                
                 contacts: addContacts
             }            

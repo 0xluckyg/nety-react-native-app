@@ -9,7 +9,7 @@ import {onUpdateUser, updateSelf} from './profileSocket';
 import {onGetNetwork, onUpdateNetwork, getNetwork} from './networkSocket';
 import {onChangeDiscoverable, changeDiscoverable, logout, onLogout} from './settingsSocket';
 import {onGetMessages, onSendMessage, onGotMessage, sendMessage, getMessages} from './messagesSocket';
-import {onGetChatrooms, getChatrooms, removeChatroom, onRemoveChatroom} from './chatroomsSocket';
+import {onGetChatrooms, getChatrooms, removeChatroom, onRemoveChatroom, readMessages, onReadMessages} from './chatroomsSocket';
 import {getContacts, onGetContacts, removeContact, onRemoveContact, addContact, onAddContact } from './contactsSocket';
 
 const socket = null;
@@ -38,15 +38,14 @@ export default function ({ dispatch }) {
                 getContacts(socket);
                 next(action);
                 break;
-            case keys.ADD_CONTACT:
-                console.log('ADD!?!?')
+            case keys.ADD_CONTACT:                
                 addContact(socket, action.userId);
                 next(action);
                 break;
             case keys.REMOVE_CONTACT:
                 removeContact(socket);
                 next(action);
-                break;
+                break;            
 
             //CHATS
             case keys.GET_CHATROOMS:
@@ -56,7 +55,11 @@ export default function ({ dispatch }) {
             case keys.REMOVE_CHATROOM:
                 removeChatroom(socket, action.chatroomId);
                 next(action);
-                break;        
+                break;    
+            case keys.READ_MESSAGES:
+                readMessages(socket, action.chatroomId);
+                next(action);
+                break;
             
             //MESSAGES
             case keys.SEND_MESSAGE:
@@ -124,6 +127,7 @@ function connectSocket(action, dispatch, next) {
         //CHATS
         onGetChatrooms(socket, dispatch);        
         onRemoveChatroom(socket, dispatch);
+        onReadMessages(socket, dispatch);
 
         //MESSAGES
         onGetMessages(socket, dispatch);

@@ -39,21 +39,27 @@ class Chats extends Component {
                         image={ChatsNoContentImage}              
                         placeholderText={"You have no chats yet. Talk to people in Network tab!"}
                     />    
-        } else {            
+        } else {                    
             return <List
                         listViewData={this.props.chatrooms}
                         isChat={true}
                         goToOnPress={(data) => {
-                            console.log("DATA",data);
-                            console.log("DATA",this.props.chatrooms);
+                            const chatroomId = createChatroomId(data.user._id, this.props.self._id)                
+                            this.props.readMessages(chatroomId);
                             Actions.chatRoomFromChats({
                                 self: this.props.self, 
                                 user: data.user,
                                 title: data.user.name.first + ' ' + data.user.name.last,
-                                chatroomId: createChatroomId(data.user._id, this.props.self._id),
+                                chatroomId,
                                 isContact: data.isContact
-                            }
+                            }                            
                         )}}
+                        /*deletePressed={(data) => {
+                            
+                        }}
+                        blockPressed={(data) => {
+
+                        }}*/
                     />
         }
     }

@@ -97,18 +97,18 @@ class Settings extends Component {
 				{this.renderGrayContainer()}
 				{this.renderGrayContainer('NOTIFICATIONS')}
 				{this.renderWhiteContainer('Chat notifications', b, b, true, null, null, ()=>{}, true)}
-				{this.renderGrayContainer()}
-				{this.renderGrayContainer('FRIENDS')}
+				{/*{this.renderGrayContainer()}*/}
+				{/*{this.renderGrayContainer('FRIENDS')}
 				<TouchableOpacity
 					onPress={() => Actions.blocked()}
 					activeOpacity={0.5}
 				>				
 					{this.renderWhiteContainer('Blocked', b, b)}
-				</TouchableOpacity>
-				{this.renderGrayContainer()}
-				{this.renderGrayContainer('SHARE')}
+				</TouchableOpacity>*/}
+				{/*{this.renderGrayContainer()}*/}
+				{/*{this.renderGrayContainer('SHARE')}
 				{this.renderWhiteContainer('Share on Facebook!', b, null, false, FacebookThumbnailImage, MyColors.facebookColor)}
-				{this.renderWhiteContainer('Share on Linkedin!', b, b, false, LinkedInThumbnailImage, MyColors.linkedInColor)}
+				{this.renderWhiteContainer('Share on Linkedin!', b, b, false, LinkedInThumbnailImage, MyColors.linkedInColor)}*/}
 				{this.renderGrayContainer()}
 				{this.renderGrayContainer('ACCOUNT')}
 				<TouchableOpacity 

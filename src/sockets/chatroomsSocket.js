@@ -28,9 +28,24 @@ function onRemoveChatroom(socket, dispatch) {
     });
 }
 
+function readMessages(socket, chatroomId) {
+    socket.emit('/self/readMessage', chatroomId);
+}
+
+function onReadMessages(socket, dispatch) {
+    socket.on('/self/readMessage/success', chatroomId => {
+        dispatch(chatsActions.resolveReadMessages(chatroomId));
+    });
+    socket.on('/self/readMessage/fail', err => {
+        
+    });
+}
+
 module.exports = {    
     onGetChatrooms,
     getChatrooms,
     removeChatroom,
-    onRemoveChatroom 
+    onRemoveChatroom,
+    readMessages,
+    onReadMessages
 }

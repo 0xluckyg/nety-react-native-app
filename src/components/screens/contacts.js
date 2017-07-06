@@ -34,6 +34,12 @@ class Contacts extends Component {
                         listViewData={this.props.contacts}
                         isChat={false}
                         goToOnPress={Actions.profileFromContacts}
+                        /*deletePressed={(id) => {
+                            this.props.removeContact(id)
+                        }}
+                        blockPressed={(id) => {
+
+                        }}*/
                     />
         }
     }
