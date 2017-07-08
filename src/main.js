@@ -4,7 +4,6 @@ import Router from './components/routes';
 
 import Spinner from './components/reusables/spinner';
 import Toast from './components/reusables/toast';
-import Geo from './geo';
 
 // import BackgroundGeolocation from "react-native-background-geolocation";
 
@@ -19,8 +18,7 @@ class Main extends Component {
 
     render() {        
         return (            
-            <View style={styles.mainViewStyle}>                
-                <Geo/>
+            <View style={styles.mainViewStyle}>                                
                 <Toast/>
                 <Spinner/>
                 <Router/>
